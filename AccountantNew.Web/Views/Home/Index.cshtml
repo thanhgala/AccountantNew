@@ -1,31 +1,332 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model AccountantNew.Web.Models.HomeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts.cshtml";
 }
+@section pageTitle{
+<section class="newedge-slider default img-overlay">
+    <div class="newedge-slider-content">
+        <div id="main-slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @{var firstHotNew = Model.HotNews.First(); }
+                <div class="item active" style="background-image: url(@firstHotNew.Image);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-7 col-xs-12 next-post">
+                                <div class="next-post-wrapper">
+                                    <div>
+                                        <p class="slide-cat">
+                                            <a href="article-categories.html"><span class="cat-icon"> T</span>@firstHotNew.NewCategory.Name</a>
+                                        </p>
+                                        <h2 class="slide-title">
+                                            <a href="single-article.html">@firstHotNew.Name</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @foreach (var item in Model.HotNews.Skip(1))
+            {
+                <div class="item" style="background-image: url(@item.Image);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-7 col-xs-12 next-post">
+                                <div class="next-post-wrapper">
+                                    <div>
+                                        <p class="slide-cat">
+                                            <a href="article-categories.html"><span class="cat-icon"> T</span>@item.NewCategory.Name</a>
+                                        </p>
+                                        <h2 class="slide-title">
+                                            <a href="single-article.html">@item.Name</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div> <!-- //carousel-inner -->
+            <div class="container">
+                <div class="customNavigation carousel-controls">
+                    <a class="left" data-target="#main-slider" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                    <a class="right" data-target="#main-slider" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div> <!-- //newedge-slider-content -->
+</section>
+}
+<section class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <!-- Tin tức -->
+                <div class="newedge-latest-news default">
+                    <div class="section-title">
+                        <h3 class="pull-left"> 
+                            <span class="cat-icon"><i class="fa fa-bell-o"></i></span>Tin tức
+                        </h3>
+                        <div class="pull-right see-all">
+                            <a href="article-categories.html">See all</a>
+                        </div>
+                    </div> <!-- //section-title -->
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- article-slider -->
+                            @{  var modelFirstNew = Model.LatestNews.First();
+                                var url = "/" + modelFirstNew.NewCategory.Alias + "/" + modelFirstNew.Alias + "-" + modelFirstNew.ID + ".html";
+                             }
+                            <article>
+                                <div class="article-inner">
+                                    <div class="overlay"></div>
+                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-large" src="@modelFirstNew.Image" alt="img"></div>
+                                    <div class="article-info">
+                                        <p class="slide-cat">
+                                            <a href="#">
+                                                <span class="cat-icon cat-icon-color01"> T</span>@modelFirstNew.NewCategory.Name
+                                            </a>
+                                        </p>
+                                        <h2 class="entry-title">
+                                            <a href="@url">@modelFirstNew.Name</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </article>
+                        </div> <!-- //col-md-8 -->
+                        @foreach (var item in Model.LatestNews.Skip(1).Take(2))
+                        {
+                            var urlItem = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                            <div class="col-md-4 col-sm-6">
+                                <article>
+                                    <div class="article-inner defa">
+                                        <div class="overlay"></div>
+                                        <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium2" src="@item.Image" alt="img"></div>
+                                        <div class="article-info">
+                                            <p class="slide-cat">
+                                                <a href="#">
+                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                </a>
+                                            </p>
+                                            <h4 class="entry-title">
+                                                <a href="@urlItem">@item.Name</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                    </div> <!-- //row -->
+
+                    <div class="row">
+                        @foreach (var item in Model.LatestNews.Skip(3))
+                        {
+                            var urlItem = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                            <div class="col-sm-4">
+                                <article>
+                                    <div class="article-inner default">
+                                        <div class="overlay"></div>
+                                        <div class="img-wrapper">
+                                            <img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img">
+                                        </div>
+                                        <div class="article-info">
+                                            <p class="slide-cat">
+                                                <a href="#">
+                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                </a>
+                                            </p>
+                                            <h4 class="entry-title">
+                                                <a href="@urlItem">@item.Name</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    </div> <!-- //row -->
+                </div>
+                <!-- Chính sách -->
+                <div class="default newedge-latest-videos">
+                    <div class="section-title">
+                        <h3 class="pull-left">
+                            <span class="cat-icon cat-icon-color02"><i class="fa fa-book"></i></span>Chính sách
+                        </h3>
+                        <div class="pull-right see-all">
+                            <a href="article-categories.html">See all</a>
+                        </div>
+                    </div>
+
+                     <div class="row">
+                        @{var policyMain = Model.PolicyNews.First();}
+                        <div class="col-sm-7">
+                            <article>
+                                <div class="article-inner">
+                                    <div class="overlay"></div>
+                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-large2" src="@policyMain.Image" alt="img"></div>
+                                    <div class="article-info">
+                                        <h4 class="entry-title">
+                                            <a href="single-article.html">@policyMain.Name</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </article>         
+                        </div>
+                         @foreach (var item in Model.PolicyNews.Skip(1))
+                         {
+                            <div class="col-sm-5">
+                                <div class="latest-video sub-leading-item media">
+                                    <div class="latest-video-inner">
+                                        <div class="img-wrapper media-left">
+                                            <img class="thumb-small" src="@item.Image" alt="img">
+                                        </div>
+                                        <div class="video-post-info media-body">
+                                            <h4 class="entry-title"><a href="single-article-video.html">@item.Name</a></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         } 
+                    </div>
+
+                    
+                <!-- Pháp luật -->
+                <div class="single-article-category simple-article-overlay gradient-color10">
+                    <div class="section-title">
+                        <h3 class="pull-left"> <span class="cat-icon cat-icon-color07"><i class="fa fa-gavel"></i></span>Pháp luật</h3>
+                        <div class="pull-right see-all">
+                            <a href="article-categories.html">See all</a>
+                        </div>
+                    </div> <!-- //section-title -->
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <article>
+                                <div class="article-inner">
+                                    <div class="overlay"></div>
+                                    <div class="img-wrapper"><img class="img-100p latest-post-image" src="~/Assets/client/img/article-img/thumbnail15.jpg" alt="img"></div>
+                                    <div class="post-share-social">
+                                        <a href="#" class="fa fa-facebook"></a>
+                                        <a href="#" class="fa fa-twitter"></a>
+                                        <a href="#" class="fa fa-google-plus"></a>
+                                        <a href="#" class="fa fa-pinterest"></a>
+                                        <a href="#" class="fa fa-linkedin"></a>
+                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
+                                    </div> <!-- //post-share-social -->
+                                    <div class="article-info">
+                                        <h4 class="entry-title">
+                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </article>
+                        </div> <!-- //col-sm-4 -->
+                    </div> <!-- //row -->
+                </div>
+                <div class="thumb-gallery">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="section-title">
+                                <h3> <span class="cat-icon"><i class="fa fa-image"></i></span>Hình ảnh</h3>
+                            </div>
+                            <div id="img_thumb" class="flexslider tg-slider">
+                                <ul class="slides">
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-1.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-2.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-3.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-4.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-5.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-agro-6.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-agro-7.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-agro-8.jpg" alt="img"></li>
+                                </ul>
+                            </div>
+                            <div id="img_galley" class="flexslider">
+                                <ul class="slides">
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-1.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-2.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-3.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-4.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-aqua-5.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-agro-6.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-agro-7.jpg" alt="img"></li>
+                                    <li><img src="~/Assets/client/img/cp-img/feed-agro-8.jpg" alt="img"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+            <div class="col-sm-3">
+            <!-- popular-news -->
+            <div class="popular-news">
+                <div class="section-title">
+                    <h3> <span class="cat-icon"><i class="fa fa-pencil"></i></span>tin tức khác</h3>
+                </div> <!-- //section-title -->
+
+                <ul class="popular-news-list">
+                    <li><a href="single-article.html">the polls that prove caste politics still matter in india</a></li>
+                    <li><a href="single-article.html">sed ac neque ut neque dictum accumsan</a></li>
+                    <li><a href="single-article.html">5 effective email unsubscribe pages condimentum donec</a></li>
+                    <li><a href="single-article.html">in aliquet facilisis condimentum donec at orci orci</a></li>
+                    <li><a href="single-article.html">integer elementum massa at nulla condimentum donec</a></li>
+                </ul>
+            </div> <!-- //popular-news -->
+            <!-- advertisement sidebar 01 -->
+            <!-- social counter -->
+            <div class="social-counter clearfix">
+                <div class="section-title">
+                    <h3> <span class="cat-icon"><i class="fa fa-share-alt"></i></span>stay connected</h3>
+                </div> <!-- //section-title -->
+
+                <div class="clearfix">
+                    <div class="col-sm-6 col-xs-6 social-common-bar">
+                        <div class="social-icon"><a href="#" target="_blank"><i class="twitter-icon fa fa-twitter"></i></a></div>
+                        <div class="social-total-count">
+                            <p class="follow-button">4570<span class="social-text">followers</span></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 social-common-bar">
+                        <div class="social-icon"><a href="#" target="_blank"><i class="facebook-icon fa fa-facebook"></i></a></div>
+                        <div class="social-total-count">
+                            <p class="follow-button">5423<span class="social-text">likes</span></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 social-common-bar">
+                        <div class="social-icon"><a href="#" target="_blank"><i class="dribbble-icon fa fa-dribbble"></i></a></div>
+                        <div class="social-total-count">
+                            <p class="follow-button">7902<span class="social-text">followers</span></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 social-common-bar">
+                        <div class="social-icon"><a href="#" target="_blank"><i class="rss-icon fa fa-rss"></i></a></div>
+                        <div class="social-total-count">
+                            <p class="follow-button">1261<span class="social-text">rss</span></p>
+                        </div>
+                    </div>
+                </div><!-- //row -->
+            </div> <!-- //social counter -->
+            <!-- newedge-twitter -->
+            <div class="newedge-twitter mtt30">
+                <h4 class="title">new edge</h4>
+                <div class="content">
+                    <div class="tweet-item tweet-odd tweet-first">
+                        <div class="date">thu jan 14 09:12:46 +0000 2016</div>
+                        <br> a detailed guide to the helix3 layout manager → <a target="_blank" class="tweet_url" href="https://t.co/piwv4jsdli">https://t.co/piwv4jsdli</a> #joomla #web <a target="_blank" class="tweet_url" href="https://t.co/l5diodtozc">https://t.co/l5diodtozc</a>
+                    </div>
+                    <div class="tweet-item tweet-even">
+                        <div class="date">thu jan 14 05:36:59 +0000 2016</div>
+                        <br> moview, brand new joomla template for movie database and review: <a target="_blank" class="tweet_url" href="https://t.co/qkswsfieo6">https://t.co/qkswsfieo6</a> #joomla #template<a target="_blank" class="tweet_url" href="https://t.co/uyxmuyxiw0">https://t.co/uyxmuyxiw0</a>
+                    </div>
+                </div>
+            </div> <!-- //newedge-twitter -->
+
+        </div>
+        </div> <!-- //container -->
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</section>
+

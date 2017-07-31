@@ -31,8 +31,7 @@ namespace AccountantNew.Model.Models
         [Required]
         public string AuthorID { set; get; }
 
-        [MaxLength(500)]
-        public string Title { set; get; }
+        public bool? Private { set; get; }
 
         public string Content { set; get; }
 
@@ -53,8 +52,8 @@ namespace AccountantNew.Model.Models
         [ForeignKey("NewCategoryID")]
         public virtual NewCategory NewCategory { set; get; }
 
-        [ForeignKey("AuthorID")]
-        public virtual ApplicationUser User { set; get; }
+        //[ForeignKey("AuthorID")]
+        //public virtual ApplicationUser User { set; get; }
 
         public virtual IEnumerable<NewTag> NewTags { set; get; }
 

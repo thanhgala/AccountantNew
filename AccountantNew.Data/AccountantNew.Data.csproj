@@ -73,8 +73,39 @@
     <Compile Include="Migrations\201707121647180_UpdateV1.Designer.cs">
       <DependentUpon>201707121647180_UpdateV1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707150849305_addPath.cs" />
+    <Compile Include="Migrations\201707150849305_addPath.Designer.cs">
+      <DependentUpon>201707150849305_addPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707170725258_updateDataForCategory.cs" />
+    <Compile Include="Migrations\201707170725258_updateDataForCategory.Designer.cs">
+      <DependentUpon>201707170725258_updateDataForCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707180213482_addChildCategory.cs" />
+    <Compile Include="Migrations\201707180213482_addChildCategory.Designer.cs">
+      <DependentUpon>201707180213482_addChildCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707180605450_addChildCategory2.cs" />
+    <Compile Include="Migrations\201707180605450_addChildCategory2.Designer.cs">
+      <DependentUpon>201707180605450_addChildCategory2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707210704212_removeForeinKeyForTest.cs" />
+    <Compile Include="Migrations\201707210704212_removeForeinKeyForTest.Designer.cs">
+      <DependentUpon>201707210704212_removeForeinKeyForTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707270800084_changeTitletoPrivate.cs" />
+    <Compile Include="Migrations\201707270800084_changeTitletoPrivate.Designer.cs">
+      <DependentUpon>201707270800084_changeTitletoPrivate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleRepository.cs" />
+    <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
+    <Compile Include="Repositories\ErrorRepository.cs" />
+    <Compile Include="Repositories\NewCategoryRepository.cs" />
+    <Compile Include="Repositories\NewRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccountantNew.Common\AccountantNew.Common.csproj">
@@ -90,15 +121,31 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707121638499_InitialDB.resx">
       <DependentUpon>201707121638499_InitialDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707121647180_UpdateV1.resx">
       <DependentUpon>201707121647180_UpdateV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707150849305_addPath.resx">
+      <DependentUpon>201707150849305_addPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707170725258_updateDataForCategory.resx">
+      <DependentUpon>201707170725258_updateDataForCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707180213482_addChildCategory.resx">
+      <DependentUpon>201707180213482_addChildCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707180605450_addChildCategory2.resx">
+      <DependentUpon>201707180605450_addChildCategory2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707210704212_removeForeinKeyForTest.resx">
+      <DependentUpon>201707210704212_removeForeinKeyForTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707270800084_changeTitletoPrivate.resx">
+      <DependentUpon>201707270800084_changeTitletoPrivate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

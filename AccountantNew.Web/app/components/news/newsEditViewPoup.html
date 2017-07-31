@@ -1,0 +1,110 @@
+﻿<section class="content-header">
+    <h1>
+        Chỉnh sửa bản tin
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Chỉnh sửa</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <!--thuộc tính novalidate trong form để disable validate-->
+        <form class="form-horizontal" novalidate name="frmAddNew" role="form" ng-submit="UpdateNew()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên bản tin</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-change="GetAlias()" ng-maxlength="256" required name="name" ng-model="new.Name">
+                        <!--kiểm tra thuộc tính nhập trong form ta dùng ng-show= "tenform.teninput.$invalid"-->
+                        <span ng-show="frmAddNew.name.$invalid" class="has-error">Phải nhập tên bản tin</span>
+                        <span ng-show="frmAddNew.name.$error.maxlength" class="has-error">Tên bản tin chỉ được 256 ký tự</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Alias</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" required name="alias" ng-model="new.Alias">
+                        <span ng-show="frmAddNew.alias.$invalid" class="has-error">Phải nhập alias</span>
+                        <span ng-show="frmAddNew.alias.$error.maxlength" class="has-error">Alias chỉ được 256 ký tự</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Danh mục</label>
+
+                    <div class="col-sm-10">
+                        <!--<select name="parentID" class="form-control" required ng-model="new.NewCategoryID" ng-options="option.ID as option.Name for option in newcategories">
+                            <option value="">Chọn danh mục</option>
+                        </select>-->
+                        <ui-select ng-model="new.NewCategoryID" name="parentId" theme="bootstrap" style="min-width: 300px;" title="Chọn danh mục">
+                            <ui-select-match placeholder="Vui lòng chọn danh mục">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item.ID as item in flatFolders | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                <!--<small>
+                                    Tên danh mục: {{item.Name}}
+                                </small>-->
+                            </ui-select-choices>
+                        </ui-select>
+                        <span ng-show="frmAddNew.NewCategoryID.$invalid" class="has-error">Phải chọn danh mục</span>
+                        <input type="hidden" name="parentID" ng-model="new.NewCategoryID" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Hình ảnh</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" name="image" ng-model="new.Image">
+                        <span ng-show="frmAddNew.image.$error.maxlength" class="has-error">Hình ảnh chỉ được 256 ký tự</span>
+                        <button class="btn btn-default" type="button" ng-click="ChooseImage()">Chọn ảnh</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Nội dung</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="content" ckeditor="ckeditorOptions" ng-model="new.Content"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tags</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="tag" ng-model="new.Tag">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-model="new.Status" ng-checked="new.Status"> Kích hoạt
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="homeFlag" ng-model="new.HomeFlag" ng-checked="new.HomeFlag"> Hiển thị trang chủ
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="hotFlag" ng-model="new.HotFlag" ng-checked="new.HotFlag"> Tin hot
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="private" ng-model="new.Private" ng-checked="new.Private"> Private
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="button" ng-click="close()" class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmAddNew.$invalid" class="btn btn-success pull-right">Lưu</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+</section>

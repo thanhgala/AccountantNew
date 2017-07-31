@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AccountantNew.Web.Mappings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,14 +10,20 @@ using System.Web.Routing;
 
 namespace AccountantNew.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            AutoMapperConfigruation.Configure();
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }

@@ -28,6 +28,9 @@ namespace AccountantNew.Model.Models
         [Required]
         public int NewCategoryID { set; get; }
 
+        [Required]
+        public string Path { set; get; }
+
         [ForeignKey("NewCategoryID")]
         public virtual NewCategory NewCategory { set; get; }
 
