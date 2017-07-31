@@ -67,6 +67,16 @@
     background-size: cover;
 } 
 
+.thumb-imgslider {
+    width: 129px;
+    height: 124px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+} 
+
 .thumb-small {
     width: 108px;
     height: 104px;
