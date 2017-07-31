@@ -85,4 +85,42 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-} 
+}
+
+.col-header-2 {
+    width:10%;
+    height:65px;
+}
+
+.col-header-3 {
+    width:20%;
+}
+
+.col-header-4-5 {
+    width:35%;
+}
+
+.col-header-3-5 {
+    width:35%;
+}
+
+.heading {
+    background: url(/Assets/client/img/brnews-bg1.png) no-repeat;
+    background-size: 110px;
+    color: #FFF;
+    float: left;
+    font-size: 13px;
+    line-height: 1;
+    margin-top: 20px;
+    padding: 6px 7px 7px;
+    width: 115px;
+    vertical-align: middle;
+}
+
+#scroller > li > p > a{
+    color: #555E6B;
+}
+
+.trending {
+    height: auto;
+}
