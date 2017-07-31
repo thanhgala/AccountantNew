@@ -3650,6 +3650,7 @@
     <Content Include="Assets\client\img\article-img\thumbnail14.jpg" />
     <Content Include="Assets\client\img\article-img\thumbnail15.jpg" />
     <Content Include="Assets\client\img\bottom-logo.png" />
+    <Content Include="Assets\client\img\brnews-bg1.png" />
     <Content Include="Assets\client\img\coming-soon-logo.png" />
     <Content Include="Assets\client\img\comingsoon.jpg" />
     <Content Include="Assets\client\img\comm-user.jpg" />
@@ -3679,6 +3680,7 @@
     <Content Include="Assets\client\img\latest-video\02.jpg" />
     <Content Include="Assets\client\img\latest-video\03.jpg" />
     <Content Include="Assets\client\img\latest-video\lead-item.jpg" />
+    <Content Include="Assets\client\img\logoFooter.png" />
     <Content Include="Assets\client\img\market-data.jpg" />
     <Content Include="Assets\client\img\newsletter-icon.png" />
     <Content Include="Assets\client\img\post-details\post-image.jpg" />
