@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "FileCategory";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+    string pageTitle = ViewBag.PageTitle;
+}
+
+@section footerJS{
+    <script src="~/Assets/client/js/controllers/getCategoryController.js"></script>
+}
+
+@section pageTitle{
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-wrapper" style="background-image:url(Assets/client/img/sub-header/subHeader.jpg)">
+                    <div class="container">
+                        <h2 class="pull-left title"> <span class="cat-icon">@pageTitle.Substring(0, 1) </span> @pageTitle</h2>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="#">Danh mục</a></li>
+                            <li class="active">@pageTitle</li>
+                        </ol>
+                    </div> <!-- //container -->
+                </div> <!-- //page-title-wrapper -->
+            </div>
+        </div> <!-- //row -->
+    </section>
+}
+<section class="main-wrapper" style="background-color: #ecf0f5;margin-top:0px;">
+    <div class="container">
+        <div class="row" style="margin-top:18px;">
+            <div class="col-md-3">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">@pageTitle</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <div id="treeview">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">File</h3>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" class="form-control input-sm" placeholder="Search File">
+                                @*<span class="fa fa-search form-control-feedback"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <ul class="mailbox-attachments clearfix">
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        1,245 KB
+                                        <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

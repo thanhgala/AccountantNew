@@ -1,0 +1,126 @@
+﻿.articleImg {
+    width: 200px;
+    height: 220px;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 10px;
+    vertical-align:top;
+}
+
+.thumb-slider {
+    width: 848px;
+    height: 536px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.thumb-large {
+    width: 555px;
+    height: 412px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.thumb-large2 {
+    width: 482px;
+    height: 371px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.thumb-medium2 {
+    width: 262px;
+    height: 195px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}  
+
+.thumb-medium {
+    width: 262px;
+    height: 155px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+} 
+
+.thumb-header {
+    width: 270px;
+    height: 261px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+} 
+
+.thumb-imgslider {
+    width: 129px;
+    height: 124px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+} 
+
+.thumb-small {
+    width: 108px;
+    height: 104px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.col-header-2 {
+    width:10%;
+    height:65px;
+}
+
+.col-header-3 {
+    width:20%;
+}
+
+.col-header-4-5 {
+    width:35%;
+}
+
+.col-header-3-5 {
+    width:35%;
+}
+
+.heading {
+    background: url(/Assets/client/img/brnews-bg1.png) no-repeat;
+    background-size: 110px;
+    color: #FFF;
+    float: left;
+    font-size: 13px;
+    line-height: 1;
+    margin-top: 20px;
+    padding: 6px 7px 7px;
+    width: 115px;
+    vertical-align: middle;
+}
+
+#scroller > li > p > a{
+    color: #555E6B;
+}
+
+.trending {
+    height: auto;
+}

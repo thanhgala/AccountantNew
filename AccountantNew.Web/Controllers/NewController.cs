@@ -22,23 +22,13 @@ namespace AccountantNew.Web.Controllers
             this._newService = newService;
         }
 
-        public ActionResult Category(string category)
+        #region loadChildCategory
+        private void loadChildCategory(int id, List<New> lstAdd)
         {
-            var categoryModel = _newCategoryService.GetByAlias(category);
-            var lstAdd = new List<New>();
-
-            loadChildCategory(categoryModel.ID, lstAdd);
-            ViewBag.PageTitle = categoryModel.Name;
-            var listAddViewModel = Mapper.Map<List<New>, List<NewViewModel>>(lstAdd);
-            return View(listAddViewModel);
-        }
-
-        private void loadChildCategory(int id,List<New> lstAdd)
-        {
-            var categoryModel = _newCategoryService.GetChildCategory(id);
-            if (categoryModel.Count() > 0)
+            var childCategoryModel = _newCategoryService.GetChildCategory(id);
+            if (childCategoryModel.Count() > 0)
             {
-                foreach (var itemCategory in categoryModel)
+                foreach (var itemCategory in childCategoryModel)
                 {
                     loadChildCategory(itemCategory.ID, lstAdd);
                 }
@@ -50,17 +40,33 @@ namespace AccountantNew.Web.Controllers
             }
         }
 
-        private void loadNew(List<New> lst,List<New> lstAdd)
+        private void loadNew(List<New> lst, List<New> lstAdd)
         {
             foreach (var itemNew in lst)
             {
                 lstAdd.Add(itemNew);
             }
         }
+        #endregion
+
+        public ActionResult NewCategory(string category)
+        {
+            var categoryModel = _newCategoryService.GetByAlias(category);
+            var lstAdd = new List<New>();
+
+            loadChildCategory(categoryModel.ID, lstAdd);
+            ViewBag.PageTitle = categoryModel.Name;
+            var listAddViewModel = Mapper.Map<List<New>, List<NewViewModel>>(lstAdd);
+            return View(listAddViewModel);
+        }
 
         public ActionResult Detail(int id)
         {
-            return View();
+            var newModel = _newService.GetByID(id);
+            ViewBag.PageTitle = _newCategoryService.GetByID(newModel.NewCategoryID).Name;
+
+            var newViewModel = Mapper.Map<New, NewViewModel>(newModel);
+            return View(newViewModel);
         }
     }
 }

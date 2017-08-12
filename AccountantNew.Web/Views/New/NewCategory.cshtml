@@ -1,0 +1,90 @@
+﻿@model List<AccountantNew.Web.Models.NewViewModel>
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+    string pageTitle = ViewBag.PageTitle;
+}   
+
+@section pageTitle{
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-wrapper" style="background-image:url(Assets/client/img/sub-header/subHeader.jpg)">
+                    <div class="container">
+                        <h2 class="pull-left title"> <span class="cat-icon">@pageTitle.Substring(0,1) </span> @pageTitle</h2>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="#">Danh mục</a></li>
+                            <li class="active">@pageTitle</li>
+                        </ol>
+                    </div> <!-- //container -->
+                </div> <!-- //page-title-wrapper -->
+            </div>
+        </div> <!-- //row -->
+    </section>
+}
+
+<section class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="section-title">
+                    <h3> <span class="cat-icon">@pageTitle.Substring(0,1)</span>@pageTitle</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="article-slider" class="owl-carousel mtb30 article-categories-slider">
+                            @foreach (var item in Model.Take(2))
+                            {
+                                var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                                <article>
+                                    <div class="article-inner">
+                                        <div class="overlay"></div>
+                                        <div class="img-wrapper"><img class="img-100p latest-post-image thumb-slider" src="@item.Image" alt="img"></div>
+                                        <div class="article-info">
+                                            <p class="slide-cat">
+                                                <a href="#">
+                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                </a>
+                                            </p>
+                                            <h2 class="entry-title">
+                                                <a href="@url">@item.Name</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </article>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="simple-article-overlay">
+                    @foreach (var item in Model.Skip(2))
+                    {
+                        <div class="col-md-4 col-sm-6">
+                            <article class="gradient-color04">
+                                <div class="article-inner default">
+                                    <div class="overlay"></div>
+                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
+                                    <div class="article-info">
+                                        <h4 class="entry-title">
+                                            <a href="single-article.html">@item.Name</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    }
+                    </div>
+                </div> <!-- //row -->
+            </div> <!-- //col-sm-9 -->
+
+            <div class="col-sm-3">
+                @Html.Partial("Col3Partial")
+            </div> <!-- //col-sm-3 -->
+        </div> <!-- //row -->
+    </div> <!-- //container -->
+</section>
+

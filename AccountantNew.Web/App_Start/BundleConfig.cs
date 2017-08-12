@@ -35,7 +35,8 @@ namespace AccountantNew.Web
                 "~/Assets/client/js/jquery.flexslider-min.js",
                 "~/Assets/client/js/jquery.sticky.js",
                 "~/Assets/client/js/main.js",
-                "~/Assets/client/js/switcher.js"
+                "~/Assets/client/js/switcher.js",
+                "~/Assets/admin/libs/jstree/dist/jstree.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundle/jsCoreApi").Include(
@@ -75,6 +76,8 @@ namespace AccountantNew.Web
                 "~/app/app.js",
                 "~/app/components/home/rootController.js",
 
+                "~/app/components/home/homeController.js",
+
                 "~/app/components/news/newsListController.js",
                 "~/app/components/news/newsAddController.js",
                 "~/app/components/news/newsEditController.js",
@@ -83,8 +86,9 @@ namespace AccountantNew.Web
                 "~/app/components/new_categorise/newCategoryAddController.js",
                 "~/app/components/new_categorise/newCategoryEditController.js",
 
-
-                "~/app/components/home/homeController.js"
+                "~/app/components/application_groups/applicationGroupsListController.js",
+                "~/app/components/application_groups/applicationGroupsAddController.js",
+                "~/app/components/application_groups/applicationGroupsEditController.js"
                 );
             jsApi.Transforms.Add(new JsMinify());
 
@@ -100,7 +104,10 @@ namespace AccountantNew.Web
                       "~/Assets/client/css/responsive.css",
                       "~/Assets/client/css/presets/preset1.css",
                       "~/Assets/client/css/articleImg.css",
-                      "~/Assets/client/css/jquery.simplyscroll.css"
+                      "~/Assets/client/css/weather.css",
+                      "~/Assets/client/css/jquery.simplyscroll.css",
+                      "~/Assets/admin/libs/jstree/dist/themes/proton/style.css",
+                      "~/Assets/client/css/treefile.css"
                       ).Include("~/Assets/client/css/font-awesome.min.css", new CssRewriteUrlTransform());
             bundles.Add(bundleCss);
             bundles.Add(jsApi);

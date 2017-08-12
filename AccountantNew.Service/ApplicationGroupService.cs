@@ -57,8 +57,7 @@ namespace AccountantNew.Service
 
         public ApplicationGroup Delete(int id)
         {
-            var appGroup = this._appGroupRepository.GetSingleById(id);
-            return _appGroupRepository.Delete(appGroup);
+            return _appGroupRepository.Delete(id);
         }
 
         public IEnumerable<ApplicationGroup> GetAll()

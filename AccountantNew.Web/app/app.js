@@ -4,6 +4,7 @@
     angular.module('accountantnew',
         ['accountantnew.news',
          'accountantnew.new_categories',
+         'accountantnew.application_groups',
          'accountantnew.common'])
         .config(config)
         .config(configAuthentication);
@@ -20,11 +21,11 @@
                 templateUrl: '/app/shared/view/baseView.html',
                 abstract: true
             })
-            //.state('login', {
-            //    url: '/login',
-            //    templateUrl: "/app/components/login/loginView.html",
-            //    controller: "loginController"
-            //})
+            .state('login', {
+                url: '/login',
+                templateUrl: "/app/components/login/loginView.html",
+                controller: "loginController"
+            })
             .state('home', {
                 url: "/home",
                 parent: 'base',

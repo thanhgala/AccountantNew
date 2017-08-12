@@ -30,6 +30,10 @@ namespace AccountantNew.Service
         //Get list role by group id
         IEnumerable<ApplicationRole> GetListRoleByGroupId(int groupId);
 
+        IEnumerable<ApplicationRole> GetListRoleByRoleGroupId(int groupId,string roleId);
+
+        ApplicationRoleGroup GetRoleGroup(int groupId, string roleId);
+
         void Save();
     }
 
@@ -103,6 +107,16 @@ namespace AccountantNew.Service
         public IEnumerable<ApplicationRole> GetListRoleByGroupId(int groupId)
         {
             return _appRoleRepository.GetListRoleByGroupId(groupId);
+        }
+
+        public IEnumerable<ApplicationRole> GetListRoleByRoleGroupId(int groupId,string roleId)
+        {
+            return _appRoleRepository.GetListRoleByGroupRoleId(groupId,roleId);
+        }
+
+        public ApplicationRoleGroup GetRoleGroup(int groupId, string roleId)
+        {
+            return _appRoleGroupRepository.GetRoleGroup(groupId, roleId);
         }
 
         public void Save()

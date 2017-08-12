@@ -14,9 +14,16 @@ namespace AccountantNew.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "FileCategory",
+                url: "{category}-file.html",
+                defaults: new { controller = "File", action = "FileCategory", id = UrlParameter.Optional },
+                namespaces: new string[] { "AccountantNew.Web.Controllers" }
+                );
+
+            routes.MapRoute(
                 name: "NewCategory",
                 url: "{category}.html",
-                defaults: new { controller = "New", action = "Category", id = UrlParameter.Optional },
+                defaults: new { controller = "New", action = "NewCategory", id = UrlParameter.Optional },
                 namespaces: new string[] { "AccountantNew.Web.Controllers" }
             );
 

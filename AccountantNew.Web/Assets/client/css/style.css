@@ -47,7 +47,7 @@ h2{
 	font-size: 24px;
 }
 h3{
-	font-size: 18px;
+	font-size: 22px;
 }
 h4{
 	font-size: 16px;
@@ -676,6 +676,7 @@ button{
 .navigation{
 	background-color: #fff;
 	z-index: 15;
+    border-bottom: 1px solid #e9eaed;
 }
 .sticky-wrapper.is-sticky .navigation,
 .sticky-wrapper.is-sticky .mobile-nav-bar {
@@ -2502,7 +2503,7 @@ article.leading-item .article-inner.default:hover .article-info {
 /* ************** 	START FOOTER 	*********************** */
 /* ******************************************************** */
 footer{
-	margin-top: 150px;
+	margin-top: 50px;
 }
 .footer-wrapper{
 	background-color: #262424;

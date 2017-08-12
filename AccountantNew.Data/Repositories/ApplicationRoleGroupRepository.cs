@@ -10,7 +10,7 @@ namespace AccountantNew.Data.Repositories
 {
     public interface IApplicationRoleGroupRepository : IRepository<ApplicationRoleGroup>
     {
-
+        ApplicationRoleGroup GetRoleGroup(int groupId,string roleID);
     }
 
     public class ApplicationRoleGroupRepository : RepositoryBase<ApplicationRoleGroup>, IApplicationRoleGroupRepository
@@ -18,6 +18,11 @@ namespace AccountantNew.Data.Repositories
         public ApplicationRoleGroupRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
+        }
+
+        public ApplicationRoleGroup GetRoleGroup(int groupId, string roleID)
+        {
+            return this.DbContext.ApplicationRoleGroups.SingleOrDefault(x => x.GroupId == groupId && x.RoleId == roleID);
         }
     }
 }

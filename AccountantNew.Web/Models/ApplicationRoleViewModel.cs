@@ -12,5 +12,8 @@ namespace AccountantNew.Web.Models
         public string Name { set; get; }
 
         public string Description { set; get; }
+
+        public ApplicationRoleGroupViewModel ApplicationRoleGroup { set; get; }
+
     }
 }

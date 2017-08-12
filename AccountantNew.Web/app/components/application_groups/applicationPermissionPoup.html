@@ -1,0 +1,47 @@
+﻿<section class="content-header">
+    <h1>
+        Permission
+    </h1>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Chỉnh sửa permission</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <!--thuộc tính novalidate trong form để disable validate-->
+        <form class="form-horizontal" novalidate name="frmAdd" role="form" ng-submit="AddPermission()">
+            <div class="box-body">
+                <div class="form-group">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <label>
+                                <input type="checkbox" ng-model="group.Roles[stt].ApplicationRoleGroup.CanCreate" ng-checked="group.Roles[stt].ApplicationRoleGroup.CanCreate"> Thêm
+                            </label>
+                        </li>
+                        <li class="list-group-item">
+                            <label>
+                                <input type="checkbox" ng-model="group.Roles[stt].ApplicationRoleGroup.CanRead" ng-checked="group.Roles[stt].ApplicationRoleGroup.CanRead"> Xem
+                            </label>
+                        </li>
+                        <li class="list-group-item">
+                            <label>
+                                <input type="checkbox" ng-model="group.Roles[stt].ApplicationRoleGroup.CanUpdate" ng-checked="group.Roles[stt].ApplicationRoleGroup.CanUpdate"> Sửa
+                            </label>
+                        </li>
+                        <li class="list-group-item">
+                            <label>
+                                <input type="checkbox" ng-model="group.Roles[stt].ApplicationRoleGroup.CanDelete" ng-checked="group.Roles[stt].ApplicationRoleGroup.CanDelete"> Xóa
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="button" ng-click="close()" class="btn btn-default">Hủy</button>
+                <button type="submit" class="btn btn-success pull-right">Lưu</button>
+            </div>
+        </form>
+    </div>
+</section>

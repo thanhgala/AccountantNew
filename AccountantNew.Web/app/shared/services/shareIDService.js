@@ -19,6 +19,12 @@
             setID: function (id) {
                 data.idNew = id;
             },
+            getRoleID: function () {
+                return data.roleID;
+            },
+            setRoleID: function (id) {
+                data.roleID = id;
+            },
             getPageCurrent: function () {
                 return data.pageCurrent;
             },

@@ -20,6 +20,14 @@ namespace AccountantNew.Model.Models
         [Column(Order = 2)]
         public string RoleId { set; get; }
 
+        public bool CanCreate { set; get; }
+
+        public bool CanRead { set; get; }
+
+        public bool CanUpdate { set; get; }
+
+        public bool CanDelete { set; get; }
+
         [ForeignKey("RoleId")]
         public virtual ApplicationRole ApplicationRole { set; get; }
 

@@ -1,5 +1,7 @@
 ﻿namespace AccountantNew.Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Model.Models;
     using System;
     using System.Collections.Generic;
@@ -16,10 +18,9 @@
 
         protected override void Seed(AccountantNew.Data.AccountantNewDbContext context)
         {
-            //CreateProductCategorySample(context);
-            CreateChildCategorySample(context);
-            //  This method will be called after migrating to the latest version.
 
+            //  This method will be called after migrating to the latest version.
+            CreateRole();
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
@@ -31,6 +32,18 @@
             //    );
             //
 
+        }
+
+        private void CreateRole()
+        {
+            var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(new AccountantNewDbContext()));
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new ApplicationRole { Name = "Category",Description = "Quản lý danh mục" });
+                roleManager.Create(new ApplicationRole { Name = "New", Description = "Quản lý bài viết" });
+                roleManager.Create(new ApplicationRole { Name = "Group", Description = "Quản lý group" });
+                roleManager.Create(new ApplicationRole { Name = "Account", Description = "Quản lý tài khoản" });
+            }
         }
 
         private void CreateProductCategorySample(AccountantNewDbContext context)

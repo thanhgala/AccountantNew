@@ -47,5 +47,11 @@ namespace AccountantNew.Web.Infastructure.Extensions
             news.UpdateBy = newVM.UpdateBy;
             news.Status = newVM.Status;
         }
+
+        public static void UpdateApplicationGroup(this ApplicationGroup appGroup, ApplicationGroupViewModel appGroupViewModel)
+        {
+            appGroup.ID = appGroupViewModel.ID;
+            appGroup.Name = appGroupViewModel.Name;
+        }
     }
 }

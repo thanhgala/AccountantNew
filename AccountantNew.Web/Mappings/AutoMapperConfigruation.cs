@@ -19,11 +19,15 @@ namespace AccountantNew.Web.Mappings
 
                 cg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
 
+                cg.CreateMap<ApplicationRoleGroup, ApplicationRoleGroupViewModel>();
+
                 cg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
 
                 cg.CreateMap<NewCategory, NewCategoryViewModel>();
 
                 cg.CreateMap<NewCategory, TreeViewCategory<NewCategoryViewModel>>();
+
+                cg.CreateMap<NewCategory, TreeFileCategory<NewCategoryViewModel>>();
 
                 cg.CreateMap<New, NewViewModel>();
             });
