@@ -23,6 +23,8 @@ namespace AccountantNew.Data
 
         public DbSet<New> News { set; get; }
 
+        public DbSet<Post> Posts { set; get; }
+
         public DbSet<File> Files { set; get; }
 
         public DbSet<NewCategory> NewCategories { set; get; }

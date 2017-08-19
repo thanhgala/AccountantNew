@@ -9,7 +9,8 @@
         <div class="box-header with-border">
             <h3 class="box-title">Chỉnh sửa</h3>
             <button class="btn btn-success pull-right" ng-click="AddRole()"><i class="fa fa-plus"></i>Thêm quyền</button>
-    </div>
+            <button class="btn btn-danger pull-right" id="btnDelete" ng-click="deleteMultipleRole()" disabled><i class="fa fa-trash"></i>Xóa quyền</button>
+        </div>
         <!-- /.box-header -->
         <!-- form start -->
         <!--thuộc tính novalidate trong form để disable validate-->
@@ -25,9 +26,11 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="role in group.Roles">
+                            <li class="list-group-item" ng-repeat="(key,role) in group.Roles">
                                 <label>
+                                    <input type="checkbox" ng-model="role.checked" />
                                     <button ng-click="ConfigPermission(role.ID)" class="btn btn-default" type="button">{{role.Description}}</button>
+                                    <!--<button ng-click="DeleteRole(role.ID)" type="button" class="btn btn-danger">Xóa quyền</button>-->
                                 </label>
                             </li>
                         </ul>

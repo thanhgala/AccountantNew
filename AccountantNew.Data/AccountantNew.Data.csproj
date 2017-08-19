@@ -109,6 +109,14 @@
     <Compile Include="Migrations\201708030638322_addNewValueForRole.Designer.cs">
       <DependentUpon>201708030638322_addNewValueForRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708140745004_addTablePost.cs" />
+    <Compile Include="Migrations\201708140745004_addTablePost.Designer.cs">
+      <DependentUpon>201708140745004_addTablePost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708140911106_updatePostTable.cs" />
+    <Compile Include="Migrations\201708140911106_updatePostTable.Designer.cs">
+      <DependentUpon>201708140911106_updatePostTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -117,6 +125,7 @@
     <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\NewCategoryRepository.cs" />
+    <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\NewRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708030638322_addNewValueForRole.resx">
       <DependentUpon>201708030638322_addNewValueForRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708140745004_addTablePost.resx">
+      <DependentUpon>201708140745004_addTablePost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708140911106_updatePostTable.resx">
+      <DependentUpon>201708140911106_updatePostTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

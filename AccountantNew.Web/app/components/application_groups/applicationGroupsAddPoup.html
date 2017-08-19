@@ -30,9 +30,14 @@
                                 </label>
                             </li>
                         </ul>
-                        <label ng-switch-when="false" ng-repeat="role in roles">
-                            <input type="checkbox" checklist-model="group.Roles" checklist-value="role"> {{role.Description}}
-                        </label>
+
+                        <ul class="list-group">
+                            <li ng-switch-when="false" class="list-group-item" ng-repeat="role in roles">
+                                <label>
+                                    <input type="checkbox" checklist-model="group.Roles" checklist-value="role" /> {{role.Description}}
+                                </label>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

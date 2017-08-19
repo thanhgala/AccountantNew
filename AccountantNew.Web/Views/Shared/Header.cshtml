@@ -21,13 +21,15 @@
             $("#scroller").simplyScroll();
         });
     })(jQuery);
+    @*@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {*@
 </script>
 
 <div id="newedge-top-bar">
     <div class="container">
         <div class="row">
             <div id="logo" class="col-xs-4 col-sm-3 col-md-3 hidden-sm hidden-xs col-header-3">
-                <a href="#"><img src="~/Assets/client/img/presets/preset1/logo.png" alt="logo"></a>
+                <a href="#"><img class="thumb-logo-header" src="~/Assets/client/img/presets/preset1/logo.png" alt="logo"></a>
             </div> <!-- //logo -->
             <div class="trending">
                 <div class="col-sm-3 col-md-2 col-header-2">
@@ -37,22 +39,29 @@
                     <ul id="scroller" class="simply-scroll-list" style="padding-top:23px">
                         <li>
                             <p>
-                                <a href="design-pattern/hieu-ve-su-khac-nhau-giua-cac-design-pattern-mvc-mvp-va-mvvm-100.html" title="Hiểu về sự khác nhau giữa các Design Pattern MVC, MVP và MVVM" rel="bookmark">
-                                    <span class="title">Hiểu về sự khác nhau giữa các Design Pattern MVC, MVP và MVVM</span>
+                                <a href="#" title="Chúc mừng sinh nhật" rel="bookmark">
+                                    <span class="title">Chúc mừng sinh nhật</span>
                                 </a>
                             </p>
                         </li>
                         <li>
                             <p>
-                                <a href="design-pattern/hieu-ve-su-khac-nhau-giua-cac-design-pattern-mvc-mvp-va-mvvm-100.html" title="Hiểu về sự khác nhau giữa các Design Pattern MVC, MVP và MVVM" rel="bookmark">
-                                    <span class="title">Hiểu về sự khác nhau giữa các Design Pattern MVC, MVP và MVVM</span>
+                                <a href="#" title="Chia buồn cùng gia đình" rel="bookmark">
+                                    <span class="title">Chia buồn cùng gia đình</span>
                                 </a>
                             </p>
                         </li>
                         <li>
                             <p>
-                                <a href="design-pattern/hieu-ve-su-khac-nhau-giua-cac-design-pattern-mvc-mvp-va-mvvm-100.html" title="Hiểu về sự khác nhau giữa các Design Pattern MVC, MVP và MVVM" rel="bookmark">
-                                    <span class="title">Hiểu về sự khác nhau giữa các Design Pattern MVC, MVP và MVVM</span>
+                                <a href="#" title="Chúc mừng sinh nhật" rel="bookmark">
+                                    <span class="title">Chúc mừng sinh nhật</span>
+                                </a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#" title="Chia buồn cùng gia đình" rel="bookmark">
+                                    <span class="title">Chia buồn cùng gia đình</span>
                                 </a>
                             </p>
                         </li>
@@ -63,7 +72,7 @@
                 <div class="top-right">
                     <div class="newedge-date">
                         <span id="time">	 </span>
-                    </div> <!-- //date -->
+                    </div>
                     <div class="newedge-login">
                         <a href="#" role="button" data-toggle="modal" data-target="#login">
                             <i class="fa fa-user"></i>
@@ -78,7 +87,8 @@
                                         <h1 class="text-left">Đăng nhập</h1>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" method="post" id="login-form">
+                                        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @enctype = "multipart/form-data", id = "login-form" }))
+                                        {
                                             <fieldset class="userdata">
                                                 <input id="username" placeholder="Tài khoản" type="text" name="username" class="form-control">
                                                 <input id="password" type="password" placeholder="Mật khẩu" name="password" class="form-control">
@@ -97,7 +107,7 @@
                                                     </a>
                                                 </p>
                                             </fieldset>
-                                        </form>
+                                        }
                                     </div> <!--/Modal body-->
                                     <div class="modal-footer">
                                         New Here? <a href="#">
@@ -142,12 +152,12 @@
         <div class="row">
             <div class="col-sm-12">
                 <ul class="list-inline megamenu-parent">
-                    <li>
+                    <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                         <a href="/">Trang chủ</a>
                     </li>
-                    <li class="has-child menu-justify">
+                    <li class="has-child menu-justify" style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                         @{
-                            var modelTinTuc = Model.SingleOrDefault(x => x.Name == "Tin tức");
+                                var modelTinTuc = Model.SingleOrDefault(x => x.Name == "Tin tức");
                             var childTinTucs = Model.Where(x => x.ParentID == modelTinTuc.ID);
                             var urlTinTuc = "/" + modelTinTuc.Alias + ".html";
                         }
@@ -221,47 +231,57 @@
                             </div>
                         </div>
                      </li>
-                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức"))
+                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Comment"))
                     {
-                        var url = "/" + category.Alias + "-file.html";
-                        <li class="has-child">
+                        var url = "/" + category.Alias + "-" + category.ID + "-file.html";
+                        <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                             <a href="@url">@category.Name</a>
+                        </li>
+                    }
+                    @foreach (var categoryLast in Model.Where(x => x.ParentID == null && x.Name == "Hỗ trợ" || x.Name == "Comment"))
+                    {
+                        var url = "/" + categoryLast.Alias + "-" + categoryLast.ID + "-forum.html";
+                        <li class="has-child" style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
+                            <a href="@url">@categoryLast.Name</a>
                             <div class="dropdown-inner">
                                 @{
-                                    var lv1Categories = Model.Where(x => x.ParentID == category.ID);
+                                    var lv1Categories = Model.Where(x => x.ParentID == categoryLast.ID);
                                 }
                                 <ul class="dropdown-items">
                                     @foreach (var lv1Category in lv1Categories)
                                     {
+                                        var urlLvL1 = "/" + lv1Category.Alias + "-" + lv1Category.ID + "-forum.html";
                                         var lv2Categories = Model.Where(x => x.ParentID == lv1Category.ID);
                                         if (lv2Categories.Count() == 0)
                                         {
                                             <li>
-                                                <a href="">@lv1Category.Name</a>
+                                                <a href="@urlLvL1">@lv1Category.Name</a>
                                             </li>
                                         }
                                         else
                                         {
                                             <li class="has-child">
-                                                <a href="javascript:void(0)">@lv1Category.Name</a>
+                                                <a href="@urlLvL1">@lv1Category.Name</a>
                                                 <div class="dropdown-inner sub-dropdown-inner">
                                                     <ul class="dropdown-items">
                                                         @foreach (var lv2Category in lv2Categories)
                                                         {
+                                                            var urlLvL2 = "/" + lv2Category.Alias + "-" + lv2Category.ID + "-forum.html";
                                                             var lv3Categories = Model.Where(x => x.ParentID == lv2Category.ID);
                                                             if (lv3Categories.Count() == 0)
                                                             {
-                                                                <li><a href="javascript:void(0)">@lv2Category.Name</a></li>
+                                                                <li><a href="@urlLvL2">@lv2Category.Name</a></li>
                                                             }
                                                             else
                                                             {
                                                                 <li class="has-child">
-                                                                    <a href="javascript:void(0)">@lv2Category.Name</a>
+                                                                    <a href="@urlLvL2">@lv2Category.Name</a>
                                                                     <div class="dropdown-inner sub-dropdown-inner">
                                                                         <ul class="dropdown-items">
                                                                             @foreach (var lv3Category in lv3Categories)
                                                                             {
-                                                                                <li><a href="javascript:void(0)">@lv3Category.Name</a></li>
+                                                                                var urlLvL3 = "/" + lv3Category.Alias + "-" + lv3Category.ID + "-forum.html";
+                                                                                <li><a href="@urlLvL3">@lv3Category.Name</a></li>
                                                                             }
                                                                         </ul>
                                                                     </div>

@@ -1,0 +1,95 @@
+﻿@model AccountantNew.Web.Models.PostViewModel
+
+@{
+    ViewBag.Title = "Ask";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+}
+
+@section footerJS
+{
+    <script type="text/javascript">
+    tinymce.init({
+        selector: '.textarea',
+        height: 200,
+        width :800,
+        menubar: false,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table contextmenu paste code'
+        ],
+        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        skin: 'lightgray'
+    });
+    </script>
+}
+
+@section pageTitle{
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-wrapper" style="background-image:url(/Assets/client/img/sub-header/subHeader.jpg)">
+                    <div class="container">
+                        <h2 class="pull-left title"> <span class="cat-icon">T </span>Tạo bài viết</h2>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="#">Danh mục</a></li>
+                            <li class="active">Tạo bài viết</li>
+                        </ol>
+                    </div> <!-- //container -->
+                </div> <!-- //page-title-wrapper -->
+            </div>
+        </div> <!-- //row -->
+    </section>
+}
+
+<section class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-content ask-question">
+                            <div class="boxedtitle page-title">
+                                <h2>Tạo bài viết</h2>
+                                <div class="form-style form-style-3" id="question-submit">
+                                    @using (Html.BeginForm("Ask", "Forum", FormMethod.Post, new { id= "question-submit", @enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-inputs clearfix">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            <p>
+                                                <label class="required">Tiêu đề<span>*</span></label>
+                                                <input type="text" id="question-title" name="Name" class="form-control pull-right" placeholder="Nhập tiêu đề bài viết" />
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "form-description pull-right" })
+                                            </p>
+                                            <p>
+                                                <label class="required">Chuyên mục<span>*</span></label>
+                                                @Html.DropDownList("NewCategoryID", null, new { @class = "styled-select pull-right" })
+                                                @Html.ValidationMessageFor(model => model.NewCategoryID, "", new { @class = "text-danger" })
+                                            </p>
+                                        </div>
+                                        <div class="form-textarea" style="padding-top:15px;">
+                                            <p>
+                                                <label class="required">Nội dung<span>*</span></label>
+                                            </p>
+                                            <div class="col-xs-12 col-sm-12" style="margin:20px 8px; padding: 0 -15px">
+                                                <textarea name="Content" class="textarea"></textarea>
+                                                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "form-description" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <p class="form-submit">
+                                                <input type="submit" id="publish-question" value="Gửi bài viết" class="btn btn-success">
+                                            </p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

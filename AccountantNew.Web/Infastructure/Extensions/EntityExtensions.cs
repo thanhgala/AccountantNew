@@ -38,7 +38,6 @@ namespace AccountantNew.Web.Infastructure.Extensions
             news.HomeFlag = newVM.HomeFlag;
             news.HotFlag = newVM.HotFlag;
             news.ViewCount = newVM.ViewCount;
-            news.CommentCount = newVM.CommentCount;
             news.Tags = newVM.Tags;
 
             news.CreatedDate = newVM.CreatedDate;
@@ -52,6 +51,22 @@ namespace AccountantNew.Web.Infastructure.Extensions
         {
             appGroup.ID = appGroupViewModel.ID;
             appGroup.Name = appGroupViewModel.Name;
+        }
+
+        public static void UpdatePost(this Post post, PostViewModel postViewModel)
+        {
+            post.ID = postViewModel.ID;
+            post.Name = postViewModel.Name;
+            post.Alias = postViewModel.Alias;
+            post.NewCategoryID = postViewModel.NewCategoryID;
+            post.Content = postViewModel.Content;
+            post.ViewCount = postViewModel.ViewCount;
+
+            post.CreatedDate = postViewModel.CreatedDate;
+            post.CreatedBy = postViewModel.CreatedBy;
+            post.UpdatedDate = postViewModel.UpdatedDate;
+            post.UpdateBy = postViewModel.UpdateBy;
+            post.Status = postViewModel.Status;
         }
     }
 }

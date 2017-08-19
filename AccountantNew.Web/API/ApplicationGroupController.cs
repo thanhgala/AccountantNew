@@ -98,15 +98,30 @@ namespace AccountantNew.Web.API
                     var listRoleGroup = new List<ApplicationRoleGroup>();
                     foreach (var role in appGroupViewModel.Roles)
                     {
-                        listRoleGroup.Add(new ApplicationRoleGroup
+                        if (role.ApplicationRoleGroup != null)
                         {
-                            GroupId = appGroup.ID,
-                            RoleId = role.ID,
-                            CanCreate = role.ApplicationRoleGroup.CanCreate,
-                            CanRead = role.ApplicationRoleGroup.CanRead,
-                            CanUpdate = role.ApplicationRoleGroup.CanUpdate,
-                            CanDelete = role.ApplicationRoleGroup.CanDelete
-                        });
+                            listRoleGroup.Add(new ApplicationRoleGroup
+                            {
+                                GroupId = appGroup.ID,
+                                RoleId = role.ID,
+                                CanCreate = role.ApplicationRoleGroup.CanCreate,
+                                CanRead = role.ApplicationRoleGroup.CanRead,
+                                CanUpdate = role.ApplicationRoleGroup.CanUpdate,
+                                CanDelete = role.ApplicationRoleGroup.CanDelete
+                            });
+                        }
+                        else
+                        {
+                            listRoleGroup.Add(new ApplicationRoleGroup
+                            {
+                                GroupId = appGroup.ID,
+                                RoleId = role.ID,
+                                CanCreate = false,
+                                CanRead = false,
+                                CanUpdate = false,
+                                CanDelete = false
+                            });
+                        }
                     }
                     //var listOldRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
                     //var listUserInGroup = _appGroupService.GetListUserByGroupId(appGroup.ID);

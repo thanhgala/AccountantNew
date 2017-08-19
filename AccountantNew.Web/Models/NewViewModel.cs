@@ -30,8 +30,6 @@ namespace AccountantNew.Web.Models
 
         public int? ViewCount { set; get; }
 
-        public int? CommentCount { set; get; }
-
         public string Tags { set; get; }
 
         public DateTime? CreatedDate { set; get; }

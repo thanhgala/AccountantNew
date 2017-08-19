@@ -3,6 +3,7 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/Layouts.cshtml";
     string pageTitle = ViewBag.PageTitle;
+    var CurrentRate = ViewBag.CurrentRate as List<AccountantNew.Web.Models.CurrencyModel>;
 }
 
 @section pageTitle{
@@ -17,10 +18,10 @@
                         <li><a href="#">Danh mục</a></li>
                         <li class="active">@pageTitle</li>
                     </ol>
-                </div> <!-- //container -->
-            </div> <!-- //page-title-wrapper -->
+                </div>
+            </div>
         </div>
-    </div> <!-- //row -->
+    </div>
 </section>
 }
 
@@ -38,43 +39,24 @@
                                     <img alt="" src="~/Assets/client/img/comm-user.jpg">
                                 </div>
                                 <div class="author-avatar-text">
-                                    <p class="author"> <a href="#" title="Posts by NewEdge" rel="author">San Janha</a></p>
-                                    <span class="entry-date"><time>Nov 18,  2015</time></span>,
-                                    <span class="cats"><a href="#" rel="category tag">Business</a></span>
+                                    <p class="author"> <a href="#" title="Posts by NewEdge" rel="author">Gala</a></p>
+                                    <span class="entry-date"><time>@DateTime.Now</time></span>,
+                                    <span class="cats"><a href="#" rel="category tag">Tin tức</a></span>
                                 </div>
-                            </div> <!-- //entry-blog-meta-list -->
+                            </div>
 
                             <div class="entry-blog-meta-list">
                                 <div class="share-count">
                                     <span class="number">2.86k</span><span>Views</span>
                                 </div>
-                                <div class="newedge-social-share">
-                                    <ul>
-                                        <li>
-                                            <a href="#" class="icon-facebook"><i class="fa fa-facebook"></i> Share on Facebook</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="icon-twitter"><i class="fa fa-twitter"></i> Tweet on Twitter</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="icon-google"><i class="fa fa-google-plus"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="icon-linkedin"><i class="fa fa-linkedin"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="icon-google"><i class="fa fa-pinterest"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> <!-- //entry-blog-meta-list -->
-                        </div> <!-- //entry-blog-meta -->
+                            </div>
+                        </div>
 
                         <div class="entry-summary">
                             <p>
                                 @Html.Raw(Model.Content)
                             </p>
-                        </div> <!-- //entry-summary -->
+                        </div>
 
                         <div class="post-meta-info">
                             <div class="post-meta-info-list tags">
@@ -106,15 +88,15 @@
                                     <time class="entry-date">Nov 18, 2015</time>
                                 </div>
                             </div>
-                        </div> <!-- //post-meta-info -->
-                    </div> <!-- //col-sm-12 -->
+                        </div>
+                    </div>
 
                 </div>
-            </div> <!-- //col-sm-9 -->
+            </div>
             
             <div class="col-sm-3">
-                @Html.Partial("Col3Partial")
+                @Html.Partial("Col3Partial", CurrentRate)
             </div>
-        </div> <!-- //row -->
-    </div> <!-- //container -->
+        </div>
+    </div>
 </section>

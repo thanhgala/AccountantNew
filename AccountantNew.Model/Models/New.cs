@@ -44,9 +44,6 @@ namespace AccountantNew.Model.Models
 
         public int? ViewCount { set; get; }
 
-        public int? CommentCount { set; get; }
-
-
         public string Tags { set; get; }
 
         [ForeignKey("NewCategoryID")]
@@ -57,6 +54,5 @@ namespace AccountantNew.Model.Models
 
         public virtual IEnumerable<NewTag> NewTags { set; get; }
 
-        public virtual IEnumerable<Comment> Comments { set; get; }
     }
 }

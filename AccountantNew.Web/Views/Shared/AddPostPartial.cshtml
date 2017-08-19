@@ -1,0 +1,17 @@
+﻿<button type="button" onclick="gotoAsk()" class="btn btn-danger" style="width: 100%">
+    <i class="icon-plus-sign-alt"></i><strong> Tạo bài viết</strong>
+</button>
+
+<br />
+<br />
+
+<div class="widget widget_stats">
+    <h3 class="widget_title">Chuyên mục</h3>
+    <ul>
+        @foreach (var item in Model)
+        {
+            var url = "/" + item.Alias + "-" + item.ID + "-forum.html";
+            <li><a href="@url"><i class="fa fa-folder-open"></i> @item.Name</a></li>
+        }
+    </ul>
+</div>

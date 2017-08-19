@@ -30,6 +30,8 @@ namespace AccountantNew.Web.Mappings
                 cg.CreateMap<NewCategory, TreeFileCategory<NewCategoryViewModel>>();
 
                 cg.CreateMap<New, NewViewModel>();
+
+                cg.CreateMap<Post, PostViewModel>();
             });
         }
     }

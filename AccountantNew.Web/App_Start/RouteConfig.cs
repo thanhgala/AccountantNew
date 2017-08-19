@@ -14,11 +14,32 @@ namespace AccountantNew.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "DetailPost",
+               url: "{category}-{id}-forum/{alias}.html",
+               defaults: new { controller = "Forum", action = "DetailPost", id = UrlParameter.Optional },
+               namespaces: new string[] { "AccountantNew.Web.Controllers" }
+               );
+
+            routes.MapRoute(
                 name: "FileCategory",
-                url: "{category}-file.html",
+                url: "{category}-{id}-file.html",
                 defaults: new { controller = "File", action = "FileCategory", id = UrlParameter.Optional },
                 namespaces: new string[] { "AccountantNew.Web.Controllers" }
                 );
+
+            routes.MapRoute(
+               name: "ForumCategory",
+               url: "{category}-{id}-forum.html",
+               defaults: new { controller = "Forum", action = "ForumCategory", id = UrlParameter.Optional },
+               namespaces: new string[] { "AccountantNew.Web.Controllers" }
+               );
+
+            routes.MapRoute(
+                name: "Ask",
+                url: "{category}/ask-{id}.html",
+                defaults: new { controller = "Forum", action = "Ask", id = UrlParameter.Optional },
+                namespaces: new string[] { "AccountantNew.Web.Controllers" }
+            );
 
             routes.MapRoute(
                 name: "NewCategory",

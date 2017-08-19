@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AccountantNew.Web.Models.PostViewModel>
+@{
+    ViewBag.Title = "ForumPost";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+    var cate = ViewBag.CategoryModel as AccountantNew.Web.Models.NewCategoryViewModel;
+}
+
+@section pageTitle{
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-wrapper" style="background-image:url(Assets/client/img/sub-header/subHeader.jpg)">
+                    <div class="container">
+                        <h2 class="pull-left title"> <span class="cat-icon">@cate.Name.Substring(0, 1) </span> @cate.Name</h2>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="#">Danh mục</a></li>
+                            <li class="active">@cate.Name</li>
+                        </ol>
+                    </div> <!-- //container -->
+                </div> <!-- //page-title-wrapper -->
+            </div>
+        </div> <!-- //row -->
+    </section>
+}
+
+<section class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tabs-warp question-tab">
+                            <div class="tab-inner-warp">
+                                <div class="tab-inner">
+                                    @foreach (var item in Model)
+                                    {
+                                        var url = "/" + cate.Alias + "-" + cate.ID + "-forum/" + item.Alias + ".html";
+                                        <article class="question question-type-normal">
+                                            <h2>
+                                                <a href="@url">@item.Name</a>
+                                            </h2>
+
+                                            <div class="question-author">
+                                                <a href="@url" original-title="ahmed" class="question-author-img tooltip-n"><span></span><img alt="" src="~/Assets/client/img/forum-icon-15.png"></a>
+                                            </div>
+                                            <div class="question-inner">
+                                                <div class="clearfix"></div>
+                                                <span class="question-category"><a href="@url"><i class="fa fa-folder"></i>@cate.Name</a></span>
+                                                <span class="question-date"><i class="fa fa-clock-o"></i>@item.CreatedDate</span>
+                                                <span class="question-comment"><a href="@url"><i class="fa fa-comment"></i>0 Answer</a></span>
+                                                <span class="question-view"><i class="fa fa-user"></i>@item.ViewCount views</span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </article>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

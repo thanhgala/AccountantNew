@@ -16,10 +16,12 @@
                                 <div class="next-post-wrapper">
                                     <div>
                                         <p class="slide-cat">
-                                            <a href="article-categories.html"><span class="cat-icon"> T</span>@firstHotNew.NewCategory.Name</a>
+                                            <a href="/tin-moi.html"><span class="cat-icon"> T</span>@firstHotNew.NewCategory.Name</a>
                                         </p>
                                         <h2 class="slide-title">
-                                            <a href="single-article.html">@firstHotNew.Name</a>
+                                            @{var urlHotSlide = "/tin-moi" +  "/" + firstHotNew.Alias + "-" + firstHotNew.ID + ".html";
+                                            }
+                                            <a href="@urlHotSlide">@firstHotNew.Name</a>
                                         </h2>
                                     </div>
                                 </div>
@@ -36,10 +38,12 @@
                                 <div class="next-post-wrapper">
                                     <div>
                                         <p class="slide-cat">
-                                            <a href="article-categories.html"><span class="cat-icon"> T</span>@item.NewCategory.Name</a>
+                                            <a href="/tin-moi.html"><span class="cat-icon"> T</span>@item.NewCategory.Name</a>
                                         </p>
                                         <h2 class="slide-title">
-                                            <a href="single-article.html">@item.Name</a>
+                                            @{var urlHotSlide2 = "/tin-moi" + "/" + item.Alias + "-" + item.ID + ".html";
+                                            }
+                                            <a href="@urlHotSlide2">@item.Name</a>
                                         </h2>
                                     </div>
                                 </div>
@@ -149,222 +153,42 @@
                         }
                     </div> <!-- //row -->
                 </div>
-                <!-- Chính sách -->
+
                 <div class="default newedge-latest-videos">
-                    @*<div class="section-title">
-                        <h3 class="pull-left">
-                            <span class="cat-icon cat-icon-color02"><i class="fa fa-book"></i></span>Chính sách
-                        </h3>
-                        <div class="pull-right see-all">
-                            <a href="article-categories.html">See all</a>
-                        </div>
-                    </div>*@
-
-                     @*<div class="row">
-                        @{var policyMain = Model.PolicyNews.First();}
-                        <div class="col-sm-7">
-                            <article>
-                                <div class="article-inner">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-large2" src="@policyMain.Image" alt="img"></div>
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">@policyMain.Name</a>
-                                        </h4>
-                                    </div>
+                    <div class="thumb-gallery">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="section-title">
+                                    <h3> <span class="cat-icon"><i class="fa fa-image"></i></span>Hình ảnh</h3>
                                 </div>
-                            </article>         
-                        </div>
-                         @foreach (var item in Model.PolicyNews.Skip(1))
-                         {
-                            <div class="col-sm-5">
-                                <div class="latest-video sub-leading-item media">
-                                    <div class="latest-video-inner">
-                                        <div class="img-wrapper media-left">
-                                            <img class="thumb-small" src="@item.Image" alt="img">
-                                        </div>
-                                        <div class="video-post-info media-body">
-                                            <h4 class="entry-title"><a href="single-article-video.html">@item.Name</a></h4>
-                                        </div>
-                                    </div>
+                                <div id="img_thumb" class="flexslider tg-slider">
+                                    <ul class="slides">
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-1.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-2.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-3.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-4.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-5.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-agro-6.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-agro-7.jpg" alt="img"></li>
+                                        <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-agro-8.jpg" alt="img"></li>
+                                    </ul>
                                 </div>
-                            </div>
-                         } 
-                    </div>*@
-
-                    
-                <!-- Pháp luật -->
-                @*<div class="single-article-category simple-article-overlay gradient-color10">
-                    <div class="section-title">
-                        <h3 class="pull-left"> <span class="cat-icon cat-icon-color07"><i class="fa fa-gavel"></i></span>Pháp luật</h3>
-                        <div class="pull-right see-all">
-                            <a href="article-categories.html">See all</a>
-                        </div>
-                    </div> <!-- //section-title -->
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <article>
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="~/Assets/client/img/article-img/thumbnail15.jpg" alt="img"></div>
-                                    <div class="post-share-social">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                        <a href="#" class="fa fa-pinterest"></a>
-                                        <a href="#" class="fa fa-linkedin"></a>
-                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
-                                    </div> <!-- //post-share-social -->
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
-                                        </h4>
-                                    </div>
+                                <div id="img_galley" class="flexslider">
+                                    <ul class="slides">
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-1.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-2.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-3.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-4.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-5.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-agro-6.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-agro-7.jpg" alt="img"></li>
+                                        <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-agro-8.jpg" alt="img"></li>
+                                    </ul>
                                 </div>
-                            </article>
-                        </div> <!-- //col-sm-4 -->
-                        <div class="col-sm-4">
-                            <article>
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="~/Assets/client/img/article-img/thumbnail14.jpg" alt="img"></div>
-                                    <div class="post-share-social">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                        <a href="#" class="fa fa-pinterest"></a>
-                                        <a href="#" class="fa fa-linkedin"></a>
-                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
-                                    </div> <!-- //post-share-social -->
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-sm-4">
-                            <article>
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="~/Assets/client/img/article-img/thumbnail13.jpg" alt="img"></div>
-                                    <div class="post-share-social">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                        <a href="#" class="fa fa-pinterest"></a>
-                                        <a href="#" class="fa fa-linkedin"></a>
-                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
-                                    </div> <!-- //post-share-social -->
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-sm-4">
-                            <article>
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="~/Assets/client/img/article-img/thumbnail12.jpg" alt="img"></div>
-                                    <div class="post-share-social">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                        <a href="#" class="fa fa-pinterest"></a>
-                                        <a href="#" class="fa fa-linkedin"></a>
-                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
-                                    </div> <!-- //post-share-social -->
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-sm-4">
-                            <article>
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="~/Assets/client/img/article-img/thumbnail11.jpg" alt="img"></div>
-                                    <div class="post-share-social">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                        <a href="#" class="fa fa-pinterest"></a>
-                                        <a href="#" class="fa fa-linkedin"></a>
-                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
-                                    </div> <!-- //post-share-social -->
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="col-sm-4">
-                            <article>
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="~/Assets/client/img/article-img/thumbnail10.jpg" alt="img"></div>
-                                    <div class="post-share-social">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                        <a href="#" class="fa fa-pinterest"></a>
-                                        <a href="#" class="fa fa-linkedin"></a>
-                                        <div class="share-icon"><i class="fa fa-share-alt"></i></div>
-                                    </div> <!-- //post-share-social -->
-                                    <div class="article-info">
-                                        <h4 class="entry-title">
-                                            <a href="single-article.html">Aliquam sed felis ligula. Duis non nulla magna</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div> <!-- //row -->
-                </div>*@
-                <div class="thumb-gallery">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="section-title">
-                                <h3> <span class="cat-icon"><i class="fa fa-image"></i></span>Hình ảnh</h3>
-                            </div>
-                            <div id="img_thumb" class="flexslider tg-slider">
-                                <ul class="slides">
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-1.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-2.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-3.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-4.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-aqua-5.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-agro-6.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-agro-7.jpg" alt="img"></li>
-                                    <li><img class="thumb-slider" src="~/Assets/client/img/cp-img/feed-agro-8.jpg" alt="img"></li>
-                                </ul>
-                            </div>
-                            <div id="img_galley" class="flexslider">
-                                <ul class="slides">
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-1.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-2.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-3.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-4.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-aqua-5.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-agro-6.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-agro-7.jpg" alt="img"></li>
-                                    <li><img class="thumb-imgslider" src="~/Assets/client/img/cp-img/feed-agro-8.jpg" alt="img"></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
             <div class="col-sm-3">
             <!-- popular-news -->
@@ -381,7 +205,7 @@
                     <li><a href="single-article.html">integer elementum massa at nulla condimentum donec</a></li>
                 </ul>
             </div> <!-- //popular-news -->
-            @Html.Partial("Col3Partial")
+            @Html.Partial("Col3Partial",Model.CurrencyRate)
         </div>
         </div> <!-- //container -->
     </div>

@@ -1644,7 +1644,19 @@ article.leading-item .article-inner.default:hover .article-info {
 }
 
 .social-common-bar .social-icon i {
-  width: 46px;
+  width: 56px;
+  height: 46px;
+  line-height: 46px;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  transition: 300ms;
+  -webkit-transition: 300ms;
+  position: relative;
+}
+
+.social-common-bar .social-icon img {
+  width: 56px;
   height: 46px;
   line-height: 46px;
   text-align: center;
@@ -1700,17 +1712,17 @@ article.leading-item .article-inner.default:hover .article-info {
   margin-left: 15px; 
   font-size: 12px;
   display: inline-block;
-  text-align: left;
+  text-align: right;
   float: right;
 }
 .social-common-bar .social-total-count p{
-	font-size: 12px;
+	font-size: 13px;
 }
 .social-common-bar .social-total-count .social-text {
   display: block;
 }
 .social-counter .social-common-bar:nth-child(even) {
-  text-align: right;
+  /*text-align: right;*/
 }
 
 /* ************** 	END:: SOCIAL COUNTER 	*************** */

@@ -57,6 +57,10 @@ namespace AccountantNew.Web.Controllers
             loadChildCategory(categoryModel.ID, lstAdd);
             ViewBag.PageTitle = categoryModel.Name;
             var listAddViewModel = Mapper.Map<List<New>, List<NewViewModel>>(lstAdd);
+
+            List<CurrencyModel> lstCurrent = new List<CurrencyModel>();
+            ViewBag.CurrentRate = XmlHelper.ParseXmlData(lstCurrent);
+
             return View(listAddViewModel);
         }
 
@@ -64,6 +68,8 @@ namespace AccountantNew.Web.Controllers
         {
             var newModel = _newService.GetByID(id);
             ViewBag.PageTitle = _newCategoryService.GetByID(newModel.NewCategoryID).Name;
+            List<CurrencyModel> lstCurrent = new List<CurrencyModel>();
+            ViewBag.CurrentRate = XmlHelper.ParseXmlData(lstCurrent);
 
             var newViewModel = Mapper.Map<New, NewViewModel>(newModel);
             return View(newViewModel);

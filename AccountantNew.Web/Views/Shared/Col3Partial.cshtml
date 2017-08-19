@@ -1,34 +1,34 @@
 ﻿<div class="social-counter clearfix">
     <div class="section-title">
-        <h3> <span class="cat-icon"><i class="fa fa-share-alt"></i></span>Stay Connected</h3>
+        <h3> <span class="cat-icon"><i class="fa fa-usd"></i></span>Tỉ giá ngoại tệ</h3>
     </div> <!-- //section-title -->
 
-    <div class="clearfix">
-        <div class="col-sm-6 col-xs-6 social-common-bar">
-            <div class="social-icon"><a href="#" target="_blank"><i class="twitter-icon fa fa-twitter"></i></a></div>
-            <div class="social-total-count">
-                <p class="follow-button">4570<span class="social-text">followers</span></p>
+    @*<div class="clearfix">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-12 col-xs-12 social-common-bar">
+                @{switch ((string)item.CurrencyCode)
+                    {
+                        case "THB":
+                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/thailand.png"/></a></div>
+                            break;
+                        case "JPY":
+                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/japan.png" /></a></div>
+                            break;
+                        case "EUR":
+                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/european-union.png" /></a></div>
+                            break;
+                        case "USD":
+                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/united-states.png" /></a></div>
+                            break;
+                    }
+                }
+                <div class="social-total-count">
+                    <p class="follow-button">Mua: @item.Buy, Bán: @item.Sell<span class="social-text"><strong>@item.CurrencyName</strong></span></p>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-xs-6 social-common-bar">
-            <div class="social-icon"><a href="#" target="_blank"><i class="facebook-icon fa fa-facebook"></i></a></div>
-            <div class="social-total-count">
-                <p class="follow-button">5423<span class="social-text">likes</span></p>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xs-6 social-common-bar">
-            <div class="social-icon"><a href="#" target="_blank"><i class="dribbble-icon fa fa-dribbble"></i></a></div>
-            <div class="social-total-count">
-                <p class="follow-button">7902<span class="social-text">followers</span></p>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xs-6 social-common-bar">
-            <div class="social-icon"><a href="#" target="_blank"><i class="rss-icon fa fa-rss"></i></a></div>
-            <div class="social-total-count">
-                <p class="follow-button">1261<span class="social-text">rss</span></p>
-            </div>
-        </div>
-    </div><!-- //row -->
+        }
+    </div>*@<!-- //row -->
 </div>
 <div class="weather-news">
     <div class="section-title">

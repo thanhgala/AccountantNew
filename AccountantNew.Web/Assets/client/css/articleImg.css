@@ -87,17 +87,27 @@
     background-size: cover;
 }
 
+.thumb-logo-header {
+    width: 135px;
+    height: 66px;
+    background-color: #3e3e3e;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
 .col-header-2 {
     width:10%;
     height:65px;
 }
 
 .col-header-3 {
-    width:20%;
+    width:12%;
 }
 
 .col-header-4-5 {
-    width:35%;
+    width:43%;
 }
 
 .col-header-3-5 {

@@ -36,7 +36,9 @@ namespace AccountantNew.Web
                 "~/Assets/client/js/jquery.sticky.js",
                 "~/Assets/client/js/main.js",
                 "~/Assets/client/js/switcher.js",
-                "~/Assets/admin/libs/jstree/dist/jstree.js"
+                "~/Assets/admin/libs/jstree/dist/jstree.js",
+                "~/Assets/admin/libs/tinymce/tinymce.min.js",
+                "~/Assets/admin/libs/toastr/toastr.min.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundle/jsCoreApi").Include(
@@ -105,9 +107,11 @@ namespace AccountantNew.Web
                       "~/Assets/client/css/presets/preset1.css",
                       "~/Assets/client/css/articleImg.css",
                       "~/Assets/client/css/weather.css",
+                      "~/Assets/client/css/forum.css",
                       "~/Assets/client/css/jquery.simplyscroll.css",
                       "~/Assets/admin/libs/jstree/dist/themes/proton/style.css",
-                      "~/Assets/client/css/treefile.css"
+                      "~/Assets/client/css/treefile.css",
+                      "~/Assets/admin/libs/toastr/toastr.min.css"
                       ).Include("~/Assets/client/css/font-awesome.min.css", new CssRewriteUrlTransform());
             bundles.Add(bundleCss);
             bundles.Add(jsApi);

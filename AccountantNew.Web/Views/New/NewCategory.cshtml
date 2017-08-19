@@ -3,6 +3,7 @@
     ViewBag.Title = "Category";
     Layout = "~/Views/Shared/Layouts.cshtml";
     string pageTitle = ViewBag.PageTitle;
+    var CurrentRate = ViewBag.CurrentRate as List<AccountantNew.Web.Models.CurrencyModel>;
 }   
 
 @section pageTitle{
@@ -61,16 +62,18 @@
 
                 <div class="row">
                     <div class="simple-article-overlay">
-                    @foreach (var item in Model.Skip(2))
+                    @foreach (var item in Model.Skip(2).Take(3))
                     {
+                        var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
                         <div class="col-md-4 col-sm-6">
                             <article class="gradient-color04">
                                 <div class="article-inner default">
                                     <div class="overlay"></div>
                                     <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
                                     <div class="article-info">
+                                        
                                         <h4 class="entry-title">
-                                            <a href="single-article.html">@item.Name</a>
+                                            <a href="@url">@item.Name</a>
                                         </h4>
                                     </div>
                                 </div>
@@ -78,12 +81,34 @@
                         </div>
                     }
                     </div>
-                </div> <!-- //row -->
+                </div>
+
+                <div class="row">
+                    <div class="simple-article-overlay">
+                        @foreach (var item in Model.Skip(5))
+                        {
+                            var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                            <div class="col-md-4 col-sm-6">
+                                <article class="gradient-color04">
+                                    <div class="article-inner default">
+                                        <div class="overlay"></div>
+                                        <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
+                                        <div class="article-info">
+                                            <h4 class="entry-title">
+                                                <a href="@url">@item.Name</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div> <!-- //col-sm-9 -->
 
             <div class="col-sm-3">
-                @Html.Partial("Col3Partial")
-            </div> <!-- //col-sm-3 -->
+                @Html.Partial("Col3Partial", CurrentRate)
+            </div>
         </div> <!-- //row -->
     </div> <!-- //container -->
 </section>

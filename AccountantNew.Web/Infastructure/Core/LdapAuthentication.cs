@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.Protocols;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -16,38 +17,37 @@ namespace AccountantNew.Web.Infastructure.Core
             _domain = domain;
         }
 
-        //private LdapConnection _conn;
-        //private string _domain;
-        //private LdapConnection Conn
-        //{
-        //    get
-        //    {
-        //        if (_conn == null)
-        //        {
-        //            _conn = new LdapConnection(_domain);
-        //        }
-        //        return _conn;
-        //    }
-        //}
+        private LdapConnection _conn;
+        private LdapConnection Conn
+        {
+            get
+            {
+                if (_conn == null)
+                {
+                    _conn = new LdapConnection(_domain);
+                }
+                return _conn;
+            }
+        }
 
-        //public bool ValidateUser(string user, string pass)
-        //{
-        //    try
-        //    {
-        //        user = user.ToLower().Trim();
-        //        user = user.Contains(_domain) ? user : user + "@" + _domain;
-        //        string domainAndUsername = _domain + @"\" + user;
+        public bool ValidateUser(string user, string pass)
+        {
+            try
+            {
+                user = user.ToLower().Trim();
+                user = user.Contains(_domain) ? user : user + "@" + _domain;
+                string domainAndUsername = _domain + @"\" + user;
 
-        //        NetworkCredential credential = new NetworkCredential(user, pass);
-        //        Conn.Credential = credential;
-        //        Conn.Bind();
-        //        return true;
-        //    }
-        //    catch (LdapException e)
-        //    {
-        //        return false;
-        //    }
-        //}
+                NetworkCredential credential = new NetworkCredential(user, pass);
+                Conn.Credential = credential;
+                Conn.Bind();
+                return true;
+            }
+            catch (LdapException e)
+            {
+                return false;
+            }
+        }
 
         //public bool IsUserInGroup(string groupName, string user)
         //{

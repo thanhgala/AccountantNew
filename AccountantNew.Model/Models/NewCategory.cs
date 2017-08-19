@@ -35,5 +35,7 @@ namespace AccountantNew.Model.Models
 
         public virtual IEnumerable<File> Files { set; get; }
 
+        public virtual IEnumerable<Post> Posts { set; get; }
+
     }
 }

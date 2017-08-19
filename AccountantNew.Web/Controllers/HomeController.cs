@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace AccountantNew.Web.Controllers
 {
@@ -33,6 +35,9 @@ namespace AccountantNew.Web.Controllers
             homeViewModel.HotNews = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(hotNewModel.Where(x=>x.NewCategoryID == CommonConstants.NewID || x.NewCategory.ParentID == CommonConstants.NewID));
             homeViewModel.LatestNews = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(newModel);
             homeViewModel.PolicyNews = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(policyModel);
+
+            //List<CurrencyModel> lstCurrency = new List<CurrencyModel>();
+            //homeViewModel.CurrencyRate = XmlHelper.ParseXmlData(lstCurrency);
 
             return View(homeViewModel);
         }

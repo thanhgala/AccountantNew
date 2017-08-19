@@ -20,10 +20,10 @@ namespace AccountantNew.Model.Models
         [MaxLength(128)]
         public string UserID { set; get; }
 
-        public int NewsID { set; get; }
+        public int PostID { set; get; }
 
-        [ForeignKey("NewsID")]
-        public virtual New New { set; get; }
+        [ForeignKey("PostID")]
+        public virtual Post Post { set; get; }
 
         [ForeignKey("UserID")]
         public virtual ApplicationUser ApplicationUser { set; get; }

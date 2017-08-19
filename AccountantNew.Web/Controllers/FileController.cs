@@ -3,6 +3,7 @@ using AccountantNew.Service;
 using AccountantNew.Web.Infastructure.Core;
 using AccountantNew.Web.Models;
 using AutoMapper;
+using CKFinder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,16 @@ namespace AccountantNew.Web.Controllers
             this._newService = newService;
         }
 
-        public ActionResult FileCategory(string category)
+        public ActionResult FileCategory(string category,int id)
         {
-            var categoryModel = _newCategoryService.GetByAlias(category);
+            var categoryModel = _newCategoryService.GetByID(id);
+            //var categoryModel = _newCategoryService.GetByAlias(category);
             ViewBag.PageTitle = categoryModel.Name;
             TempData["Category"] = category;
+
+            //CKFinder.FileBrowser ckf = new FileBrowser();
+            //ckf.BasePath = Server.MapPath("~/ckfinder");
+
             return View();
         }
 

@@ -23,7 +23,8 @@
     "angular-ui-tree": "~2.22.5",
     "angular-ui-select": "~0.19.8",
     "angular-sanitize": "~1.6.5",
-    "jstree": "~3.3.4"
+    "jstree": "~3.3.4",
+    "tinymce": "^4.6.5"
   },
   "resolutions": {
     "angular": "^1.0.8"
