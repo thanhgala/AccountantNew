@@ -36,8 +36,8 @@ namespace AccountantNew.Web.Controllers
             homeViewModel.LatestNews = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(newModel);
             homeViewModel.PolicyNews = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(policyModel);
 
-            //List<CurrencyModel> lstCurrency = new List<CurrencyModel>();
-            //homeViewModel.CurrencyRate = XmlHelper.ParseXmlData(lstCurrency);
+            List<CurrencyModel> lstCurrency = new List<CurrencyModel>();
+            homeViewModel.CurrencyRate = XmlHelper.ParseXmlData(lstCurrency);
 
             return View(homeViewModel);
         }
