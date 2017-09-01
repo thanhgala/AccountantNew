@@ -15,12 +15,16 @@ namespace AccountantNew.Model.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { set; get; }
 
+        [Required]
         public string Content { set; get; }
 
         [MaxLength(128)]
         public string UserID { set; get; }
 
         public int PostID { set; get; }
+
+        [Required]
+        public DateTime CreateDate { set; get; }
 
         [ForeignKey("PostID")]
         public virtual Post Post { set; get; }

@@ -16,7 +16,8 @@
                 $('#treeview')
                     .on('changed.jstree', function (e, data) {
                         var objNode = data.instance.get_node(data.selected);
-                        //alert(objNode.id + '-' + objNode.text)
+                        //alert(objNode.id + '-' + objNode.text);
+                        category.getListFile(objNode.id);
                     })
                     .jstree({
                     'plugins': ["contextmenu"],
@@ -29,8 +30,20 @@
                     },
                 });
             }
-        });
-        
+        }); 
+    },
+
+    getListFile:function(id){
+        $.ajax({
+            url: '/File/GetListFile',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function (response) {
+                $('#listFile').html(response);
+            }
+        })
     }
 }
 

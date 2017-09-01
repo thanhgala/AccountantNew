@@ -16,11 +16,13 @@ namespace AccountantNew.Web.Controllers
     {
         private INewCategoryService _newCategoryService;
         private INewService _newService;
+        private IFileService _fileService;
 
-        public FileController(INewCategoryService newCategoryService, INewService newService)
+        public FileController(INewCategoryService newCategoryService, INewService newService,IFileService fileService)
         {
             this._newCategoryService = newCategoryService;
             this._newService = newService;
+            this._fileService = fileService;
         }
 
         public ActionResult FileCategory(string category,int id)
@@ -99,6 +101,19 @@ namespace AccountantNew.Web.Controllers
             {
                 data = lstModel,
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetListFile(int id)
+        {
+            var lstNewCategory = _newCategoryService.GetChildCategory(id);
+            if (lstNewCategory.Count() == 0)
+            {
+                var listFileModel = _fileService.GetListFileByCateID(id);
+                var listFileViewModel = Mapper.Map<IEnumerable<File>, IEnumerable<FileViewModel>>(listFileModel);
+                return PartialView(listFileViewModel);
+            }
+            return null;
         }
     }
 }

@@ -286,5 +286,101 @@
 .ask-question .form-description {
     width: 82%;
     display: inline-block;
-    color:red;
+    color: red;
+}
+
+#commentlist {
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.commentlist {
+    list-style: none;
+    margin: 0;
+}
+
+    .commentlist > li:first-child {
+        margin-top: -20px;
+    }
+
+.comment {
+    margin: 0 -20px;
+    border-bottom: 1px solid #dedede;
+}
+
+.comment-body {
+    padding: 20px;
+}
+
+.commentlist li .avatar {
+    float: left;
+    display: block;
+    overflow: hidden;
+    width: 71px;
+    height: 71px;
+    position: relative;
+    margin-right: 10px;
+    overflow: hidden;
+    padding: 2px;
+    border: 1px solid #dedede;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+    .commentlist li .avatar img {
+        display: block;
+        float: left;
+        width: 65px;
+        height: 65px;
+        overflow: hidden;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+.commentlist li .comment-text {
+    overflow: hidden;
+    position: relative;
+}
+
+.commentlist li .author {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.comment-author {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.comment-author a {
+    color: #2f3239;
+}
+
+.commentlist li .comment-meta {
+    float: left;
+    margin-top: 4px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.commentlist li .date {
+    font-size: 13px;
+    margin-top: 5px;
+    float: left;
+    margin-right: 10px;
+    color: #a1a1a1;
+}
+
+.commentlist li .date i {
+    color: #999;
+    margin-right: 5px;
+}
+.commentlist li p {
+    margin-bottom: 0;
+    /*color: #848991;*/
+    font-weight: normal;
 }

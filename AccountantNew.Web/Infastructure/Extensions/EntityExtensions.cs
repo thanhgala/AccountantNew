@@ -11,18 +11,18 @@ namespace AccountantNew.Web.Infastructure.Extensions
     {
         public static void UpdateNewCategory(this NewCategory newCategory, NewCategoryViewModel newCategoryVM)
         {
-           newCategory.ID = newCategoryVM.ID;
-           newCategory.Name = newCategoryVM.Name;
-           newCategory.Alias = newCategoryVM.Alias;
-           newCategory.Description = newCategoryVM.Description;
-           newCategory.ParentID = newCategoryVM.ParentID;
-           newCategory.DisplayOrder = newCategoryVM.DisplayOrder;
+            newCategory.ID = newCategoryVM.ID;
+            newCategory.Name = newCategoryVM.Name;
+            newCategory.Alias = newCategoryVM.Alias;
+            newCategory.Description = newCategoryVM.Description;
+            newCategory.ParentID = newCategoryVM.ParentID;
+            newCategory.DisplayOrder = newCategoryVM.DisplayOrder;
 
-           newCategory.CreatedDate = newCategoryVM.CreatedDate;
-           newCategory.CreatedBy = newCategoryVM.CreatedBy;
-           newCategory.UpdatedDate = newCategoryVM.UpdatedDate;
-           newCategory.UpdateBy = newCategoryVM.UpdateBy;
-           newCategory.Status = newCategoryVM.Status;
+            newCategory.CreatedDate = newCategoryVM.CreatedDate;
+            newCategory.CreatedBy = newCategoryVM.CreatedBy;
+            newCategory.UpdatedDate = newCategoryVM.UpdatedDate;
+            newCategory.UpdateBy = newCategoryVM.UpdateBy;
+            newCategory.Status = newCategoryVM.Status;
         }
 
         public static void UpdateNew(this New news, NewViewModel newVM)
@@ -67,6 +67,40 @@ namespace AccountantNew.Web.Infastructure.Extensions
             post.UpdatedDate = postViewModel.UpdatedDate;
             post.UpdateBy = postViewModel.UpdateBy;
             post.Status = postViewModel.Status;
+        }
+
+        public static void UpdateComment(this Comment comment, CommentViewModel commentViewModel)
+        {
+            comment.ID = commentViewModel.ID;
+            comment.PostID = commentViewModel.PostID;
+            comment.UserID = commentViewModel.UserID;
+            comment.Content = commentViewModel.Content;
+            comment.CreateDate = commentViewModel.CreateDate;
+        }
+
+        public static void UpdateFile(this File file, FileViewModel fileViewModel)
+        {
+            file.ID = fileViewModel.ID;
+
+            file.Name = fileViewModel.Name;
+
+            file.Alias = fileViewModel.Alias;
+
+            file.NewCategoryID = fileViewModel.NewCategoryID;
+
+            file.Path = fileViewModel.Path;
+
+            file.TimeStarted = fileViewModel.TimeStarted;
+
+            file.CreatedDate = fileViewModel.CreatedDate; 
+
+            file.CreatedBy = fileViewModel.CreatedBy; 
+
+            file.UpdatedDate = fileViewModel.UpdatedDate;
+
+            file.UpdateBy = fileViewModel.UpdateBy;
+
+            file.Status = fileViewModel.Status;
         }
     }
 }

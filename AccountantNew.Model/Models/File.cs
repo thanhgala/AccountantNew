@@ -31,6 +31,9 @@ namespace AccountantNew.Model.Models
         [Required]
         public string Path { set; get; }
 
+        [Required]
+        public DateTime TimeStarted { set; get; }
+
         [ForeignKey("NewCategoryID")]
         public virtual NewCategory NewCategory { set; get; }
 

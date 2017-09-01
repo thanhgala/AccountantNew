@@ -4,6 +4,7 @@
     angular.module('accountantnew',
         ['accountantnew.news',
          'accountantnew.new_categories',
+         'accountantnew.files',
          'accountantnew.application_groups',
          'accountantnew.common'])
         .config(config)

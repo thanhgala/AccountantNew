@@ -5,12 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace AccountantNew.Data.Repositories
 {
     public interface IApplicationRoleRepository : IRepository<ApplicationRole>
     {
         IEnumerable<ApplicationRole> GetListRoleByGroupId(int groupId);
+
+        Task<ApplicationRole> ExamPleAsync();
 
         IEnumerable<ApplicationRole> GetListRoleByGroupRoleId(int groupId,string roleId);
     }
@@ -20,6 +23,14 @@ namespace AccountantNew.Data.Repositories
         public ApplicationRoleRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
+        }
+
+        public async Task<ApplicationRole> ExamPleAsync()
+        { 
+            var querry = await DbContext.ApplicationRoles
+                        .Where(x => x.Id == "dada")
+                        .FirstOrDefaultAsync();
+            return querry;
         }
 
         public IEnumerable<ApplicationRole> GetListRoleByGroupId(int groupId)

@@ -1,0 +1,49 @@
+﻿<section class="content-header">
+    <h1>
+        DANH SÁCH FILES
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="#">Quản lý files</a></li>
+        <li class="active">Danh sách files</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <!--<div class="box-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 pull-left">
+                                <input type="text" class="form-control" ng-model="keyword" ng-model-options="{ debounce: 500 }" ng-change='getNews()' placeholder="Search for...">
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <button class="btn btn-success" ng-click="openAddPoup()"><i class="fa fa-plus"></i>Thêm mới</button>
+                                <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="col-xs-3 folders text-center" style="margin-top:10px;" ng-repeat="item in data">
+                            <img ng-dblclick="OpenFolder(item.Alias,item.ID)" src="/Assets/admin/img/folder.svg" class="img-responsive  center-block" style="height: 64px;width:64px;" alt="">
+                            <span>{{item.Name}}</span>
+                        </div>
+                        <!--<div ng-if="loading">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <i class="fa fa-refresh fa-4x fa-spin"></i> <label class="label label-primary">Đang tải...</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>-->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</section>

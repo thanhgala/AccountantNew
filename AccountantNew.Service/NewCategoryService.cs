@@ -21,7 +21,7 @@ namespace AccountantNew.Service
 
         IEnumerable<NewCategory> GetRootCategory();
 
-        IEnumerable<NewCategory> GetChildCategory(int parentID);
+        IEnumerable<NewCategory> GetChildCategory(int id);
 
         NewCategory GetByID(int id);
 
@@ -58,12 +58,12 @@ namespace AccountantNew.Service
 
         public IEnumerable<NewCategory> GetRootCategory()
         {
-            return _newCategoryRepository.GetMulti(x => x.ParentID == null);
+            return _newCategoryRepository.GetMulti(x => x.ParentID == null).OrderBy(x=>x.DisplayOrder);
         }
 
-        public IEnumerable<NewCategory> GetChildCategory(int parentID)
+        public IEnumerable<NewCategory> GetChildCategory(int id)
         {
-            return _newCategoryRepository.GetMulti(x => x.ParentID == parentID);
+            return _newCategoryRepository.GetMulti(x => x.ParentID == id);
         }
 
         public NewCategory GetByID(int id)
@@ -85,5 +85,6 @@ namespace AccountantNew.Service
         {
             _newCategoryRepository.Update(newCategory);
         }
+
     }
 }

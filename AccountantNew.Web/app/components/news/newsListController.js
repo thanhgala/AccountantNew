@@ -137,6 +137,7 @@
             $scope.openAddPoup = function () {
                 $uibModal.open({
                     animation: true,
+                    backdrop:false,
                     templateUrl: '/app/components/news/newsAddViewPoup.html',
                     size: 'lg',
                     controller: 'newsAddController'

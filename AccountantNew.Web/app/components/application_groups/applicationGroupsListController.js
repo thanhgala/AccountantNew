@@ -94,6 +94,7 @@
         $scope.openAddPoup = function () {
             $uibModal.open({
                 animation: true,
+                backdrop: 'static',
                 templateUrl: '/app/components/application_groups/applicationGroupsAddPoup.html',
                 size: 'lg',
                 controller: 'applicationGroupsAddController'
@@ -104,6 +105,7 @@
         $scope.openUpdatePoup = function (id) {
             $uibModal.open({
                 animation: true,
+                backdrop: 'static',
                 templateUrl: '/app/components/application_groups/applicationGroupsEditPoup.html',
                 size: 'lg',
                 controller: 'applicationGroupsEditController'

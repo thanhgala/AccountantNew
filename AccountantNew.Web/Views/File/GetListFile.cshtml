@@ -1,0 +1,19 @@
+﻿@model IEnumerable<AccountantNew.Web.Models.FileViewModel>
+
+@foreach (var item in Model)
+{
+    <li>
+        <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+
+        <div class="mailbox-attachment-info">
+            <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> @item.Name</a>
+            <span class="mailbox-attachment-size">
+                1,245 KB
+                <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+            </span>
+        </div>
+    </li>
+
+
+}
+

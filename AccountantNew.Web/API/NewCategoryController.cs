@@ -11,6 +11,8 @@ using AccountantNew.Model.Models;
 using AccountantNew.Web.Models;
 using AccountantNew.Web.Infastructure.Extensions;
 using System.Data.Entity.Validation;
+using System.IO;
+using System.Web;
 
 namespace AccountantNew.Web.API
 {
@@ -22,6 +24,21 @@ namespace AccountantNew.Web.API
             INewCategoryService newCategoryService) : base(errorService)
         {
             this._newCategoryService = newCategoryService;
+        }
+
+        public void loadMenuChild(int parentID, TreeViewCategory<NewCategoryViewModel> res, List<TreeViewCategory<NewCategoryViewModel>> lstRes)
+        {
+            var modelChild = _newCategoryService.GetChildCategory(parentID);
+            if (modelChild.Count() > 0)
+            {
+                var viewModel = Mapper.Map<List<NewCategory>, List<TreeViewCategory<NewCategoryViewModel>>>(modelChild.ToList());
+                res = lstRes.Find(x => x.Name == res.Name);
+                res.Nodes = viewModel;
+                foreach (var childItem in res.Nodes)
+                {
+                    loadMenuChild(childItem.ID, childItem, res.Nodes);
+                }
+            }
         }
 
         [Route("getall")]
@@ -49,19 +66,57 @@ namespace AccountantNew.Web.API
             return request.CreateResponse(HttpStatusCode.OK, lstModel);
         }
 
-        public void loadMenuChild(int parentID, TreeViewCategory<NewCategoryViewModel> res, List<TreeViewCategory<NewCategoryViewModel>> lstRes)
+        private void loadChildCategory(int id,List<NewCategory> lstCate)
         {
-            var modelChild = _newCategoryService.GetChildCategory(parentID);
-            if(modelChild.Count() > 0)
+            var childCategoryModel = _newCategoryService.GetChildCategory(id);
+            if (childCategoryModel.Count() > 0)
             {
-                var viewModel = Mapper.Map<List<NewCategory>, List<TreeViewCategory<NewCategoryViewModel>>>(modelChild.ToList());
-                res = lstRes.Find(x => x.Name == res.Name);
-                res.Nodes = viewModel;
-                foreach (var childItem in res.Nodes)
+                lstCate.AddRange(childCategoryModel);
+                foreach (var itemCategory in childCategoryModel)
                 {
-                    loadMenuChild(childItem.ID, childItem, res.Nodes);                 
+                    loadChildCategory(itemCategory.ID, lstCate);
                 }
             }
+        }
+
+        [Route("getnewscategory")]
+        [HttpGet]
+        public HttpResponseMessage GetCategoryByCondition(HttpRequestMessage request)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                //if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/UploadedFiles/files/tin-tuc")))
+                //{
+                //    Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/UploadedFiles/files/alo"));
+                //}
+                var model = _newCategoryService.GetByAlias("tin-tuc");
+                var lstCate = new List<NewCategory>();
+                lstCate.Add(model);
+                loadChildCategory(model.ID, lstCate);
+                var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(lstCate);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
+
+        [Route("getallfilecategory")]
+        [HttpGet]
+        public HttpResponseMessage GetAllFileCategory(HttpRequestMessage request)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                var model = _newCategoryService.GetRootCategory().Skip(1).Take(4);
+                //var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(model);
+                var lstCate = new List<NewCategory>();
+                foreach (var item in model)
+                {
+                    lstCate.Add(item);
+                    loadChildCategory(item.ID, lstCate);
+                }
+                var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(lstCate);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
         }
 
         [Route("getallparent")]
@@ -90,6 +145,19 @@ namespace AccountantNew.Web.API
             });
         }
 
+        [Route("getfilecategory")]
+        [HttpGet]
+        public HttpResponseMessage GetFileCategoryByCondition(HttpRequestMessage request)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                var model = _newCategoryService.GetRootCategory().Skip(1).Take(4);
+                var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(model);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
+
         [Route("getchildrootparent/{id:int}")]
         [HttpGet]
         public HttpResponseMessage GetChildRootParent(HttpRequestMessage request, int id)
@@ -100,6 +168,16 @@ namespace AccountantNew.Web.API
                 if (lstChild.Count() > 0)
                 {
                     var lstChildViewModel = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(lstChild);
+                    foreach (var item in lstChildViewModel)
+                    {
+                        if (_newCategoryService.GetChildCategory(item.ID).Count() > 0)
+                        {
+                            item.Child = true;
+                        }
+                        else {
+                            item.Child = false;
+                        }
+                    }
                     return request.CreateResponse(HttpStatusCode.OK, lstChildViewModel);
                 }
                 return request.CreateResponse(HttpStatusCode.OK);

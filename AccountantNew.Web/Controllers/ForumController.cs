@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace AccountantNew.Web.Controllers
 {
     public class ForumController : BaseController
@@ -18,14 +19,19 @@ namespace AccountantNew.Web.Controllers
         private INewCategoryService _newCategoryService;
         private INewService _newService;
         private IPostService _postService;
+        private ICommentService _commentService;
 
-        public ForumController(INewCategoryService newCategoryService, INewService newService,IPostService postService)
+        public ForumController(INewCategoryService newCategoryService, 
+            INewService newService,
+            IPostService postService,
+            ICommentService commentService)
         {
             this._newCategoryService = newCategoryService;
             this._newService = newService;
             this._postService = postService;
+            this._commentService = commentService;
         }
-        public ActionResult ForumCategory(string category,int id)
+        public ActionResult ForumCategory(int id)
         {
             var categoryModel = _newCategoryService.GetByID(id);
             var categoryViewModel = Mapper.Map<NewCategory, NewCategoryViewModel>(categoryModel);
@@ -43,6 +49,10 @@ namespace AccountantNew.Web.Controllers
             else
             {
                 var listPostModel = _postService.GetListPost(id);
+                foreach (var item in listPostModel)
+                {
+                    item.Comments = _commentService.GetListCommentByPostID(item.ID);
+                }
                 var listPostViewModel = Mapper.Map<IEnumerable<Post>, IEnumerable<PostViewModel>>(listPostModel);
                 return View("ForumPost", listPostViewModel);
             }
@@ -55,6 +65,8 @@ namespace AccountantNew.Web.Controllers
 
             var postViewModel = Mapper.Map<Post, PostViewModel>(postModel);
             ViewBag.CateName = cateModel.Name;
+
+            ViewBag.ListComment = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentViewModel>>(_commentService.GetListCommentByPostID(postModel.ID));
             return View(postViewModel);
         }
 
@@ -84,15 +96,39 @@ namespace AccountantNew.Web.Controllers
                 _postService.Add(postModel);
                 _postService.Save();
                 SetAlert("Bạn đã đăng bài viết thành công", "success");
-                return View();
+
+                return RedirectToAction("ForumCategory", "Forum", new { id = postModel.NewCategoryID });
             }
             SetAlert("Bạn đăng bài viết không thành công, vui lòng điền đầy đủ thông tin", "error");
-            return RedirectToAction("ForumCategory","Forum");
+            return View(postViewModel);
         }
 
-        public ActionResult Answer()
+        [ValidateInput(false)]
+        [HttpGet]
+        public ActionResult Answer(CommentViewModel commentViewModel)
         {
-            return View();
+            IEnumerable<CommentViewModel> lstCommentViewModel;
+            if (!ModelState.IsValid)
+            {
+                var lstComment = _commentService.GetListCommentByPostID(commentViewModel.PostID);
+                lstCommentViewModel = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentViewModel>>(lstComment);
+                SetAlert("Bạn phải nhập vào câu trả lời", "warning");
+            }
+            else
+            {
+                commentViewModel.CreateDate = DateTime.Now;
+                Comment commentModel = new Comment();
+                commentModel.UpdateComment(commentViewModel);
+
+                _commentService.Add(commentModel);
+                _commentService.Save();
+
+                var lstComment = _commentService.GetListCommentByPostID(commentModel.PostID);
+                lstCommentViewModel = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentViewModel>>(lstComment);
+
+                SetAlert("Đăng bình luận thành công", "success");
+            }
+            return PartialView("AnswerPartial", lstCommentViewModel);
         }
     }
 }

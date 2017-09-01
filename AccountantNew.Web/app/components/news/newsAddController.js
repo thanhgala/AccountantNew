@@ -28,7 +28,7 @@
             }
 
             function loadNewCategory() {
-                apiService.get('api/newcategory/getallparent', null, function (result) {
+                apiService.get('api/newcategory/getnewscategory', null, function (result) {
                     $scope.newcategories = commonService.getTree(result.data, "ID","ParentID");
                     $scope.newcategories.forEach(function (item) {
                         commonService.recur(item, 0, $scope.flatFolders);

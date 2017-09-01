@@ -32,5 +32,7 @@ namespace AccountantNew.Web.Models
 
         [Required]
         public bool Status { set; get; }
+
+        public bool Child { set; get; }
     }
 }

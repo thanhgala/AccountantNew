@@ -118,6 +118,22 @@
     <Compile Include="Migrations\201708140911106_updatePostTable.Designer.cs">
       <DependentUpon>201708140911106_updatePostTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708210933326_addColumnForTableComment.cs" />
+    <Compile Include="Migrations\201708210933326_addColumnForTableComment.Designer.cs">
+      <DependentUpon>201708210933326_addColumnForTableComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708220338363_UpdateCommentRequiredForContent.cs" />
+    <Compile Include="Migrations\201708220338363_UpdateCommentRequiredForContent.Designer.cs">
+      <DependentUpon>201708220338363_UpdateCommentRequiredForContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708250432117_disableOnDeleteCascade2.cs" />
+    <Compile Include="Migrations\201708250432117_disableOnDeleteCascade2.Designer.cs">
+      <DependentUpon>201708250432117_disableOnDeleteCascade2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708260406100_updateTableFile.cs" />
+    <Compile Include="Migrations\201708260406100_updateTableFile.Designer.cs">
+      <DependentUpon>201708260406100_updateTableFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -126,6 +142,8 @@
     <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\NewCategoryRepository.cs" />
+    <Compile Include="Repositories\CommentRepository.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\NewRepository.cs" />
   </ItemGroup>
@@ -183,6 +201,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708140911106_updatePostTable.resx">
       <DependentUpon>201708140911106_updatePostTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708210933326_addColumnForTableComment.resx">
+      <DependentUpon>201708210933326_addColumnForTableComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708220338363_UpdateCommentRequiredForContent.resx">
+      <DependentUpon>201708220338363_UpdateCommentRequiredForContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708250432117_disableOnDeleteCascade2.resx">
+      <DependentUpon>201708250432117_disableOnDeleteCascade2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708260406100_updateTableFile.resx">
+      <DependentUpon>201708260406100_updateTableFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

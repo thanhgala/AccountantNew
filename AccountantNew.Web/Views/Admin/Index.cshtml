@@ -11,7 +11,10 @@
         <!--Toastr 2.1.2-->
         <link href="~/Assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
 
-        <link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        @*<link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />*@
+
+        <link href="~/Assets/admin/admin-lte/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+
         <!--Loading bar-->
         <link href="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.css" rel="stylesheet" />
 
@@ -36,6 +39,7 @@
         <![endif]-->
         <link href="~/app/components/new_categorise/newCategoryList.css" rel="stylesheet" />
         <link href="~/app/components/news/img.css" rel="stylesheet" />
+        <link href="~/app/components/files/files.css" rel="stylesheet" />
     </head>
     <body class="hold-transition skin-blue sidebar-mini" ng-app="accountantnew" ng-controller="rootController">
         <div ui-view></div>
@@ -47,6 +51,8 @@
         <script src="~/Assets/admin/libs/slimscroll/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->
         <script src="~/Assets/admin/libs/fastclick/lib/fastclick.js"></script>
+
+        <script src="~/Assets/admin/admin-lte/plugins/datepicker/bootstrap-datepicker.js"></script>
 
         <!-- begin embed angularjs -->
         <script src="~/Assets/admin/libs/angular/angular.js"></script>
@@ -65,6 +71,8 @@
         <script src="~/Assets/admin/libs/checklist-model/checklist-model.js"></script>
         <script src="~/Assets/admin/libs/angular-ui-tree/dist/angular-ui-tree.js"></script>
         <script src="~/Assets/admin/libs/angular-ui-select/dist/select.js"></script>
+        @*<script src="~/Assets/admin/libs/ng-pdfviewer/lib/pdf.js"></script>
+        <script src="~/Assets/admin/libs/ng-pdfviewer/ng-pdfviewer.js"></script>*@
 
         <script src="~/app/shared/modules/accountantnew.common.js"></script>
 
@@ -73,11 +81,13 @@
         <script src="~/app/shared/services/shareIDService.js"></script>
         <script src="~/app/shared/services/apiService.js"></script>
         <script src="~/app/shared/directives/pagerDirective.js"></script>
+
         <script src="~/app/shared/services/notificationService.js"></script>
         <script src="~/app/shared/services/commonService.js"></script>
-
+        <script src="~/app/shared/directives/fileUpload.directive.js"></script>
         <script src="~/app/components/news/news.module.js"></script>
         <script src="~/app/components/new_categorise/newCategories.module.js"></script>
+        <script src="~/app/components/files/files.module.js"></script>
         <script src="~/app/components/application_groups/applicationGroups.module.js"></script>
 
         <script src="~/app/app.js"></script>
@@ -90,6 +100,9 @@
         <script src="~/app/components/new_categorise/newCategoryListController.js"></script>
         <script src="~/app/components/new_categorise/newCategoryAddController.js"></script>
         <script src="~/app/components/new_categorise/newCategoryEditController.js"></script>
+
+        <script src="~/app/components/files/filesListController.js"></script>
+        <script src="~/app/components/files/filesPdfController.js"></script>
 
         <script src="~/app/components/home/homeController.js"></script>
 

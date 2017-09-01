@@ -20,7 +20,9 @@ namespace AccountantNew.Common
 
         public const string SupperAdmin = "SupperAdmin";
 
-        public const int NewID = 3;
+        public const string FileUpload = "/UploadedFiles/FilePdf/";
+
+        public const int NewID = 184;
 
         public const int PolicyID = 4;
 

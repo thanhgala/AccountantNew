@@ -202,6 +202,7 @@
   <ItemGroup>
     <Compile Include="API\ApplicationGroupController.cs" />
     <Compile Include="API\ApplicationRoleController.cs" />
+    <Compile Include="API\FileController.cs" />
     <Compile Include="API\NewCategoryController.cs" />
     <Compile Include="API\NewController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -233,7 +234,9 @@
     <Compile Include="Models\ApplicationGroupViewModel.cs" />
     <Compile Include="Models\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
+    <Compile Include="Models\FileViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\NewViewModel.cs" />
     <Compile Include="Models\NewCategoryViewModel.cs" />
@@ -251,6 +254,13 @@
     <Content Include="app\components\application_groups\applicationGroupsListController.js" />
     <Content Include="app\components\application_groups\applicationGroupsListView.html" />
     <Content Include="app\components\application_groups\applicationPermissionPoup.html" />
+    <Content Include="app\components\files\files.css" />
+    <Content Include="app\components\files\files.module.js" />
+    <Content Include="app\components\files\filesPdfController.js" />
+    <Content Include="app\components\files\filesListController.js" />
+    <Content Include="app\components\files\filesPdfView.html" />
+    <Content Include="app\components\files\filesListView.html" />
+    <Content Include="app\components\files\pdfViewDetailPoup.html" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\home\rootController.js" />
@@ -272,6 +282,7 @@
     <Content Include="app\components\new_categorise\newCategoryListController.js" />
     <Content Include="app\components\new_categorise\newCategoryListView.html" />
     <Content Include="app\components\new_categorise\newCategoryAddPoup.html" />
+    <Content Include="app\shared\directives\fileUpload.directive.js" />
     <Content Include="app\shared\directives\pagerDirective.html" />
     <Content Include="app\shared\directives\pagerDirective.js" />
     <Content Include="app\shared\filters\statusFilter.js" />
@@ -1179,7 +1190,9 @@
     <Content Include="Assets\admin\img\credit\paypal2.png" />
     <Content Include="Assets\admin\img\credit\visa.png" />
     <Content Include="Assets\admin\img\default-50x50.gif" />
+    <Content Include="Assets\admin\img\folder.svg" />
     <Content Include="Assets\admin\img\icons.png" />
+    <Content Include="Assets\admin\img\pdf.png" />
     <Content Include="Assets\admin\img\photo1.png" />
     <Content Include="Assets\admin\img\photo2.png" />
     <Content Include="Assets\admin\img\photo3.jpg" />
@@ -3504,6 +3517,16 @@
     <Content Include="Assets\admin\libs\ng-ckeditor\src\scripts\03-outro.js" />
     <Content Include="Assets\admin\libs\ng-ckeditor\test\directiveOnFormSpec.js" />
     <Content Include="Assets\admin\libs\ng-ckeditor\test\directiveSpec.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\demo\controller.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\demo\index.html" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\lib\angular.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\lib\bootstrap.min.css" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\lib\compatibility.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\lib\ng-pdfviewer.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\lib\pdf.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\lib\pdf.worker.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\ng-pdfviewer.js" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\server.js" />
     <Content Include="Assets\admin\libs\ngBootbox\dist\ngBootbox.js" />
     <Content Include="Assets\admin\libs\ngBootbox\dist\ngBootbox.min.js" />
     <Content Include="Assets\admin\libs\ngBootbox\examples\example-1\app.js" />
@@ -3970,6 +3993,7 @@
     <Content Include="Assets\client\js\jquery.nanoscroller.js" />
     <Content Include="Assets\client\js\jquery.simplyscroll.js" />
     <Content Include="Assets\client\js\jquery.sticky.js" />
+    <Content Include="Assets\client\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Assets\client\js\main.js" />
     <Content Include="Assets\client\js\owl.carousel.min.js" />
     <Content Include="Assets\client\js\selectFx.js" />
@@ -4465,6 +4489,12 @@
     <Content Include="Assets\admin\libs\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Assets\admin\libs\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Assets\admin\libs\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\.bower.json" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\CHANGES.md" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\demo\test.pdf" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\demo\test2.pdf" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\LICENSE.md" />
+    <Content Include="Assets\admin\libs\ng-pdfviewer\README.md" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
@@ -4478,6 +4508,8 @@
     <Content Include="Views\Forum\Ask.cshtml" />
     <Content Include="Views\Forum\ForumPost.cshtml" />
     <Content Include="Views\Forum\DetailPost.cshtml" />
+    <Content Include="Views\Forum\AnswerPartial.cshtml" />
+    <Content Include="Views\File\GetListFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccountantNew.Common\AccountantNew.Common.csproj">

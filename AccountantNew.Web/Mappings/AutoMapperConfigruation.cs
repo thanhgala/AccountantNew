@@ -32,6 +32,10 @@ namespace AccountantNew.Web.Mappings
                 cg.CreateMap<New, NewViewModel>();
 
                 cg.CreateMap<Post, PostViewModel>();
+
+                cg.CreateMap<Comment, CommentViewModel>();
+
+                cg.CreateMap<File, FileViewModel>();
             });
         }
     }

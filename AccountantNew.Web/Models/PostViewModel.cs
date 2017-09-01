@@ -32,5 +32,7 @@ namespace AccountantNew.Web.Models
         public string UpdateBy { set; get; }
 
         public bool Status { set; get; }
+
+        public IEnumerable<CommentViewModel> Comments { set; get; }
     }
 }
