@@ -5,6 +5,7 @@
         function getFileChildCategory() {
             apiService.get('api/newcategory/getchildrootparent/' + $stateParams.id, null, function (result) {
                 $scope.data = result.data;
+                $scope.folderName = $stateParams.folder.toUpperCase();
             }, function () {
                 console.log('Cannot get list category');
             });
@@ -24,6 +25,18 @@
             }
             else {
                 $state.go("files.action", { "folder": name, "action": id });
+            }
+        }
+
+        $scope.goBack = function (folderName) {
+            var folder = folderName.toLowerCase();
+            if (folder == 'chinh-sach' ||
+                folder == 'phap-luat' ||
+                folder == 'license' ||
+                folder == 'bao-cao') {
+                return null;
+            } else {
+                window.history.back();
             }
         }
     }])

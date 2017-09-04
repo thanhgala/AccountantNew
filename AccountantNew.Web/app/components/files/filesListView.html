@@ -1,11 +1,11 @@
 ﻿<section class="content-header">
     <h1>
-        DANH SÁCH FILES
+        {{folderName}}
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li><a href="#">Quản lý files</a></li>
-        <li class="active">Danh sách files</li>
+        <li class="active">{{folderName}}</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -42,8 +42,8 @@
                         </div>-->
                     </div>
                 </div>
-                <!-- /.box-body -->
             </div>
+            <input type="button" class="btn btn-danger" ng-click="goBack(folderName)" value="Go Back" />
         </div>
     </div>
 </section>

@@ -1,11 +1,11 @@
 ﻿<section class="content-header">
     <h1>
-        DANH SÁCH FILES
+        {{folderName}}
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li><a href="#">Quản lý files</a></li>
-        <li class="active">Danh sách files</li>
+        <li class="active">{{folderName}}</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -28,12 +28,53 @@
                 </div>
                 <div class="box-body">
                     <div class="col-md-12">
-                        <div class="col-xs-3 folders text-center" style="margin-top:15px;" ng-repeat="item in data">
+                        <!--<div class="col-xs-3 folders text-center" style="margin-top:15px;" ng-repeat="item in data">
                             <img ng-dblclick="openPdf(item)" src="/Assets/admin/img/pdf.png" class="img-responsive  center-block" style="height: 64px;width:64px;" alt="">
                             <p>{{item.Name}}</p>
                             <button class="btn btn-sm btn-primary" ng-click="getPdfDetail(item)" data-toggle="modal" data-target="#updateFile"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-sm btn-danger" ng-click="deletePdf(item.ID)"><i class="fa fa-trash"></i></button>
-                        </div>
+                        </div>-->
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th style="width:20%">Tên văn bản</th>
+                                    <th style="width:30%">Trích yếu</th>
+                                    <th style="width:10%">Thư mục</th>
+                                    <th style="width:10%">Ngày tạo</th>
+                                    <th style="width:10%">Ngày bắt đầu hiệu lực</th>
+                                    <th style="width:10%">Trạng thái</th>
+                                    <th style="width:10%">Thao tác</th>
+                                </tr>
+                                <tr ng-dblclick="openPdf(item)" ng-repeat="item in data">
+                                    <td><strong>{{item.Name}}</strong></td>
+                                    <td>{{item.Describtion}}</td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        {{item.CreatedDate | date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td>
+                                        {{item.TimeStarted | date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <!--<td>{{item.NewCategoryName}}</td>-->
+                                    <td>
+                                        <span ng-class="{'badge bg-red':item.Status == false,'badge bg-green':item.Status == true}">
+                                            {{item.Status | statusFilter}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" ng-click="getPdfDetail(item)" data-toggle="modal" data-target="#updateFile"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-sm btn-danger" ng-click="deletePdf(item.ID)"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!--<tfoot>
+                                <tr>
+                                    <td colspan="6"><span class="pull-right">Trang {{page+1}} - Tổng số bản ghi: {{countInPage}}</span></td>
+                                </tr>
+                            </tfoot>-->
+                        </table>
                     </div>
 
                     <div id="addFile" data-backdrop="static" class="modal fade" role="dialog">
@@ -116,6 +157,14 @@
                                                         </ui-select-choices>
                                                     </ui-select>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label>Trích yếu</label>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea style="width:100%;height:80px;" ng-model="pdfDetail.Describtion"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group" ng-class="{ 'has-error' : frmUpdateFile.timestarted.$invalid && !frmUpdateFile.timestarted.$pristine }">
                                                     <label>Ngày bắt đầu</label>
                                                     <div class="input-group date">
@@ -154,6 +203,8 @@
                 </div>
                 <div class="col-xs-4"></div>
             </div>
+            
+            <input type="button" class="btn btn-danger" onclick="history.back()" value="Go Back" />
         </div>
     </div>
 </section>

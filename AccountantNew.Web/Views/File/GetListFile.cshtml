@@ -1,19 +1,27 @@
 ﻿@model IEnumerable<AccountantNew.Web.Models.FileViewModel>
 
+<tr>
+    <th style="width:30%">Tên văn bản</th>
+    <th style="width:50%">Trích yếu</th>
+    <th style="width:10%">Ngày ban hành</th>
+    <th style="width:10%">Tải về</th>
+</tr>
 @foreach (var item in Model)
 {
-    <li>
-        <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
-
-        <div class="mailbox-attachment-info">
-            <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> @item.Name</a>
-            <span class="mailbox-attachment-size">
-                1,245 KB
-                <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-            </span>
-        </div>
-    </li>
-
-
+    <tr>
+        @*<td>@Html.ActionLink(item.Name,"","",new { data_toggle = "modal", data_target = "#openPdf" })</td>*@
+        <td>@Ajax.ActionLink(item.Name, "DisplayPDF","File",new { path = item.Path},new AjaxOptions {HttpMethod = "GET",InsertionMode = InsertionMode.Replace,UpdateTargetId = "pdfBody" },
+           new { @data_toggle = "modal", @data_target = "#openPdf" })</td>
+        <td>
+            @item.Describtion
+        </td>
+        <td>
+            @item.TimeStarted.ToShortDateString()
+        </td>
+        <td>
+            <button class="btn btn-sm btn-danger"><i class="fa fa-download"></i></button>
+        </td>
+    </tr>
 }
+
 

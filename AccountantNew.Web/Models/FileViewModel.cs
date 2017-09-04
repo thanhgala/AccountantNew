@@ -17,6 +17,8 @@ namespace AccountantNew.Web.Models
 
         public string Path { set; get; }
 
+        public string Describtion { set; get; }
+
         public DateTime TimeStarted { set; get; }
 
         public DateTime? CreatedDate { set; get; }

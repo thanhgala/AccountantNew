@@ -41,12 +41,27 @@
         function getListFile() {
             apiService.get('api/file/getlistfile/' + $stateParams.action, null, function (result) {
                 $scope.data = result.data;
+                $scope.folderName = $stateParams.folder.toUpperCase();
                 $scope.loading = false;
             }, function () {
                 console.log('Cannot get list category');
             });
         }
         getListFile();
+
+
+        //function getAllCate() {
+        //    apiService.get('api/newcategory/getallparent', null, function (result) {
+        //        $scope.dataCate = result.data;
+        //    }, function () {
+        //        console.log('Cannot get list category');
+        //    });   
+        //}
+        //getAllCate();
+
+        //$scope.filterData = function (id) {
+        //    return $filter('filter')($scope.dataCate, { ID: id });
+        //}
 
         $scope.addFile = function () {
             var folder = $stateParams.folder;
@@ -116,7 +131,11 @@
                 angular.element(document).find('#updateFile').modal('hide');
                 getListFile();
             }, function (err) {
-                notificationService.displayError(err.data);
+                if (err.status === 400) {
+                    notificationService.displayError('File này đã tồn tại trong thư mục bạn muốn di chuyển tới.');
+                } else {
+                    notificationService.displayError(err.data);
+                }
             })
         }
 

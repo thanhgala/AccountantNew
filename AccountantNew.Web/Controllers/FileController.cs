@@ -115,5 +115,16 @@ namespace AccountantNew.Web.Controllers
             }
             return null;
         }
+
+        //public FileResult DisplayPDF()
+        //{
+        //    return File("/UploadedFiles/FilePdf/cong-ty-123/Unity AI Programming Essentials.pdf", "application/pdf");
+        //}
+
+        [HttpGet]
+        public ActionResult DisplayPDF(string path)
+        {
+            return PartialView("DisplayPDF",path);
+        }
     }
 }

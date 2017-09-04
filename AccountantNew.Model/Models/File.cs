@@ -31,6 +31,8 @@ namespace AccountantNew.Model.Models
         [Required]
         public string Path { set; get; }
 
+        public string Describtion { set; get; }
+
         [Required]
         public DateTime TimeStarted { set; get; }
 

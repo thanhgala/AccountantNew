@@ -7,6 +7,11 @@
 
 @section footerJS{
     <script src="~/Assets/client/js/controllers/getCategoryController.js"></script>
+    <script>
+        $('#openPdf').on('hidden.bs.modal', function (e) {
+            $('#pdfFrame').remove();
+        })
+    </script>
 }
 
 @section pageTitle{
@@ -53,9 +58,29 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <ul class="mailbox-attachments clearfix" id="listFile">
+                        @*<ul class="mailbox-attachments clearfix" id="listFile">
                             
-                        </ul>
+                        </ul>*@
+                        <table class="table table-hover">
+                            <tbody id="listFile">
+                                <tr>
+                                    <th style="width:30%">Tên văn bản</th>
+                                    <th style="width:50%">Trích yếu</th>
+                                    <th style="width:10%">Ngày bắt đầu hiệu lực</th>
+                                    <th style="width:10%">Tải về</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="openPdf" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content" id="pdfBody">
+
+                        </div>
                     </div>
                 </div>
             </div>

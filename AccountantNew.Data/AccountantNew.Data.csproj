@@ -134,6 +134,10 @@
     <Compile Include="Migrations\201708260406100_updateTableFile.Designer.cs">
       <DependentUpon>201708260406100_updateTableFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709010646059_addColumnDesIntoFile.cs" />
+    <Compile Include="Migrations\201709010646059_addColumnDesIntoFile.Designer.cs">
+      <DependentUpon>201709010646059_addColumnDesIntoFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -213,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708260406100_updateTableFile.resx">
       <DependentUpon>201708260406100_updateTableFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709010646059_addColumnDesIntoFile.resx">
+      <DependentUpon>201709010646059_addColumnDesIntoFile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

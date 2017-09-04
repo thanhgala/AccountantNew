@@ -165,10 +165,10 @@ namespace AccountantNew.Web.API
                 {
                     var folder = _newCategoryService.GetByID(fileViewModel.NewCategoryID);
                     string pathDest = HttpContext.Current.Server.MapPath("~/UploadedFiles/FilePdf/" + folder.Alias + "-" + folder.ID);
-                    if (System.IO.File.Exists(pathDest + "/" + fileViewModel.Name))
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NotAcceptable, "File này đã tồn tại trong danh mục " + folder.Name );
-                    }
+                    //if (System.IO.File.Exists(pathDest + "/" + fileViewModel.Name))
+                    //{
+                    //    return Request.CreateResponse(HttpStatusCode.NotAcceptable, "File này đã tồn tại trong danh mục " + folder.Name );
+                    //}
                     if (!Directory.Exists(pathDest))
                     {
                         Directory.CreateDirectory(pathDest);

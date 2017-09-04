@@ -90,6 +90,8 @@ namespace AccountantNew.Web.Infastructure.Extensions
 
             file.Path = fileViewModel.Path;
 
+            file.Describtion = fileViewModel.Describtion;
+
             file.TimeStarted = fileViewModel.TimeStarted;
 
             file.CreatedDate = fileViewModel.CreatedDate; 
