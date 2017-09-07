@@ -2,33 +2,35 @@
     <div class="section-title">
         <h3> <span class="cat-icon"><i class="fa fa-usd"></i></span>Tỉ giá ngoại tệ</h3>
     </div>
-
-    <div class="clearfix">
-        @foreach (var item in Model)
-        {
-            <div class="col-sm-12 col-xs-12 social-common-bar">
-                @{switch ((string)item.CurrencyCode)
+    @if (Model != null)
+    {
+        <div class="clearfix">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-12 col-xs-12 social-common-bar">
+                    @{switch ((string)item.CurrencyCode)
                     {
                         case "THB":
-                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/thailand.png"/></a></div>
-                            break;
-                        case "JPY":
-                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/japan.png" /></a></div>
-                            break;
-                        case "EUR":
-                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/european-union.png" /></a></div>
-                            break;
-                        case "USD":
-                            <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/united-states.png" /></a></div>
-                            break;
+                                <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/thailand.png" /></a></div>
+                                break;
+                            case "JPY":
+                                <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/japan.png" /></a></div>
+                                break;
+                            case "EUR":
+                                <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/european-union.png" /></a></div>
+                                break;
+                            case "USD":
+                                <div class="social-icon"><a href="#"><img class="" src="~/Assets/client/img/currencyCountry/united-states.png" /></a></div>
+                                break;
+                        }
                     }
-                }
-                <div class="social-total-count">
-                    <p class="follow-button">Mua: @item.Buy, Bán: @item.Sell<span class="social-text"><strong>@item.CurrencyName</strong></span></p>
+                    <div class="social-total-count">
+                        <p class="follow-button">Mua: @item.Buy, Bán: @item.Sell<span class="social-text"><strong>@item.CurrencyName</strong></span></p>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+              }
+        </div>
+     }
 </div>
 <div class="weather-news">
     <div class="section-title">

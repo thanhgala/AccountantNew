@@ -33,12 +33,12 @@
             <a href="javascript:void(0);">
                 <i class="fa fa-files-o"></i>
                 <span>Hệ thống</span>
-                <span class="label label-primary pull-right">2</span>
+                <span class="label label-primary pull-right">3</span>
             </a>
             <ul class="treeview-menu">
-                <li><a ui-sref="application_groups"><i class="fa fa-circle-o"></i> Nhóm người dùng</a></li>
-                <!--<li><a ui-sref="application_roles"><i class="fa fa-circle-o"></i> Quyền</a></li>-->
-                <li><a ui-sref="application_users"><i class="fa fa-circle-o"></i> Người dùng</a></li>
+                <li><a ui-sref="application_groups"><i class="fa fa-circle-o"></i> Nhóm quyền</a></li>
+                <li><a ui-sref="application_roles"><i class="fa fa-circle-o"></i> Danh sách Admin</a></li>
+                <li><a ui-sref="application_users"><i class="fa fa-circle-o"></i> Danh sách User</a></li>
             </ul>
         </li>
         <li class="treeview">
@@ -59,7 +59,7 @@
             <a href="javascript:void(0);">
                 <i class="fa fa-files-o"></i>
                 <span>Quản lý file</span>
-                <span class="label label-primary pull-right"></span>
+                <span class="label label-primary pull-right">{{rootCategory.length}}</span>
             </a>
             <ul class="treeview-menu">
                 <li ng-repeat="item in rootCategory"><a ui-sref="files({folder:'{{item.Alias}}',id:'{{item.ID}}'})"><i class="fa fa-circle-o"></i> {{item.Name}}</a></li>

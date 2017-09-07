@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AccountantNew.Web.Models.NewCategoryViewModel>
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<AccountantNew.Web.Models.NewCategoryViewModel>
 
 @{
     var lstNew = (IEnumerable<AccountantNew.Web.Models.NewViewModel>)ViewBag.LstNew;
@@ -21,10 +22,9 @@
             $("#scroller").simplyScroll();
         });
     })(jQuery);
-    @*@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {*@
+  
 </script>
-
+   
 <div id="newedge-top-bar">
     <div class="container">
         <div class="row">
@@ -71,53 +71,63 @@
             <div class="col-sm-12 col-md-4 col-header-3-5">
                 <div class="top-right">
                     <div class="newedge-date">
-                        <span id="time">	 </span>
+                        @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                        {
+                            if (Request.IsAuthenticated)
+                            {
+                                @Html.AntiForgeryToken()
+                                <span>Xin chào: @User.Identity.GetUserName() |<a href="javascript:document.getElementById('frmLogout').submit()" id="btnLogout" style="color:#b9b9b9;"> Thoát</a></span>
+                            }
+                            else
+                            {
+                                <span id="time">	 </span>
+                            }
+                        }
                     </div>
-                    <div class="newedge-login">
-                        <a href="#" role="button" data-toggle="modal" data-target="#login">
-                            <i class="fa fa-user"></i>
-                        </a>
-                        <!-- Login modal -->
-                        <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-                                        <h1 class="text-left">Đăng nhập</h1>
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <div class="newedge-login">
+                            <a href="#" role="button" data-toggle="modal" data-target="#login">
+                                <i class="fa fa-user"></i>
+                            </a>
+                            <!-- Login modal -->
+                            <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+                                            <h1 class="text-left">Đăng nhập</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            @*@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @enctype = "multipart/form-data", id = "login-form" }))*@
+                                            @using (Ajax.BeginForm("Login", "Account", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "status", InsertionMode = InsertionMode.Replace }))
+                                            {
+                                                <fieldset class="userdata">
+                                                    <input id="username" placeholder="User Domain" type="text" name="UserName" class="form-control">
+                                                    <input id="password" type="password" placeholder="Mật khẩu" name="Password" class="form-control">
+                                                    <div class="remember-wrap">
+                                                        <input id="remember" type="checkbox" name="RememberMe" class="inputbox" />
+                                                        <label for="remember">Nhớ tôi</label>
+                                                    </div>
+                                                    <div class="button-wrap pull-left">
+                                                        <input type="submit" name="Submit" class="btn btn-block btn-success" value="Đăng nhập">
+                                                    </div>
+                                                </fieldset>
+                                                <br />
+                                                <div id="status" class="pull-left" style="color:red"></div>
+                                            }
+                                        </div> <!--/Modal body-->
+                                        <div class="modal-footer">
+                                            <a href="#" role="button" data-dismiss="modal" data-toggle="modal" data-target="#register">
+                                                Xác nhận tài khoản
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @enctype = "multipart/form-data", id = "login-form" }))
-                                        {
-                                            <fieldset class="userdata">
-                                                <input id="username" placeholder="Tài khoản" type="text" name="username" class="form-control">
-                                                <input id="password" type="password" placeholder="Mật khẩu" name="password" class="form-control">
-                                                <div class="remember-wrap">
-                                                    <input id="remember" type="checkbox" name="remember" class="inputbox" value="yes">
-                                                    <label for="remember">Nhớ tôi</label>
-                                                </div>
-                                                <div class="button-wrap pull-left">
-                                                    <input type="submit" name="Submit" class="btn btn-block btn-success" value="Đăng nhập">
-                                                </div>
-                                                <p class="forget-name-link pull-left">
-                                                    Forgot <a href="#">
-                                                        Username
-                                                    </a> or <a href="#">
-                                                        Password
-                                                    </a>
-                                                </p>
-                                            </fieldset>
-                                        }
-                                    </div> <!--/Modal body-->
-                                    <div class="modal-footer">
-                                        New Here? <a href="#">
-                                            Create an account
-                                        </a>
-                                    </div> <!--/Modal footer-->
-                                </div> <!-- Modal content-->
-                            </div> <!-- /.modal-dialog -->
-                        </div> <!-- //Login modal -->
-                    </div> <!-- //login -->
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <div class="newedge-search">
                         <div class="search-icon-wrapper">
                             <i class="fa fa-search"></i>
@@ -131,7 +141,57 @@
                     </div> <!-- //search -->
                 </div> <!-- //top-right -->
             </div>
-            </div> <!-- //row -->
+
+            <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">Xác nhận tài khoản</h3>
+                            <p style="color:red">Vui lòng cung cấp thông tin chính xác.</p>
+                        </div>
+                        <div class="modal-body">
+                            <!-- content goes here -->
+                            @using (Ajax.BeginForm("Register", "Account",null ,new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "notify", InsertionMode = InsertionMode.Replace },new {id= "frmRegister", enctype = "multipart/form-data"}))
+                            {
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">User Domain</label>
+                                            <input type="text" class="form-control" id="userDomain" name="UserName" placeholder="User Domain">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Họ tên</label>
+                                            <input type="text" class="form-control" id="name" name="FullName" placeholder="Họ tên">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Email</label>
+                                            <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleInputPassword1">Số điện thoại</label>
+                                            <input type="tel" class="form-control" id="exampleInputPassword1" name="PhoneNumber" placeholder="Số điện thoại">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Ảnh đại diện</label>
+                                    <img id="upFile" name="Image" src="" style="width:89px;height:127px; cursor:pointer" />
+                                    <input type="file" id="openImage" name="Image" style="display: none" accept=".jpg,.png" />
+                                    <div id="notify" style="color:red"></div>
+                                </div>
+                                <button type="submit" id="btnXacNhan" disabled class="btn btn-success">Xác nhận</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div> <!-- //container -->
 </div>
 
@@ -320,4 +380,41 @@
         return i;
     }
 
+    $("#upFile").click(function () {
+        $("#openImage").trigger('click');
+    });
+
+    $('input[type=file]').change(function (event) {
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $('#upFile').prop({ src: tmppath });
+        $('#btnXacNhan').removeAttr("disabled");
+    });
+    
+    window.addEventListener("submit", function (e) {
+        var form = e.target;
+        if (form.getAttribute("enctype") === "multipart/form-data") {
+            if (form.dataset.ajax) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var xhr = new XMLHttpRequest();
+                xhr.open(form.method, form.action);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        if (form.dataset.ajaxUpdate) {
+                            var updateTarget = document.querySelector(form.dataset.ajaxUpdate);
+                            if (updateTarget) {
+                                updateTarget.innerHTML = xhr.responseText;
+                            }
+                        }
+                    }
+                };
+                xhr.send(new FormData(form));
+            }
+        }
+    }, true);
+
+    $('#register').on('hidden.bs.modal', function (e) {
+        window.location.reload();
+    })
 </script>
+<script src="~/Assets/client/js/controllers/register.js"></script>

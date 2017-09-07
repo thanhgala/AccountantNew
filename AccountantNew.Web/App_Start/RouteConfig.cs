@@ -14,6 +14,13 @@ namespace AccountantNew.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Login",
+                  url: "dang-nhap",
+                  defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+                  namespaces: new string[] { "AccountantNew.Web.Controllers" }
+              );
+
+            routes.MapRoute(
                name: "DetailPost",
                url: "{category}-{id}-forum/{alias}.html",
                defaults: new { controller = "Forum", action = "DetailPost", id = UrlParameter.Optional },

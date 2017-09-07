@@ -39,21 +39,21 @@ namespace AccountantNew.Web.App_Start
                     RequireUniqueEmail = true
                 };
 
-                // Configure validation logic for passwords
-                manager.PasswordValidator = new PasswordValidator
-                {
-                    RequiredLength = 6,
-                    RequireNonLetterOrDigit = true,
-                    RequireDigit = true,
-                    RequireLowercase = true,
-                    RequireUppercase = true,
-                };
+                //manager.PasswordValidator = new PasswordValidator
+                //{
+                //    RequiredLength = 6,
+                //    RequireNonLetterOrDigit = true,
+                //    RequireDigit = true,
+                //    RequireLowercase = true,
+                //    RequireUppercase = true,
+                //};
+
                 // Configure user lockout defaults
-                manager.UserLockoutEnabledByDefault = true;
+
+                //manager.UserLockoutEnabledByDefault = true;
                 manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
 
                 manager.MaxFailedAccessAttemptsBeforeLockout = 5;
-
                 //manager.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser>
                 //{
                 //    Subject = "Security Code",
