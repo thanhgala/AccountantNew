@@ -118,12 +118,12 @@
                                                 <br />
                                                 <div id="status" class="pull-left" style="color:red"></div>
                                             }
-                                        </div> <!--/Modal body-->
-                                        <div class="modal-footer">
+                                        </div>
+                                        @*<div class="modal-footer">
                                             <a href="#" role="button" data-dismiss="modal" data-toggle="modal" data-target="#register">
                                                 Xác nhận tài khoản
                                             </a>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -138,12 +138,12 @@
                                 <input name="searchword" maxlength="200" class="inputboxnewedge-top-search" type="text" size="20" placeholder="Search ...">
                                 <i id="search-close" class="fa fa-close"></i>
                             </form>
-                        </div> <!-- //search-wrapper -->
-                    </div> <!-- //search -->
-                </div> <!-- //top-right -->
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            @*<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -152,7 +152,7 @@
                             <p style="color:red">Vui lòng cung cấp thông tin chính xác.</p>
                         </div>
                         <div class="modal-body">
-                            <!-- content goes here -->
+                             content goes here 
                             @using (Ajax.BeginForm("Register", "Account",null ,new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "notify", InsertionMode = InsertionMode.Replace },new {id= "frmRegister", enctype = "multipart/form-data"}))
                             {
                                 <div class="form-group">
@@ -190,7 +190,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
         </div>
     </div> <!-- //container -->
@@ -218,7 +218,7 @@
                     </li>
                     <li class="has-child menu-justify" style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                         @{
-                                var modelTinTuc = Model.SingleOrDefault(x => x.Name == "Tin tức");
+                            var modelTinTuc = Model.SingleOrDefault(x => x.Name == "Tin tức");
                             var childTinTucs = Model.Where(x => x.ParentID == modelTinTuc.ID);
                             var urlTinTuc = "/" + modelTinTuc.Alias + ".html";
                         }
@@ -292,7 +292,7 @@
                             </div>
                         </div>
                      </li>
-                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Comment"))
+                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Comment" && x.Name!="Sơ đồ tổ chức" && x.Name != "Thống kê"))
                     {
                         var url = "/" + category.Alias + "-" + category.ID + "-file.html";
                         <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
@@ -356,6 +356,13 @@
                                     }
                                 </ul>
                             </div>
+                        </li>
+                    }
+                    @foreach (var categoryLast2 in Model.Where(x => x.ParentID == null &&  x.Name == "Sơ đồ tổ chức" || x.Name == "Thống kê"))
+                    {
+                        var url = "/page-" + categoryLast2.Alias + ".html";
+                        <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
+                            <a href="@url">@categoryLast2.Name</a>
                         </li>
                     }
                  </ul>

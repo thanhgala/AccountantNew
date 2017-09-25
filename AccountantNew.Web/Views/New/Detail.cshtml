@@ -3,7 +3,7 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/Layouts.cshtml";
     string pageTitle = ViewBag.PageTitle;
-    var CurrentRate = ViewBag.CurrentRate as List<AccountantNew.Web.Models.CurrencyModel>;
+    var ModelCurrencyRate = ViewBag.Model as AccountantNew.Web.Models.HomeViewModel;
 }
 
 @section pageTitle{
@@ -95,7 +95,7 @@
             </div>
             
             <div class="col-sm-3">
-                @Html.Partial("Col3Partial", CurrentRate)
+                @Html.Partial("Col3Partial",ModelCurrencyRate)
             </div>
         </div>
     </div>

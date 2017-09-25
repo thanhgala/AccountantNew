@@ -8,6 +8,7 @@
     <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">Chỉnh sửa</h3>
+            <button class="btn btn-success pull-right" id="btnAccessFile" ng-click="AccessFile()"><i class="fa fa-plus"></i>Quản lý quyền truy cập file</button>
             <button class="btn btn-success pull-right" ng-click="AddRole()"><i class="fa fa-plus"></i>Thêm quyền</button>
             <button class="btn btn-danger pull-right" id="btnDelete" ng-click="deleteMultipleRole()" disabled><i class="fa fa-trash"></i>Xóa quyền</button>
         </div>
@@ -39,10 +40,11 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="button" ng-click="close()" class="btn btn-default">Hủy</button>
+                <button type="button" ng-click="close(true)" class="btn btn-default">Đóng</button>
                 <button type="submit" ng-disabled="frmUpdate.$invalid" class="btn btn-success pull-right">Lưu</button>
             </div>
             <!-- /.box-footer -->
         </form>
+
     </div>
 </section>

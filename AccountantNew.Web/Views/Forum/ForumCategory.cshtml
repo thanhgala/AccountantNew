@@ -3,7 +3,7 @@
     ViewBag.Title = "ForumCategory";
     Layout = "~/Views/Shared/Layouts.cshtml";
     var cate = ViewBag.CategoryModel as AccountantNew.Web.Models.NewCategoryViewModel;
-    var CurrentRate = ViewBag.CurrentRate as List<AccountantNew.Web.Models.CurrencyModel>;
+    var ModelCurrentRate = ViewBag.ModelCurrentRate as AccountantNew.Web.Models.HomeViewModel;
 }
 
 @section footerJS{
@@ -11,7 +11,7 @@
         function gotoAsk() {
             window.location.href = '@Url.Action("Ask","Forum",new {@id =  cate.ID})';
         }
-    </script>    
+    </script> 
 }
 
 @section pageTitle{
@@ -74,7 +74,7 @@
                 }
                 else
                 {
-                    @Html.Partial("Col3Partial", CurrentRate)
+                    @Html.Partial("Col3Partial", ModelCurrentRate)
                 }
             </div>
         </div>

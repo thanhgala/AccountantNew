@@ -18,14 +18,16 @@ namespace AccountantNew.Web.Controllers
         private INewService _newService;
         private IFileService _fileService;
 
-        public FileController(INewCategoryService newCategoryService, INewService newService,IFileService fileService)
+        public FileController(INewCategoryService newCategoryService, INewService newService, IFileService fileService)
         {
             this._newCategoryService = newCategoryService;
             this._newService = newService;
             this._fileService = fileService;
         }
 
-        public ActionResult FileCategory(string category,int id)
+        [FilePermission(Type = "Category")]
+        [HttpGet]
+        public ActionResult FileCategory(string category, int id)
         {
             var categoryModel = _newCategoryService.GetByID(id);
             //var categoryModel = _newCategoryService.GetByAlias(category);
@@ -103,17 +105,14 @@ namespace AccountantNew.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [FilePermission(Type = "FileCategory")]
         [HttpPost]
-        public ActionResult GetListFile(int id)
+        public ActionResult GetListFile(int idPermission)
         {
-            var lstNewCategory = _newCategoryService.GetChildCategory(id);
-            if (lstNewCategory.Count() == 0)
-            {
-                var listFileModel = _fileService.GetListFileByCateID(id);
-                var listFileViewModel = Mapper.Map<IEnumerable<File>, IEnumerable<FileViewModel>>(listFileModel);
-                return PartialView(listFileViewModel);
-            }
-            return null;
+            var lstNewCategory = _newCategoryService.GetChildCategory(idPermission);
+            var listFileModel = _fileService.GetListFileByCateID(idPermission);
+            var listFileViewModel = Mapper.Map<IEnumerable<File>, IEnumerable<FileViewModel>>(listFileModel);
+            return PartialView(listFileViewModel);
         }
 
         //public FileResult DisplayPDF()
@@ -124,7 +123,7 @@ namespace AccountantNew.Web.Controllers
         [HttpGet]
         public ActionResult DisplayPDF(string path)
         {
-            return PartialView("DisplayPDF",path);
+            return PartialView("DisplayPDF", path);
         }
     }
 }

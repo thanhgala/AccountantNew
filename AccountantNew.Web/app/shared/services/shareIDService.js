@@ -25,6 +25,12 @@
             setRoleID: function (id) {
                 data.roleID = id;
             },
+            getCateID: function () {
+                return data.cateID;
+            },
+            setCateID: function (id) {
+                data.cateID = id;
+            },
             getPageCurrent: function () {
                 return data.pageCurrent;
             },

@@ -15,3 +15,12 @@
     background-position: center center;
     background-size: cover;
 }
+
+.articleAvartar {
+    width: 345px;
+    height: 390px;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 10px;
+    vertical-align:top;
+}

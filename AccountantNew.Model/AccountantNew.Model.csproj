@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Abstrack\Auditable.cs" />
     <Compile Include="Abstrack\IAuditable.cs" />
+    <Compile Include="Models\ApplicationCateGroup.cs" />
     <Compile Include="Models\ApplicationGroup.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationRoleGroup.cs" />

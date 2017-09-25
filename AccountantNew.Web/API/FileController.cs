@@ -50,8 +50,6 @@ namespace AccountantNew.Web.API
         [HttpPost]
         public async Task<HttpResponseMessage> Import()
         {
-            Stopwatch sw = Stopwatch.StartNew();
-
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return Request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "Định dạng không được server hỗ trợ");
@@ -148,8 +146,6 @@ namespace AccountantNew.Web.API
                     //MimeMapping.GetMimeMapping(filename)
                 }
             }
-            sw.Stop();
-            var d = sw.Elapsed.TotalMilliseconds;
             return Request.CreateResponse(HttpStatusCode.OK, "Upload thành công.");
         }
 

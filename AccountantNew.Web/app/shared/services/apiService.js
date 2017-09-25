@@ -2,9 +2,9 @@
 (function (app) {
     app.factory('apiService', apiService);
 
-    apiService.$inject = ['$http', 'notificationService'];
+    apiService.$inject = ['$http', 'notificationService', 'authenticationService', '$location'];
 
-    function apiService($http, notificationService) {
+    function apiService($http, notificationService, authenticationService, $location) {
         return {
             get: get,
             post: post,
@@ -13,13 +13,14 @@
         }
 
         function post(url, data, success, failure) {
-            //authenticationService.setHeader();
+            authenticationService.setHeader();
             $http.post(url, data).then(function (result) {
                 success(result);
             }, function (error) {
                 //Không có quyền authen
-                if (error.status === 401) {
-                    notificationService.displayError('Authenticate is require.');
+                if (error.status === 403) {
+                    notificationService.displayError('Authenticate is denied.');
+                    $location.path('/error');
                 }
                 else if (failure != null) {
                     failure(error)
@@ -28,13 +29,13 @@
         }
 
         function get(url, params, success, failure) {
-            //authenticationService.setHeader();
+            authenticationService.setHeader();
             $http.get(url, params).then(function (result) {
                 success(result);
             }, function (error) {
-                if (error.status === 401) {
-                    notificationService.displayError('Authenticate is require.');
-                    console.log("Authen is denied");
+                if (error.status === 403) {
+                    notificationService.displayError('Authenticate is denied.');
+                    $location.path('/error');
                 }
                 else if (failure != null) {
                     failure(error)
@@ -43,12 +44,13 @@
         }
 
         function put(url, data, success, failure) {
-            //authenticationService.setHeader();
+            authenticationService.setHeader();
             $http.put(url, data).then(function (result) {
                 success(result)
             }, function (error) {
-                if (error.status === 401) {
-                    notificationService.displayError('Authenticate is require');
+                if (error.status === 403) {
+                    notificationService.displayError('Authenticate is denied');
+                    $location.path('/error');
                 }
                 else if (failure != null) {
                     failure(error);
@@ -57,12 +59,13 @@
         }
 
         function del(url, data, success, failure) {
-            //authenticationService.setHeader();
+            authenticationService.setHeader();
             $http.delete(url, data).then(function (result) {
                 success(result);
             }, function (error) {
-                if (error.status === 401) {
-                    notificationService.displayError('Authenticate is require');
+                if (error.status === 403) {
+                    notificationService.displayError('Authenticate is denied');
+                    $location.path('/error');
                 }
                 else if (failure != null) {
                     failure(error)

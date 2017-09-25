@@ -17,10 +17,16 @@
                     .on('changed.jstree', function (e, data) {
                         var objNode = data.instance.get_node(data.selected);
                         //alert(objNode.id + '-' + objNode.text);
+
+                        //var c = null;
+                        //c = data.changed.selected;
+                        //alert(c + ' ');
+
                         category.getListFile(objNode.id);
                     })
                     .jstree({
-                    'plugins': ["contextmenu"],
+                        //'plugins': ["contextmenu", "changed", "checkbox"],
+                        'plugins': ["contextmenu"],
                     'core': {
                         'data': response.data,
                         'themes': {
@@ -38,10 +44,15 @@
             url: '/File/GetListFile',
             type: 'POST',
             data: {
-                id: id
+                idPermission: id
             },
             success: function (response) {
-                $('#listFile').html(response);
+                if (response) {
+                    $('#listFile').html(response);
+                } else {
+                    alert("Bạn không có quyền truy cập vào đây");
+                    $('#listFile').html("<p>Bạn không có quyền truy cập vào đây</p>");
+                }
             }
         })
     }

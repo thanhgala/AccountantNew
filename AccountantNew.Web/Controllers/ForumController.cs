@@ -37,13 +37,14 @@ namespace AccountantNew.Web.Controllers
             var categoryViewModel = Mapper.Map<NewCategory, NewCategoryViewModel>(categoryModel);
             ViewBag.CategoryModel = categoryViewModel;
 
-            List<CurrencyModel> lstCurrent = new List<CurrencyModel>();
-            ViewBag.CurrentRate = XmlHelper.ParseXmlData(lstCurrent);
-
             var childCategory = _newCategoryService.GetChildCategory(categoryModel.ID);
+            var childCategoryViewModel = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(childCategory);
             if (childCategory.Count() > 0)
             {
-                var childCategoryViewModel = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(childCategory);
+                List<CurrencyModel> lstCurrent = new List<CurrencyModel>();
+                var model = new HomeViewModel();
+                model.CurrencyRate = XmlHelper.ParseXmlData(lstCurrent);
+                ViewBag.ModelCurrentRate = model;
                 return View("ForumCategory", childCategoryViewModel);
             }
             else
@@ -54,6 +55,12 @@ namespace AccountantNew.Web.Controllers
                     item.Comments = _commentService.GetListCommentByPostID(item.ID);
                 }
                 var listPostViewModel = Mapper.Map<IEnumerable<Post>, IEnumerable<PostViewModel>>(listPostModel);
+
+                int idParent = _newCategoryService.GetByID(categoryViewModel.ParentID.Value).ID;
+                var childCategoryPost = _newCategoryService.GetChildCategory(idParent);
+                var childCategoryPostViewModel = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(childCategoryPost);
+                ViewBag.ChildCategoryPost = childCategoryPostViewModel;
+
                 return View("ForumPost", listPostViewModel);
             }
         }

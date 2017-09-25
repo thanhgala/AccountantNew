@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 namespace AccountantNew.Web.API
 {
     [RoutePrefix("api/new")]
+    [Authorize]
     public class NewController : ApiControllerBase
     {
         private INewService _newService;
@@ -28,6 +29,7 @@ namespace AccountantNew.Web.API
 
         [HttpGet]
         [Route("getall")]
+        [AuthorizeApi(Role ="New",Action = "Read")]
         public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
         {
             int totalRow = 0;
@@ -67,7 +69,7 @@ namespace AccountantNew.Web.API
 
         [Route("create")]
         [HttpPost]
-        [AllowAnonymous]
+        [AuthorizeApi(Role = "New", Action = "Read")]
         public HttpResponseMessage Create(HttpRequestMessage request, NewViewModel newVM)
         {
             return CreateHttpRespond(request, () =>
@@ -93,6 +95,7 @@ namespace AccountantNew.Web.API
         [Route("update")]
         [HttpPut]
         [AllowAnonymous]
+        [AuthorizeApi(Role = "New", Action = "Update")]
         public HttpResponseMessage Update(HttpRequestMessage request, NewViewModel newVm)
         {
             return CreateHttpRespond(request, () =>
@@ -138,6 +141,7 @@ namespace AccountantNew.Web.API
 
         [Route("delete")]
         [HttpDelete]
+        [AuthorizeApi(Role = "New", Action = "Delete")]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             return CreateHttpRespond(request, () =>
@@ -158,6 +162,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("deletemulti")]
+        [AuthorizeApi(Role = "New", Action = "Delete")]
         [HttpDelete]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProduct)
         {

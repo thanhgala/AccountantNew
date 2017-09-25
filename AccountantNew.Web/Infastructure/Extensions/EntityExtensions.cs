@@ -104,5 +104,16 @@ namespace AccountantNew.Web.Infastructure.Extensions
 
             file.Status = fileViewModel.Status;
         }
+
+        public static void UpdateUser(this ApplicationUser appUser, ApplicationUserViewModel appUserViewModel)
+        {
+            appUser.Id = appUserViewModel.Id;
+            appUser.FullName = appUserViewModel.FullName;
+            appUser.BirthDay = appUserViewModel.BirthDay;
+            appUser.Email = appUserViewModel.Email;
+            appUser.UserName = appUserViewModel.UserName;
+            appUser.PhoneNumber = appUserViewModel.PhoneNumber;
+            appUser.Avartar = appUserViewModel.Avartar;
+        }
     }
 }

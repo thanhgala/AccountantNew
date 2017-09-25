@@ -47,6 +47,14 @@
 
         $scope.close = function () {
             $uibModalInstance.close();
+            if (!shareIDService.getIsAdd()) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: '/app/components/application_groups/applicationGroupsEditPoup.html',
+                    size: 'lg',
+                    controller: 'applicationGroupsEditController'
+                });
+            }
         }
 
         function addRole() {

@@ -42,6 +42,13 @@ namespace AccountantNew.Web
                );
 
             routes.MapRoute(
+               name: "Page",
+               url: "page-{alias}.html",
+               defaults: new { controller = "Pages", action = "Index", alias = UrlParameter.Optional },
+               namespaces: new string[] { "AccountantNew.Web.Controllers" }
+               );
+
+            routes.MapRoute(
                 name: "Ask",
                 url: "{category}/ask-{id}.html",
                 defaults: new { controller = "Forum", action = "Ask", id = UrlParameter.Optional },
@@ -61,6 +68,8 @@ namespace AccountantNew.Web
                defaults: new { controller = "New", action = "Detail", id = UrlParameter.Optional },
                namespaces: new string[] { "AccountantNew.Web.Controllers" }
            );
+
+            //routes.MapRoute("NotFound", "{*url}", new { controller = "Home", action = "NotFound" });
 
             routes.MapRoute(
                 name: "Default",

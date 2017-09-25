@@ -1,8 +1,8 @@
 ﻿//(function (app) {
 //    app.controller('newsAddController', newsAddController);
 (function (app) {
-    app.controller('applicationGroupsEditController', ['$scope', 'apiService', '$state', 'commonService', 'notificationService', '$uibModalInstance', '$uibModal', '$timeout', 'shareIDService','$filter',
-    function ($scope, apiService, $state, commonService, notificationService, $uibModalInstance, $uibModal, $timeout, shareIDService,$filter) {
+    app.controller('applicationGroupsEditController', ['$scope', 'apiService', '$state', 'commonService', 'notificationService', '$uibModalInstance', '$uibModal', '$uibModalStack', '$timeout', 'shareIDService', '$filter',
+    function ($scope, apiService, $state, commonService, notificationService, $uibModalInstance, $uibModal, $uibModalStack, $timeout, shareIDService, $filter) {
 
         $scope.group = {
             ID: 0,
@@ -56,6 +56,7 @@
             }, 0.01);
         }
         function addFailed(response) {
+            $uibModalInstance.close();
             notificationService.displayError(response.data.Message);
             notificationService.displayErrorValidation(response);
         }
@@ -65,6 +66,7 @@
         }
 
         $scope.ConfigPermission = function (id) {
+            $uibModalInstance.close();
             $uibModal.open({
                 animation: true,
                 templateUrl: '/app/components/application_groups/applicationPermissionPoup.html',
@@ -89,8 +91,16 @@
             apiService.put('api/applicationGroup/update', $scope.group, addSuccessed, addFailed);
         }
 
-        $scope.close = function () {
+        $scope.close = function (boolen) {
             $uibModalInstance.close();
+            if (!boolen) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: '/app/components/application_groups/applicationGroupsEditPoup.html',
+                    size: 'lg',
+                    controller: 'applicationGroupsEditController'
+                });
+            }
         }
 
         $scope.AddRole = function () {
@@ -101,6 +111,16 @@
                 controller: 'applicationGroupsAddController'
             });
             shareIDService.setIsAdd(false);
+            $uibModalInstance.close();
+        }
+
+        $scope.AccessFile = function () {
+            $uibModal.open({
+                animation: true,
+                templateUrl: '/app/components/application_groups/applicationFilePermission.html',
+                size: 'lg',
+                controller: 'applicationFileController'
+            });
             $uibModalInstance.close();
         }
     }])

@@ -1,0 +1,115 @@
+﻿<section class="content-header">
+    <h1>
+        Cập nhật người dùng <b>{{account.FullName}}</b>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="accounts">Danh mục người dùng</a></li>
+        <li class="active"><a href="#">Cập nhật user</a></li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Chỉnh sửa</h3>
+                    <button class="btn btn-success pull-right" ng-click="GroupRole()" data-toggle="modal" data-target="#updateGroup"><i class="fa fa-plus"></i>Nhóm quyền</button>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal" role="form" novalidate name="frmUpdateAccount">
+                    <div class="box-body">
+                        <div class="col-md-8">
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.name.$invalid && !frmUpdateAccount.name.$pristine }">
+                                <label class="col-sm-2 control-label">Họ tên người dùng</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control"
+                                           required reqired-message="Họ tên bắt buộc." ng-model="account.FullName">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.userName.$invalid && !frmUpdateAccount.userName.$pristine }">
+                                <label class="col-sm-2 control-label">Tài khoản</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="userName" class="form-control" readonly
+                                           required reqired-message="Tài khoản bắt buộc." value="{{account.UserName}}">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.email.$invalid && !frmUpdateAccount.email.$pristine }">
+                                <label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="email" class="form-control"
+                                           required reqired-message="Email bắt buộc." ng-model="account.Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Điện thoại</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="password" class="form-control"
+                                           ng-model="account.PhoneNumber">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.birthDay.$invalid && !frmUpdateAccount.birthDay.$pristine }">
+                                <label class="col-sm-2 control-label">Ngày sinh</label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="birthDay" value="{{account.BirthDay | date: 'yyyy-MM-dd'}}" class="form-control"
+                                           required reqired-message="Ngày sinh bắt buộc." ng-model="account.BirthDay">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a ui-sref="application_users" class="btn btn-default">Quay lại</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <img class="articleAvartar" src="{{account.Avartar}}" />
+                        </div>
+                    </div><!-- /.box-body -->
+                </form>
+            </div><!-- /.box -->
+
+            <div id="updateGroup" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Quản lý nhóm quyền</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <h3 class="box-title">NHÓM QUYỀN</h3>
+                                </div>
+                                <div class="box-body">
+                                    <form class="form-horizontal" novalidate name="frmGroupRole" role="form" ng-submit="updateGroupToUser()">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" ng-repeat="group in groups">
+                                                        <label>
+                                                            <input type="checkbox" checklist-model="account.Groups" checklist-value="group"> {{group.Name}}
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="button" data-dismiss="modal" class="btn btn-default">Hủy</button>
+                                            <button type="submit" class="btn btn-success pull-right">Lưu</button>
+                                        </div>
+                                    </form>
+                                    <!--<embed src="/UploadedFiles/FilePdf/cong-ty-123/UnityAIProgrammingEssentials.pdf" width="500" height="720" type='application/pdf'>-->
+                                    <!--<iframe width='500' height='800' src='/UploadedFiles/FilePdf/cong-ty-123/Unity Android Game Development by Example Beginners Guide.pdf' frameborder='0' allowfullscreen></iframe>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

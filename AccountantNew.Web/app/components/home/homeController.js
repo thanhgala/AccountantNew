@@ -1,11 +1,13 @@
 ﻿(function (app) {
-    app.controller('homeController', ['$scope','apiService',
-        function ($scope,apiService) {
-            //function testApi() {
-            //    apiService.get('api/new/getall', null, function (response) {
-            //        console.log(response.data.alo)
-            //    },null)
-            //}
-            //testApi();
+    app.controller('homeController', ['$scope', 'apiService',
+        function ($scope, apiService) {
+            function testAuthen() {
+                apiService.get('/api/home/testauthen', null, function (response) {
+                    if (response != null) {
+                        console.log('Authen is success');
+                    }
+                }, null)
+            }
+            testAuthen();
         }]);
 })(angular.module('accountantnew'));

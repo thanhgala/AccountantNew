@@ -14,5 +14,7 @@ namespace AccountantNew.Web.Models
         public string Description { set; get; }
 
         public IEnumerable<ApplicationRoleViewModel> Roles { set; get; }
+
+        public IEnumerable<int> NewCategory { set; get; }
     }
 }

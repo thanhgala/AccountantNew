@@ -28,16 +28,22 @@ namespace AccountantNew.Service
         NewCategory GetByAlias(string alias);
 
         void Save();
+
+        bool AddCategoryToGroups(IEnumerable<ApplicationCateGroup> catePermission, int groupId,bool add);
+
+        IEnumerable<int> GetListCategoryByGroupId(int groupId);
     }
 
     public class NewCategoryService : INewCategoryService
     {
         private INewCategoryRepository _newCategoryRepository;
+        private IApplicationCateGroupRepository _appCateGroupRepository;
         private IUnitOfWork _unitOfWork;
 
-        public NewCategoryService(INewCategoryRepository newCategoryRepository, IUnitOfWork unitOfWork)
+        public NewCategoryService(INewCategoryRepository newCategoryRepository, IApplicationCateGroupRepository appCateGroupRepository, IUnitOfWork unitOfWork)
         {
             this._newCategoryRepository = newCategoryRepository;
+            this._appCateGroupRepository = appCateGroupRepository;
             this._unitOfWork = unitOfWork;
         }
 
@@ -84,6 +90,30 @@ namespace AccountantNew.Service
         public void Update(NewCategory newCategory)
         {
             _newCategoryRepository.Update(newCategory);
+        }
+
+        public bool AddCategoryToGroups(IEnumerable<ApplicationCateGroup> cateGroups, int groupId,bool add)
+        {
+            if (add)
+            {
+                foreach (var cateGroup in cateGroups)
+                {
+                    _appCateGroupRepository.Add(cateGroup);
+                }
+            }
+            else
+            {
+                foreach (var cateGroup in cateGroups)
+                {
+                    _appCateGroupRepository.DeleteMulti(x => x.GroupId == cateGroup.GroupId && x.CategoryId == cateGroup.CategoryId);
+                }
+            }
+            return true;
+        }
+
+        public IEnumerable<int> GetListCategoryByGroupId(int groupId)
+        {
+            return _newCategoryRepository.GetListCategoryByGroupId(groupId);
         }
 
     }

@@ -72,7 +72,7 @@ namespace AccountantNew.Service
                 query = query.Where(x => x.Name.Contains(filter));
 
             totalRow = query.Count();
-            return query.OrderBy(x => x.Name).Skip(page * pageSize).Take(pageSize);
+            return query.OrderBy(x => x.ID).Skip(page * pageSize).Take(pageSize);
         }
 
         public ApplicationGroup GetDetail(int id)

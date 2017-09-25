@@ -11,6 +11,8 @@ namespace AccountantNew.Data.Repositories
     public interface INewCategoryRepository : IRepository<NewCategory>
     {
         NewCategory GetByAlias(string alias);
+
+        IEnumerable<int> GetListCategoryByGroupId(int groupId);
     }
 
     public class NewCategoryRepository : RepositoryBase<NewCategory>, INewCategoryRepository
@@ -18,6 +20,16 @@ namespace AccountantNew.Data.Repositories
         public NewCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
+        }
+
+        public IEnumerable<int> GetListCategoryByGroupId(int groupId)
+        {
+            var query = from n in DbContext.NewCategories
+                        join cg in DbContext.ApplicationCateGroups
+                        on n.ID equals cg.CategoryId
+                        where cg.GroupId == groupId
+                        select n.ID;
+            return query;
         }
 
         public NewCategory GetByAlias(string alias)

@@ -1,6 +1,6 @@
 ﻿(function (app) {
-    app.controller('rootController', ['$scope', 'apiService',
-        function ($scope, apiService) {
+    app.controller('rootController', ['$scope', 'apiService', 'authData', 'loginService',
+        function ($scope, apiService, authData, loginService) {
             $scope.slideBar = "/app/shared/view/slideBar.html";
 
             function getFileRootCategory() {
@@ -11,5 +11,11 @@
                 });
             }
             getFileRootCategory();
+
+            $scope.authentication = authData.authenticationData;
+
+            $scope.logOut = function () {
+                loginService.logOut();
+            }
         }])
 })(angular.module('accountantnew'))

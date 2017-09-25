@@ -138,9 +138,14 @@
     <Compile Include="Migrations\201709010646059_addColumnDesIntoFile.Designer.cs">
       <DependentUpon>201709010646059_addColumnDesIntoFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709200144201_createApplicationCateGroupTable.cs" />
+    <Compile Include="Migrations\201709200144201_createApplicationCateGroupTable.Designer.cs">
+      <DependentUpon>201709200144201_createApplicationCateGroupTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationCateGroupRepository.cs" />
     <Compile Include="Repositories\ApplicationRoleGroupRepository.cs" />
     <Compile Include="Repositories\ApplicationRoleRepository.cs" />
     <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
@@ -220,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709010646059_addColumnDesIntoFile.resx">
       <DependentUpon>201709010646059_addColumnDesIntoFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709200144201_createApplicationCateGroupTable.resx">
+      <DependentUpon>201709200144201_createApplicationCateGroupTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

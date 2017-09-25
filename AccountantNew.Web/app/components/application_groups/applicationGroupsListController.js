@@ -1,6 +1,6 @@
 ﻿(function (app) {
-    app.controller('applicationGroupsListController', ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter', '$uibModal', 'shareIDService',
-    function ($scope, apiService, notificationService, $ngBootbox, $filter, $uibModal, shareIDService) {
+    app.controller('applicationGroupsListController', ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter', '$uibModal', '$uibModalStack', 'shareIDService',
+    function ($scope, apiService, notificationService, $ngBootbox, $filter, $uibModal, $uibModalStack, shareIDService) {
         $scope.keyword = '';
         $scope.loading = true;
 
@@ -105,11 +105,15 @@
         $scope.openUpdatePoup = function (id) {
             $uibModal.open({
                 animation: true,
+                keyboard: false,
                 backdrop: 'static',
                 templateUrl: '/app/components/application_groups/applicationGroupsEditPoup.html',
                 size: 'lg',
                 controller: 'applicationGroupsEditController'
-            })
+            });
+            //    .rendered.then(function () {
+            //    $uibModalStack.getTop().value.modalDomEl.attr('id', idModal);
+            //});
             shareIDService.setID(id);
         }
     }])

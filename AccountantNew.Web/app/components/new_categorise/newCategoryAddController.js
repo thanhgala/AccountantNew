@@ -74,6 +74,7 @@
                         $state.go("new_categories");
                     }, 0.01);
                 }, function (error) {
+                    $uibModalInstance.close();
                     notificationService.displayError('Không thể thêm mới bản ghi.');
                 });
             }

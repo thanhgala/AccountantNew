@@ -200,9 +200,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AccountController.cs" />
     <Compile Include="API\ApplicationGroupController.cs" />
     <Compile Include="API\ApplicationRoleController.cs" />
+    <Compile Include="API\ApplicationUserController.cs" />
     <Compile Include="API\FileController.cs" />
+    <Compile Include="API\HomeController.cs" />
     <Compile Include="API\NewCategoryController.cs" />
     <Compile Include="API\NewController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -218,10 +221,12 @@
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewController.cs" />
+    <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infastructure\Core\AuthorizeApiAttribute.cs" />
     <Compile Include="Infastructure\Core\BaseController.cs" />
     <Compile Include="Infastructure\Core\FilePermissionAttribute.cs" />
     <Compile Include="Infastructure\Core\LdapAuthentication.cs" />
@@ -249,6 +254,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\application_groups\applicationFileController.js" />
+    <Content Include="app\components\application_groups\applicationFilePermission.html" />
     <Content Include="app\components\application_groups\applicationGroups.module.js" />
     <Content Include="app\components\application_groups\applicationGroupsEditController.js" />
     <Content Include="app\components\application_groups\applicationGroupsAddController.js" />
@@ -257,6 +264,13 @@
     <Content Include="app\components\application_groups\applicationGroupsListController.js" />
     <Content Include="app\components\application_groups\applicationGroupsListView.html" />
     <Content Include="app\components\application_groups\applicationPermissionPoup.html" />
+    <Content Include="app\components\application_users\applicationUsers.module.js" />
+    <Content Include="app\components\application_users\applicationUsersEditController.js" />
+    <Content Include="app\components\application_users\applicationUsersEditView.html" />
+    <Content Include="app\components\application_users\applicationUsersListController.js" />
+    <Content Include="app\components\application_users\applicationUsersListView.html" />
+    <Content Include="app\components\error401\err401Controller.js" />
+    <Content Include="app\components\error401\err401View.html" />
     <Content Include="app\components\files\files.css" />
     <Content Include="app\components\files\files.module.js" />
     <Content Include="app\components\files\filesPdfController.js" />
@@ -292,7 +306,10 @@
     <Content Include="app\shared\filters\statusFilter.js" />
     <Content Include="app\shared\modules\accountantnew.common.js" />
     <Content Include="app\shared\services\apiService.js" />
+    <Content Include="app\shared\services\authData.js" />
+    <Content Include="app\shared\services\authenticationService.js" />
     <Content Include="app\shared\services\commonService.js" />
+    <Content Include="app\shared\services\loginService.js" />
     <Content Include="app\shared\services\notificationService.js" />
     <Content Include="app\shared\services\shareIDService.js" />
     <Content Include="app\shared\view\baseView.html" />
@@ -4022,6 +4039,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\components\application_admins\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
@@ -4517,6 +4535,8 @@
     <Content Include="Views\Forum\AnswerPartial.cshtml" />
     <Content Include="Views\File\GetListFile.cshtml" />
     <Content Include="Views\File\DisplayPDF.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Pages\Organizational.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccountantNew.Common\AccountantNew.Common.csproj">

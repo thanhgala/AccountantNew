@@ -1,0 +1,41 @@
+﻿<section class="content-header">
+    <h1>
+        Quản lý quyền truy cập file
+    </h1>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Quyền truy cập file</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="category in categories">
+                                <label>
+                                    <button ng-click="ConfigFilePermission(category.ID)" class="btn btn-default" type="button">{{category.Name}}</button>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="checkbox" ng-model="isAll" ng-click="selectAll($event)" /><label>Check all</label>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="childcategory in childcategories">
+                                <input type="checkbox" ng-model="childcategory.checked" ng-click="selectSingle($event,childcategory.ID)" name="all" />
+                                <span class="label label-primary" style="font-size:16px;">{{childcategory.Name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" ng-click="close()" class="btn btn-default">Đóng</button>
+            <!--<button id="btnSubmit" disabled class="btn btn-success pull-right">Lưu</button>-->
+        </div>
+    </div>
+</section>

@@ -131,7 +131,7 @@ namespace AccountantNew.Web.App_Start
                 ApplicationUser user;
                 try
                 {
-                    user = await userManager.FindAsync(context.UserName, context.Password);
+                    user = await userManager.FindByNameAsync(context.UserName);
                 }
                 catch
                 {
@@ -153,18 +153,14 @@ namespace AccountantNew.Web.App_Start
                         item.Roles = Mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<ApplicationRoleViewModel>>(listRole);
                     }
 
-                    //var roles = userManager.GetRoles(user.Id);
+                    ////var roles = userManager.GetRoles(user.Id);
                     if (listGroupViewModel.Count(x => x.Name.Contains(CommonConstants.Admin)) > 0)
                     {
-                        //ClaimsIdentity identity = await userManager.CreateIdentityAsync(
-                        //               user,
-                        //               DefaultAuthenticationTypes.ExternalBearer);
-                        //context.Validated(identity);
                         ClaimsIdentity identity = await userManager.CreateIdentityAsync(user,
                             context.Options.AuthenticationType);
                         identity.AddClaim(new Claim("groups", JsonConvert.SerializeObject(listGroupViewModel)));
                         //identity.AddClaim(new Claim("roles", JsonConvert.SerializeObject(roles)));
-                        AuthenticationProperties properties = CreateProperties(user.UserName, user.Avartar, JsonConvert.SerializeObject(listGroupViewModel)/*, JsonConvert.SerializeObject(roles)*/);
+                        AuthenticationProperties properties = CreateProperties(user.Avartar, JsonConvert.SerializeObject(listGroupViewModel)/*, JsonConvert.SerializeObject(roles)*/);
                         AuthenticationTicket ticket = new AuthenticationTicket(identity, properties);
                         context.Validated(ticket);
                     }
@@ -173,6 +169,12 @@ namespace AccountantNew.Web.App_Start
                         context.Rejected();
                         context.SetError("invalid_group", "Bạn không phải là admin.");
                     }
+
+                    //ClaimsIdentity identity = await userManager.CreateIdentityAsync(user,
+                    //        context.Options.AuthenticationType);
+                    //AuthenticationProperties properties = CreateProperties(user.Avartar);
+                    //AuthenticationTicket ticket = new AuthenticationTicket(identity, properties);
+                    //context.Validated(ticket);
                 }
                 else
                 {
@@ -212,13 +214,12 @@ namespace AccountantNew.Web.App_Start
             return owinManager;
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string avarta, string listGroup)
+        public static AuthenticationProperties CreateProperties(string avarta, string listGroup)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName },
                 { "avarta",avarta},
-                { "groups", listGroup }
+                { "groups",listGroup}
             };
             return new AuthenticationProperties(data);
         }

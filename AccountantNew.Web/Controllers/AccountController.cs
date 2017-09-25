@@ -58,9 +58,10 @@ namespace AccountantNew.Web.Controllers
             {
                 return Content("Vui lòng nhập đầy đủ userdomain và mật khẩu.");
             }
-            LdapAuthentication LDap = new LdapAuthentication("cp.com.vn");
-            bool login = LDap.ValidateUser(userModel.UserName, userModel.Password);
-            if(login)
+            //LdapAuthentication LDap = new LdapAuthentication("cp.com.vn");
+            //bool login = LDap.ValidateUser(userModel.UserName, userModel.Password);
+            bool login = false;
+            if(!login)
             {
                 ApplicationUser user = await _userManager.FindByNameAsync(userModel.UserName);
                 if (user != null)
@@ -104,7 +105,6 @@ namespace AccountantNew.Web.Controllers
                 }
                 var user = new ApplicationUser()
                 {
-                    //Id = Guid.NewGuid().ToString(),
                     UserName = model.UserName,
                     Email = model.Email,
                     BirthDay = DateTime.Now,
@@ -112,7 +112,7 @@ namespace AccountantNew.Web.Controllers
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
                     Avartar = model.Image
-                    
+
                 };
 
                 if (Image.ContentLength > 0)
@@ -120,7 +120,7 @@ namespace AccountantNew.Web.Controllers
                     //Kiểm tra định dạng của hình ảnh
                     if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png" && Image.ContentType != "image/gif" && Image.ContentType != "image/jpg")
                     {
-
+                        return null;
                     }
                     else
                     {
@@ -135,13 +135,16 @@ namespace AccountantNew.Web.Controllers
                 }
 
                 var result = await _userManager.CreateAsync(user);
-                await _signInManager.SignInAsync(user, true, true);
                 if (result.Succeeded)
                 {
                     return Content("Xác nhận tài khoản thành công.");
                 }
             }
-            return Content("<script>window.location.href ='/'</script>");
+            else
+            {
+                return Content("Vui lòng cung cấp đủ thông tin");
+            }
+            return null;
         }
 
         [HttpPost]

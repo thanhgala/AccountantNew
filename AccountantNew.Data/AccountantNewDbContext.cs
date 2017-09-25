@@ -51,6 +51,8 @@ namespace AccountantNew.Data
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
 
+        public DbSet<ApplicationCateGroup> ApplicationCateGroups { set; get; }
+
         public static AccountantNewDbContext Create()
         {
             return new AccountantNewDbContext();

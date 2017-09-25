@@ -14,6 +14,8 @@ using AccountantNew.Common;
 using System.Web.Script.Serialization;
 using AccountantNew.Web.Infastructure.Extensions;
 using System.Threading.Tasks;
+using AccountantNew.Data.Repositories;
+using AccountantNew.Data.Infrastructure;
 
 namespace AccountantNew.Web.API
 {
@@ -22,18 +24,28 @@ namespace AccountantNew.Web.API
     {
         private IApplicationGroupService _appGroupService;
         private IApplicationRoleService _appRoleService;
+        private INewCategoryService _newCategoryService;
         private ApplicationUserManager _userManager;
+        private IApplicationCateGroupRepository _applicationCateGroup;
+        private IUnitOfWork _unitOfWork;
         public ApplicationGroupController(IErrorService errorService,
             IApplicationGroupService appGroupService,
             IApplicationRoleService appRoleService,
-            ApplicationUserManager userManager) : base(errorService)
+            INewCategoryService newCategoryService,
+            ApplicationUserManager userManager,
+            IApplicationCateGroupRepository applicationCateGroup,
+            IUnitOfWork unitOfWork) : base(errorService)
         {
             this._appGroupService = appGroupService;
             this._appRoleService = appRoleService;
+            this._newCategoryService = newCategoryService;
             this._userManager = userManager;
+            this._applicationCateGroup = applicationCateGroup;
+            this._unitOfWork = unitOfWork;
         }
 
         [Route("getlistpaging")]
+        [AuthorizeApi(Role = "Group", Action = "Read")]
         [HttpGet]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int page, int pageSize, string keyword = null)
         {
@@ -56,7 +68,23 @@ namespace AccountantNew.Web.API
             });
         }
 
+        [Route("getlistall")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                HttpResponseMessage response = null;
+                var model = _appGroupService.GetAll();
+                IEnumerable<ApplicationGroupViewModel> viewMoel = Mapper.Map<IEnumerable<ApplicationGroup>, IEnumerable<ApplicationGroupViewModel>>(model);
+
+                response = request.CreateResponse(HttpStatusCode.OK, viewMoel);
+                return response;
+            });
+        }
+
         [Route("detail/{id:int}")]
+        [AuthorizeApi(Role = "Group", Action = "Read")]
         [HttpGet]
         public HttpResponseMessage Details(HttpRequestMessage request, int id)
         {
@@ -84,9 +112,24 @@ namespace AccountantNew.Web.API
             return request.CreateResponse(HttpStatusCode.OK, appGroupViewModel);
         }
 
+        [Route("getcategorygroup/{id:int}")]
+        [HttpGet]
+        public HttpResponseMessage GetCategoryGroup(HttpRequestMessage request, int id)
+        {
+            if (id == 0)
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, nameof(id) + " is required.");
+            }
+
+            //var listCategory = Mapper.Map<IEnumerable<NewCategory>,IEnumerable<NewCategoryViewModel>>(_newCategoryService.GetListCategoryByGroupId(id));
+            var listCategory = _newCategoryService.GetListCategoryByGroupId(id);
+            return request.CreateResponse(HttpStatusCode.OK, listCategory);
+        }
+
         [Route("update")]
+        [AuthorizeApi(Role = "Group", Action = "Update")]
         [HttpPut]
-        public HttpResponseMessage Update(HttpRequestMessage request, ApplicationGroupViewModel appGroupViewModel)
+        public async Task<HttpResponseMessage> Update(HttpRequestMessage request, ApplicationGroupViewModel appGroupViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -123,29 +166,28 @@ namespace AccountantNew.Web.API
                             });
                         }
                     }
-                    //var listOldRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
-                    //var listUserInGroup = _appGroupService.GetListUserByGroupId(appGroup.ID);
-                    //foreach (var user in listUserInGroup)
-                    //{
-                    //    foreach (var roleOld in listOldRole)
-                    //    {
-                    //        await _userManager.RemoveFromRoleAsync(user.Id, roleOld.Name);
-                    //    }
-                    //}
+                    var listOldRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
+                    var listUserInGroup = _appGroupService.GetListUserByGroupId(appGroup.ID);
+                    foreach (var user in listUserInGroup)
+                    {
+                        foreach (var roleOld in listOldRole)
+                        {
+                            await _userManager.RemoveFromRoleAsync(user.Id, roleOld.Name);
+                        }
+                    }
                     _appRoleService.AddRolesToGroup(listRoleGroup, appGroup.ID);
                     _appRoleService.Save();
 
-                    //var listRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
-                    //foreach (var user in listUserInGroup)
-                    //{
-                    //    var listRoleName = listRole.Select(x => x.Name).ToArray();
-                    //    foreach (var roleName in listRoleName)
-                    //    {
-                    //        //await _userManager.RemoveFromRoleAsync(user.Id, roleName);
-                    //        await _userManager.AddToRoleAsync(user.Id, roleName);
-                    //    }
-                    //}
-                    //_appGroupService.Save();
+                    var listRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
+                    var listRoleName = listRole.Select(x => x.Name).ToArray();
+                    foreach (var user in listUserInGroup)
+                    {
+                        foreach (var roleName in listRoleName)
+                        {
+                            //await _userManager.RemoveFromRoleAsync(user.Id, roleName);
+                            await _userManager.AddToRoleAsync(user.Id, roleName);
+                        }
+                    }
                     return request.CreateResponse(HttpStatusCode.OK, appGroupViewModel);
                 }
                 catch (NameDuplicatedException dx)
@@ -160,6 +202,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("add")]
+        [AuthorizeApi(Role = "Group", Action = "Create")]
         [HttpPost]
         public HttpResponseMessage Create(HttpRequestMessage request,ApplicationGroupViewModel appGroupViewModel)
         {
@@ -202,6 +245,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("delete")]
+        [AuthorizeApi(Role = "Group", Action = "Delete")]
         [HttpDelete]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
@@ -211,6 +255,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("deletemulti")]
+        [AuthorizeApi(Role = "Group", Action = "Delete")]
         [HttpDelete]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedList)
         {
@@ -234,6 +279,84 @@ namespace AccountantNew.Web.API
                     response = request.CreateResponse(HttpStatusCode.OK, listItem.Count);
                 }
 
+                return response;
+            });
+        }
+
+        [Route("addpermissionfile")]
+        [HttpGet]
+        public HttpResponseMessage AddPermissionFile(HttpRequestMessage request, int checkedCateID, int groupID)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    _applicationCateGroup.Add(new ApplicationCateGroup
+                    {
+                        GroupId = groupID,
+                        CategoryId = checkedCateID
+                    });
+                    _unitOfWork.Commit();
+                    response = request.CreateResponse(HttpStatusCode.OK);
+                }
+                return response;
+            });
+        }
+
+        [Route("deletepermissionfile")]
+        [HttpDelete]
+        public HttpResponseMessage DeletePermissionFile(HttpRequestMessage request, int checkedCateID, int groupID)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var applicationCateGroup = _applicationCateGroup.GetSingleByCondition(x => x.GroupId == groupID && x.CategoryId == checkedCateID);
+                    _applicationCateGroup.Delete(applicationCateGroup);
+                    _unitOfWork.Commit();
+                    response = request.CreateResponse(HttpStatusCode.OK);
+                }
+                return response;
+            });
+        }
+
+        [Route("updatepermissionfile")]
+        [HttpGet]
+        public HttpResponseMessage UpdatePermissionFile(HttpRequestMessage request, string checkedCateID, int groupID, bool add)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var listCategory = new JavaScriptSerializer().Deserialize<List<int>>(checkedCateID);
+                    var listCateGroup = new List<ApplicationCateGroup>();
+                    foreach (var category in listCategory)
+                    {
+                        listCateGroup.Add(new ApplicationCateGroup
+                        {
+                            GroupId = groupID,
+                            CategoryId = category
+                        });
+                    }
+                    _newCategoryService.AddCategoryToGroups(listCateGroup, groupID, add);
+                    _newCategoryService.Save();
+                    response = request.CreateResponse(HttpStatusCode.OK);
+                }
                 return response;
             });
         }

@@ -13,6 +13,7 @@ using AccountantNew.Web.Infastructure.Extensions;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Web;
+using AccountantNew.Common;
 
 namespace AccountantNew.Web.API
 {
@@ -43,6 +44,7 @@ namespace AccountantNew.Web.API
 
         [Route("getall")]
         [HttpGet]
+        [AuthorizeApi(Role = "Category", Action = "Read")]
         public HttpResponseMessage GetAll(HttpRequestMessage request)
         {
             var model = _newCategoryService.GetRootCategory();
@@ -145,6 +147,22 @@ namespace AccountantNew.Web.API
             });
         }
 
+        [Route("getrootfileparent")]
+        [HttpGet]
+        public HttpResponseMessage GetRootFileParent(HttpRequestMessage request)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                var model = _newCategoryService.GetRootCategory();
+                var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(model.Where(x=>x.ID == CommonConstants.PolicyID 
+                    || x.ID == CommonConstants.LawID
+                    || x.ID == CommonConstants.NotifyID
+                    || x.ID == CommonConstants.LicenseID));
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
+
         [Route("getfilecategory")]
         [HttpGet]
         public HttpResponseMessage GetFileCategoryByCondition(HttpRequestMessage request)
@@ -201,6 +219,7 @@ namespace AccountantNew.Web.API
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
+        [AuthorizeApi(Role = "Category", Action = "Create")]
         public HttpResponseMessage Create(HttpRequestMessage request, NewCategoryViewModel newCategoryVM)
         {
             return CreateHttpRespond(request, () =>
