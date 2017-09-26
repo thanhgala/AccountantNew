@@ -8,6 +8,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,6 +34,14 @@ namespace AccountantNew.Web.Controllers
         }
         public ActionResult ForumCategory(int id)
         {
+            if (id == CommonConstants.SupportID)
+            {
+                if (!Request.IsAuthenticated)
+                {
+                    return RedirectToAction("NotFound", "Home");
+                }
+            }
+
             var categoryModel = _newCategoryService.GetByID(id);
             var categoryViewModel = Mapper.Map<NewCategory, NewCategoryViewModel>(categoryModel);
             ViewBag.CategoryModel = categoryViewModel;
@@ -82,16 +91,23 @@ namespace AccountantNew.Web.Controllers
         {
             var cateModel = _newCategoryService.GetChildCategory(id);
             ViewBag.NewCategoryID = new SelectList(cateModel, "ID", "Name");
+            ViewBag.ForumID = id;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Ask(PostViewModel postViewModel,int id)
+        public ActionResult Ask(PostViewModel postViewModel,int id, FormCollection f)
         {
             var cateModel = _newCategoryService.GetChildCategory(id);
             ViewBag.NewCategoryID = new SelectList(cateModel, "ID", "Name");
+            ViewBag.ForumID = id;
+
+            if (id == CommonConstants.CommentID)
+            {
+
+            }
 
             if (ModelState.IsValid)
             {

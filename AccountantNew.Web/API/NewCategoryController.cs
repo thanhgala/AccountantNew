@@ -177,6 +177,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("getchildrootparent/{id:int}")]
+        [AuthorizeApi(Role = "File", Action = "Read")]
         [HttpGet]
         public HttpResponseMessage GetChildRootParent(HttpRequestMessage request, int id)
         {
@@ -244,6 +245,7 @@ namespace AccountantNew.Web.API
         [Route("update")]
         [HttpPut]
         [AllowAnonymous]
+        [AuthorizeApi(Role = "Category", Action = "Update")]
         public HttpResponseMessage Update(HttpRequestMessage request, NewCategoryViewModel newCategoryVm)
         {
             return CreateHttpRespond(request, () =>
@@ -290,6 +292,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("delete")]
+        [AuthorizeApi(Role = "Category", Action = "Delete")]
         [HttpDelete]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {

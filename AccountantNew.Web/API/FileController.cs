@@ -30,6 +30,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("getlistfile/{id:int}")]
+        [AuthorizeApi(Role = "File", Action = "Read")]
         [HttpGet]
         public HttpResponseMessage GetListFile(HttpRequestMessage request,int id)
         {
@@ -41,12 +42,8 @@ namespace AccountantNew.Web.API
             });
         }
 
-        public void alo()
-        {
-
-        }
-
         [Route("import")]
+        [AuthorizeApi(Role = "File", Action = "Create")]
         [HttpPost]
         public async Task<HttpResponseMessage> Import()
         {
@@ -150,6 +147,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("update")]
+        [AuthorizeApi(Role = "File", Action = "Update")]
         [HttpPut]
         public HttpResponseMessage UpdateFile(HttpRequestMessage request,FileViewModel fileViewModel)
         {
@@ -186,6 +184,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("delete")]
+        [AuthorizeApi(Role = "File", Action = "Delete")]
         [HttpDelete]
         public HttpResponseMessage DeleteFile(HttpRequestMessage request, int id)
         {

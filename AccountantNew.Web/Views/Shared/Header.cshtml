@@ -292,14 +292,14 @@
                             </div>
                         </div>
                      </li>
-                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Comment" && x.Name!="Sơ đồ tổ chức" && x.Name != "Thống kê"))
+                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Bình luận" && x.Name!="Sơ đồ tổ chức" && x.Name != "Thống kê"))
                     {
                         var url = "/" + category.Alias + "-" + category.ID + "-file.html";
                         <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                             <a href="@url">@category.Name</a>
                         </li>
                     }
-                    @foreach (var categoryLast in Model.Where(x => x.ParentID == null && x.Name == "Hỗ trợ" || x.Name == "Comment"))
+                    @foreach (var categoryLast in Model.Where(x => x.ParentID == null && x.Name == "Hỗ trợ" || x.Name == "Bình luận"))
                     {
                         var url = "/" + categoryLast.Alias + "-" + categoryLast.ID + "-forum.html";
                         <li class="has-child" style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">

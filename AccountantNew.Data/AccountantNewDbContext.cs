@@ -63,8 +63,30 @@ namespace AccountantNew.Data
             modelBuilder.Entity<IdentityUserLogin>().HasKey(i => i.UserId).ToTable("ApplicationUserLogins");
             modelBuilder.Entity<IdentityRole>().ToTable("ApplicationRoles");
             modelBuilder.Entity<IdentityUserClaim>().HasKey(i => i.UserId).ToTable("ApplicationUserClaims");
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<Comment>()
+           .HasRequired(d => d.Post)
+           .WithMany(u => (ICollection<Comment>)u.Comments)
+           .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Post>()
+           .HasRequired(d => d.NewCategory)
+           .WithMany(u => (ICollection<Post>)u.Posts)
+           .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<File>()
+           .HasRequired(d => d.NewCategory)
+           .WithMany(u => (ICollection<File>)u.Files)
+           .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<New>()
+           .HasRequired(d => d.NewCategory)
+           .WithMany(u => (ICollection<New>)u.News)
+           .WillCascadeOnDelete(false);
+
         }
     }
 }

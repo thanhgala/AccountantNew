@@ -11,6 +11,7 @@ namespace AccountantNew.Common
         New,
         Category,
         Account,
-        Group
+        Group,
+        File
     }
 }

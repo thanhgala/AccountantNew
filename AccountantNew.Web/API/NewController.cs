@@ -54,6 +54,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("getid/{id:int}")]
+        [AuthorizeApi(Role = "New", Action = "Read")]
         [HttpGet]
         public HttpResponseMessage GetID(HttpRequestMessage request, int id)
         {
@@ -69,7 +70,7 @@ namespace AccountantNew.Web.API
 
         [Route("create")]
         [HttpPost]
-        [AuthorizeApi(Role = "New", Action = "Read")]
+        [AuthorizeApi(Role = "New", Action = "Create")]
         public HttpResponseMessage Create(HttpRequestMessage request, NewViewModel newVM)
         {
             return CreateHttpRespond(request, () =>

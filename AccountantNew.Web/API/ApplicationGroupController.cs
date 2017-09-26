@@ -284,6 +284,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("addpermissionfile")]
+        [AuthorizeApi(Role = "Group", Action = "Update")]
         [HttpGet]
         public HttpResponseMessage AddPermissionFile(HttpRequestMessage request, int checkedCateID, int groupID)
         {
@@ -309,6 +310,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("deletepermissionfile")]
+        [AuthorizeApi(Role = "Group", Action = "Delete")]
         [HttpDelete]
         public HttpResponseMessage DeletePermissionFile(HttpRequestMessage request, int checkedCateID, int groupID)
         {
@@ -331,6 +333,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("updatepermissionfile")]
+        [AuthorizeApi(Role = "Group", Action = "Update")]
         [HttpGet]
         public HttpResponseMessage UpdatePermissionFile(HttpRequestMessage request, string checkedCateID, int groupID, bool add)
         {

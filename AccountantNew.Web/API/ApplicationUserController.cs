@@ -34,6 +34,7 @@ namespace AccountantNew.Web.API
         }
 
         [HttpGet]
+        [AuthorizeApi(Role = "Account", Action = "Read")]
         [Route("getlistpaging")]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
         {
@@ -67,6 +68,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("detail/{id}")]
+        [AuthorizeApi(Role = "Account", Action = "Read")]
         [HttpGet]
         public HttpResponseMessage Details(HttpRequestMessage request, string id)
         {
@@ -90,6 +92,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("update")]
+        [AuthorizeApi(Role = "Account", Action = "Update")]
         [HttpPut]
         public async Task<HttpResponseMessage> Update(HttpRequestMessage request, ApplicationUserViewModel appUserViewModel)
         {
@@ -151,6 +154,7 @@ namespace AccountantNew.Web.API
         }
 
         [Route("delete")]
+        [AuthorizeApi(Role = "Account", Action = "Delete")]
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
         {

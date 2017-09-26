@@ -126,17 +126,19 @@
         }
 
         $scope.updateFile = function () {
-            apiService.put('api/file/update', $scope.pdfDetail, function (result) {
-                notificationService.displaySuccess(result.data);
-                angular.element(document).find('#updateFile').modal('hide');
-                getListFile();
-            }, function (err) {
-                if (err.status === 400) {
-                    notificationService.displayError('File này đã tồn tại trong thư mục bạn muốn di chuyển tới.');
-                } else {
-                    notificationService.displayError(err.data);
-                }
-            })
+            angular.element(document).find('#updateFile').modal('hide');
+            $timeout(function () {
+                apiService.put('api/file/update', $scope.pdfDetail, function (result) {
+                    notificationService.displaySuccess(result.data);
+                    getListFile();
+                }, function (err) {
+                    if (err.status === 400) {
+                        notificationService.displayError('File này đã tồn tại trong thư mục bạn muốn di chuyển tới.');
+                    } else {
+                        notificationService.displayError(err.data);
+                    }
+                })
+            }, 500);
         }
 
         $scope.openPdf = function (item) {

@@ -53,8 +53,29 @@
                             <div class="boxedtitle page-title">
                                 <h2>Tạo bài viết</h2>
                                 <div class="form-style form-style-3" id="question-submit">
-                                    @using (Html.BeginForm("Ask", "Forum", FormMethod.Post, new { id= "question-submit", @enctype = "multipart/form-data" }))
+                                    @using (Html.BeginForm("Ask", "Forum", FormMethod.Post, new { id = "question-submit", @enctype = "multipart/form-data" }))
                                     {
+                                        if (ViewBag.ForumID == AccountantNew.Common.CommonConstants.CommentID)
+                                        {
+                                            <div class="form-inputs clearfix">
+                                                <p>
+                                                    <label class="required">Họ tên<span>*</span></label>
+                                                    <input type="text" id="question-title" name="name1" class="form-control pull-right" placeholder="Nhập họ tên đầy đủ" />
+                                                </p>
+                                                <p>
+                                                    <label class="required">Email<span>*</span></label>
+                                                    <input type="text" id="question-title" name="email" class="form-control pull-right" placeholder="Nhập email" />
+                                                </p>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <p>
+                                                    <label class="required">Bộ phận<span>*</span></label>
+                                                    <input type="text" id="question-title" name="department" class="form-control pull-right" placeholder="Nhập vào bộ phận" />
+                                                </p>
+                                            </div>
+                                            <br />
+                                        }
                                         @Html.AntiForgeryToken()
                                         <div class="form-inputs clearfix">
                                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })

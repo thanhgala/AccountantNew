@@ -36,6 +36,7 @@
                 if (error.status === 403) {
                     notificationService.displayError('Authenticate is denied.');
                     $location.path('/error');
+               
                 }
                 else if (failure != null) {
                     failure(error)
@@ -51,6 +52,7 @@
                 if (error.status === 403) {
                     notificationService.displayError('Authenticate is denied');
                     $location.path('/error');
+                
                 }
                 else if (failure != null) {
                     failure(error);

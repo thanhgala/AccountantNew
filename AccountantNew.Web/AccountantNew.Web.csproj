@@ -3952,7 +3952,6 @@
     <Content Include="Assets\client\img\cp-img\feed-aqua-3.jpg" />
     <Content Include="Assets\client\img\cp-img\feed-aqua-4.jpg" />
     <Content Include="Assets\client\img\cp-img\feed-aqua-5.jpg" />
-    <Content Include="Assets\client\img\userTest.png" />
     <Content Include="Assets\client\img\currencyCountry\european-union.png" />
     <Content Include="Assets\client\img\currencyCountry\japan.png" />
     <Content Include="Assets\client\img\currencyCountry\thailand.png" />
@@ -3983,6 +3982,7 @@
     <Content Include="Assets\client\img\latest-video\03.jpg" />
     <Content Include="Assets\client\img\latest-video\lead-item.jpg" />
     <Content Include="Assets\client\img\logoFooter.png" />
+    <Content Include="Assets\client\img\logoFooter2.png" />
     <Content Include="Assets\client\img\market-data.jpg" />
     <Content Include="Assets\client\img\menu_bg.jpg" />
     <Content Include="Assets\client\img\newsletter-icon.png" />
@@ -4025,6 +4025,36 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Libs\CKFinder.dll" />
+    <Content Include="UploadedFiles\avartaUser\1080742_477713018999207_1561477091_n.jpg" />
+    <Content Include="UploadedFiles\avartaUser\1624651_616948585043447_372434556_n.jpg" />
+    <Content Include="UploadedFiles\avartaUser\2015-21-5--19-10-55.png" />
+    <Content Include="UploadedFiles\avartaUser\Create_A_Perfect_Selfie20_burned.png" />
+    <Content Include="UploadedFiles\avartaUser\Hinh3x4.jpg" />
+    <Content Include="UploadedFiles\avartaUser\IMG_9612.JPG" />
+    <Content Include="UploadedFiles\images\1 %281%29.jpg" />
+    <Content Include="UploadedFiles\images\1.JPG" />
+    <Content Include="UploadedFiles\images\14-43-51_nh-mo-hinh-nuoi-bo-thit-o-n-ging.JPG" />
+    <Content Include="UploadedFiles\images\1452752951917-1.jpg" />
+    <Content Include="UploadedFiles\images\8Ichot_c3647.jpg" />
+    <Content Include="UploadedFiles\images\cuuchienbinh.jpg" />
+    <Content Include="UploadedFiles\images\image001%281%29.jpg" />
+    <Content Include="UploadedFiles\images\image001.jpg" />
+    <Content Include="UploadedFiles\images\maxresdefault.jpg" />
+    <Content Include="UploadedFiles\images\no_image.png" />
+    <Content Include="UploadedFiles\images\tacn1-1442977693017.jpg" />
+    <Content Include="UploadedFiles\images\_MG_0804.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\1 %281%29.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\1.JPG" />
+    <Content Include="UploadedFiles\_thumbs\Images\14-43-51_nh-mo-hinh-nuoi-bo-thit-o-n-ging.JPG" />
+    <Content Include="UploadedFiles\_thumbs\Images\1452752951917-1.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\8Ichot_c3647.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\cuuchienbinh.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\image001%281%29.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\image001.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\maxresdefault.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\no_image.png" />
+    <Content Include="UploadedFiles\_thumbs\Images\tacn1-1442977693017.jpg" />
+    <Content Include="UploadedFiles\_thumbs\Images\_MG_0804.jpg" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\Layouts.cshtml" />
     <Content Include="Web.config">
@@ -4041,6 +4071,11 @@
   <ItemGroup>
     <Folder Include="app\components\application_admins\" />
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedFiles\FilePdf\ho-156\" />
+    <Folder Include="UploadedFiles\FilePdf\quyet-dinh-129\" />
+    <Folder Include="UploadedFiles\files\" />
+    <Folder Include="UploadedFiles\flash\" />
+    <Folder Include="UploadedFiles\_thumbs\Files\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
@@ -4537,6 +4572,12 @@
     <Content Include="Views\File\DisplayPDF.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\Pages\Organizational.cshtml" />
+    <None Include="Properties\PublishProfiles\AccountantNewBETA.pubxml" />
+    <Content Include="UploadedFiles\FilePdf\cong-ty-123\BangDiem.pdf" />
+    <Content Include="UploadedFiles\FilePdf\cong-ty-123\Unity AI Programming Essentials.pdf" />
+    <Content Include="UploadedFiles\FilePdf\cong-ty-123\Unity_Virtual_Reality_Projects-Packt_2015.pdf" />
+    <Content Include="UploadedFiles\FilePdf\kpi-125\Unity AI Programming Essentials.pdf" />
+    <Content Include="UploadedFiles\FilePdf\quyet-dinh-142\lecture3.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccountantNew.Common\AccountantNew.Common.csproj">

@@ -1,4 +1,5 @@
-﻿using AccountantNew.Model.Models;
+﻿using AccountantNew.Common;
+using AccountantNew.Model.Models;
 using AccountantNew.Service;
 using AccountantNew.Web.Models;
 using AutoMapper;
@@ -50,13 +51,10 @@ namespace AccountantNew.Web.Infastructure.Core
                     var listIDCategory = ServiceFactory.Get<INewCategoryService>().GetListCategoryByGroupId(item.ID);
                     item.NewCategory = listIDCategory;
                 }
-                //if (listGroupViewModel.Any(x => x.NewCategory.Count() > 0))
-                //{
-                //    foreach (var group in listGroupViewModel)
-                //    {
-                //        foreach()
-                //    }
-                //}
+                if (listGroupViewModel.Any(x => x.Name == CommonConstants.SupperAdmin))
+                {
+                    return true;
+                }
                 if (listGroupViewModel.Any(x => x.NewCategory.Count() > 0))
                 {
                     foreach (var item in listGroupViewModel)
