@@ -65,11 +65,5 @@ namespace AccountantNew.Web.Controllers
             return PartialView();
         }
 
-        public ActionResult NotFound()
-        {
-            SetAlert("Bạn không có quyền truy cập vào đây.", "error");
-            return View("Error404");
-        }
-
     }
 }

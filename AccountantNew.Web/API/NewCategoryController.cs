@@ -91,7 +91,7 @@ namespace AccountantNew.Web.API
                 //{
                 //    Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/UploadedFiles/files/alo"));
                 //}
-                var model = _newCategoryService.GetByAlias("tin-tuc");
+                var model = _newCategoryService.GetByAlias("tin-moi");
                 var lstCate = new List<NewCategory>();
                 lstCate.Add(model);
                 loadChildCategory(model.ID, lstCate);

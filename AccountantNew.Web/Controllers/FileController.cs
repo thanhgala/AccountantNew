@@ -25,6 +25,7 @@ namespace AccountantNew.Web.Controllers
             this._fileService = fileService;
         }
 
+        [HandleError]
         [FilePermission(Type = "Category")]
         [HttpGet]
         public ActionResult FileCategory(string category, int id)

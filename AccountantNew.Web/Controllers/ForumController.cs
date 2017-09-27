@@ -38,7 +38,7 @@ namespace AccountantNew.Web.Controllers
             {
                 if (!Request.IsAuthenticated)
                 {
-                    return RedirectToAction("NotFound", "Home");
+                    return RedirectToAction("NotFound", "Admin");
                 }
             }
 

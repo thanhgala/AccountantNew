@@ -29,10 +29,11 @@
 
             function loadNewCategory() {
                 apiService.get('api/newcategory/getnewscategory', null, function (result) {
-                    $scope.newcategories = commonService.getTree(result.data, "ID","ParentID");
-                    $scope.newcategories.forEach(function (item) {
-                        commonService.recur(item, 0, $scope.flatFolders);
-                    });
+                    //$scope.newcategories = commonService.getTree(result.data, "ID","ParentID");
+                    //$scope.newcategories.forEach(function (item) {
+                    //    commonService.recur(item, 0, $scope.flatFolders);
+                    //});
+                    $scope.newcategories = result.data;
                 }, function (error) {
                     console.log('cannot get list parent');
                 })

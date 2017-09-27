@@ -13,12 +13,12 @@ namespace AccountantNew.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Login",
-                  url: "dang-nhap",
-                  defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
-                  namespaces: new string[] { "AccountantNew.Web.Controllers" }
-              );
+            //routes.MapRoute(
+            //    name: "Login",
+            //      url: "dang-nhap",
+            //      defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+            //      namespaces: new string[] { "AccountantNew.Web.Controllers" }
+            //  );
 
             routes.MapRoute(
                name: "DetailPost",
@@ -70,6 +70,12 @@ namespace AccountantNew.Web
            );
 
             //routes.MapRoute("NotFound", "{*url}", new { controller = "Home", action = "NotFound" });
+
+            routes.MapRoute(
+                "ErrorHandler",
+                "Error/{action}/{errMsg}",
+                new { controller = "Admin", action = "NotFound", errMsg = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -62,7 +62,7 @@ namespace AccountantNew.Web.App_Start
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/dang-nhap"),
+                //LoginPath = new PathString("/dang-nhap"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.

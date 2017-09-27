@@ -18,7 +18,7 @@
                 success(result);
             }, function (error) {
                 //Không có quyền authen
-                if (error.status === 403) {
+                if (error.status === 403 || error.status === 401) {
                     notificationService.displayError('Authenticate is denied.');
                     $location.path('/error');
                 }
@@ -33,7 +33,7 @@
             $http.get(url, params).then(function (result) {
                 success(result);
             }, function (error) {
-                if (error.status === 403) {
+                if (error.status === 403 || error.status === 401) {
                     notificationService.displayError('Authenticate is denied.');
                     $location.path('/error');
                
@@ -49,7 +49,7 @@
             $http.put(url, data).then(function (result) {
                 success(result)
             }, function (error) {
-                if (error.status === 403) {
+                if (error.status === 403 || error.status === 401) {
                     notificationService.displayError('Authenticate is denied');
                     $location.path('/error');
                 
@@ -65,7 +65,7 @@
             $http.delete(url, data).then(function (result) {
                 success(result);
             }, function (error) {
-                if (error.status === 403) {
+                if (error.status === 403 || error.status === 401) {
                     notificationService.displayError('Authenticate is denied');
                     $location.path('/error');
                 }
