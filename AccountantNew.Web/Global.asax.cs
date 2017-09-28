@@ -27,15 +27,15 @@ namespace AccountantNew.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        void Application_EndRequest(object sender, System.EventArgs e)
-        {
-            // If the user is not authorised to see this page or access this function, send them to the error page.
-            if (Response.StatusCode == 401)
-            {
-                Response.ClearContent();
-                Response.RedirectToRoute("ErrorHandler", (RouteTable.Routes["ErrorHandler"] as Route).Defaults);
-            }
-        }
+        //void Application_EndRequest(object sender, System.EventArgs e)
+        //{
+        //    // If the user is not authorised to see this page or access this function, send them to the error page.
+        //    if (Response.StatusCode == 401)
+        //    {
+        //        Response.ClearContent();
+        //        Response.RedirectToRoute("ErrorHandler", (RouteTable.Routes["ErrorHandler"] as Route).Defaults);
+        //    }
+        //}
 
         void Application_Error(object sender, EventArgs e)
         {

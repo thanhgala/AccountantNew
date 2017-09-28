@@ -95,6 +95,23 @@ namespace AccountantNew.Web.Infastructure.Core
             }
         }
 
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            filterContext.Result = new RedirectResult("~/Admin/NotFound");
+        }
+
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (this.AuthorizeCore(filterContext.HttpContext))
+            {
+                base.OnAuthorization(filterContext);
+            }
+            else
+            {
+                this.HandleUnauthorizedRequest(filterContext);
+            }
+        }
+
         public bool loadRootCategory(NewCategory category, IEnumerable<int> listID)
         {
             var newCategoryService = ServiceFactory.Get<INewCategoryService>();
