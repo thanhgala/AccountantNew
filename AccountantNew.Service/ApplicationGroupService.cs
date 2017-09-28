@@ -67,7 +67,7 @@ namespace AccountantNew.Service
 
         public IEnumerable<ApplicationGroup> GetAll(int page, int pageSize, out int totalRow, string filter = null)
         {
-            var query = _appGroupRepository.GetAll();
+            var query = _appGroupRepository.GetAll().Where(x=>!x.Name.Contains("SupperAdmin"));
             if (!string.IsNullOrEmpty(filter))
                 query = query.Where(x => x.Name.Contains(filter));
 
