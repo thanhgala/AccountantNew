@@ -36,6 +36,8 @@ namespace AccountantNew.Web.Mappings
                 cg.CreateMap<Comment, CommentViewModel>();
 
                 cg.CreateMap<File, FileViewModel>();
+
+                cg.CreateMap<FocusNotification, FocusNotificationViewModel>();
             });
         }
     }

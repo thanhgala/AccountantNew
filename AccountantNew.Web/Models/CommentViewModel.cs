@@ -18,5 +18,7 @@ namespace AccountantNew.Web.Models
         public int PostID { set; get; }
 
         public DateTime CreateDate { set; get; }
+
+        public ApplicationUserViewModel ApplicationUser { set; get; }
     }
 }

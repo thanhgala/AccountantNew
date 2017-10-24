@@ -13,6 +13,7 @@ namespace AccountantNew.Model.Models
     public class ApplicationUser : IdentityUser
     {
         [MaxLength(256)]
+        [Required]
         public string FullName { set; get; }
 
         [MaxLength(256)]
@@ -26,8 +27,15 @@ namespace AccountantNew.Model.Models
         [MaxLength(50)]
         public string IdentityCard { set; get; }
 
-        [MaxLength(256)]
+        [MaxLength(100)]
         public string Department { set; get; }
+
+        public int BA { set; get; }
+
+        public double PCA { set; get; }
+
+        [MaxLength(100)]
+        public string NamePCA { set; get; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -36,6 +44,6 @@ namespace AccountantNew.Model.Models
             return userIdentity;
         }
 
-        public virtual IEnumerable<New> New { set; get; }
+        //public virtual IEnumerable<New> New { set; get; }
     }
 }

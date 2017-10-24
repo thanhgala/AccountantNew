@@ -1,12 +1,23 @@
-﻿using AccountantNew.Web.Mappings;
+﻿using AccountantNew.Web.App_Start;
+using AccountantNew.Web.Mappings;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AccountantNew.Data;
+using AccountantNew.Model.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using static AccountantNew.Web.App_Start.ApplicationUserStore;
 
 namespace AccountantNew.Web
 {
@@ -37,7 +48,7 @@ namespace AccountantNew.Web
         //    }
         //}
 
-        void Application_Error(object sender, EventArgs e)
+        private void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
             if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 404)

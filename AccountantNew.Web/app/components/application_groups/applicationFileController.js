@@ -41,7 +41,18 @@
             }
 
             $scope.ConfigFilePermission = function (id) {
+                $scope.isFilePermission = true;
                 apiService.get('/api/newcategory/getchildrootparent/' + id, null, function (result) {
+                    $scope.childcategories = result.data;
+                    loadCategoryGroup($scope.childcategories);
+                }, function (error) {
+                    notificationService.displayError(error.data);
+                });
+            }
+
+            $scope.ConfigSupportPermission = function (id) {
+                $scope.isFilePermission = false;
+                apiService.get('/api/newcategory/getchildsupportparent/' + id, null, function (result) {
                     $scope.childcategories = result.data;
                     loadCategoryGroup($scope.childcategories);
                 }, function (error) {

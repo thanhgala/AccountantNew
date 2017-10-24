@@ -30,10 +30,17 @@ namespace AccountantNew.Model.Models
         [Required]
         public int NewCategoryID { set; get; }
 
-        public int? ViewCount { set; get; }
+        public int ViewCount { set; get; }
+
+        [MaxLength(128)]
+        public string ApplicationUserId { set; get; }
 
         [ForeignKey("NewCategoryID")]
         public virtual NewCategory NewCategory { set; get; }
+
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { set; get; }
+
 
         public virtual IEnumerable<Comment> Comments { set; get; }
 

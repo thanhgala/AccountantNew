@@ -32,7 +32,7 @@ namespace AccountantNew.Data
 
         public DbSet<NewTag> NewTags { set; get; }
 
-        public DbSet<SupportOnline> SupportOnlines { set; get; }
+        public DbSet<FocusNotification> FocusNotifications { set; get; }
 
         public DbSet<Tag> Tags { set; get; }
 
@@ -50,6 +50,8 @@ namespace AccountantNew.Data
         public DbSet<ApplicationRole> ApplicationRoles { set; get; }
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
+
+        //public DbSet<ApplicationUser> ApplicationUsers { set; get; }
 
         public DbSet<ApplicationCateGroup> ApplicationCateGroups { set; get; }
 

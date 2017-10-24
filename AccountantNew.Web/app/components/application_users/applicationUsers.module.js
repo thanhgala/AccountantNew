@@ -14,7 +14,7 @@
         })
         .state('edit_application_user', {
             //cấu hình state khi lấy tham số từ url
-            url: "/edit_application_user/:id",
+            url: "/edit_application_user/:id/:page",
             parent: 'base',
             templateUrl: "/app/components/application_users/applicationUsersEditView.html",
             controller: "applicationUsersEditController"

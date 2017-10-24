@@ -1,6 +1,6 @@
 ﻿(function (app) {
-    app.controller('newsListController', ['$scope', 'apiService', '$ngBootbox', '$filter', 'commonService', '$uibModal', 'shareIDService', 'notificationService', '$timeout', '$state',
-    function ($scope, apiService, $ngBootbox, $filter, commonService, $uibModal, shareIDService, notificationService,$timeout,$state) {
+    app.controller('newsListController', ['$scope', 'apiService', '$ngBootbox', '$filter', 'commonService', '$uibModal', 'shareIDService', 'notificationService', '$timeout', '$state', 'authData',
+    function ($scope, apiService, $ngBootbox, $filter, commonService, $uibModal, shareIDService, notificationService, $timeout, $state, authData) {
             $scope.keyword = '';
             $scope.loading = true;
 
@@ -10,24 +10,23 @@
 
             $scope.getNews = getNews;
 
+            $scope.getNewsApproval = getNewsApproval;
+
             $scope.isAll = false;
 
+            $scope.isToggle = false;
+
+            $scope.pageCurrent;
+
             function getNews(page) {
-                if (!shareIDService.getIsAdd()) {
-                    page = page || 0;
-                    if (shareIDService.getPageCurrent() === 0) {
-                        $scope.pageCurrent = page;
-                    } else {
-                        $scope.pageCurrent = shareIDService.getPageCurrent();
-                        shareIDService.setPageCurrent(0)
-                    }
-                } else {
-                    if (shareIDService.getCountInPage() === 0)
-                        $scope.pageCurrent = shareIDService.getMaxPage() + 1;
-                    else {
-                        $scope.pageCurrent = shareIDService.getMaxPage()
-                    }
-                    shareIDService.setIsAdd(false);
+                $scope.toggleName = 'DS bài viết cần phê duyệt'
+                $scope.isToggle = false;
+                if (!shareIDService.getIsEdit()) {
+                    $scope.pageCurrent = page || 0;
+                }else{
+                    $scope.pageCurrent = shareIDService.getPageCurrent()
+                    shareIDService.setIsEdit(false);
+                    shareIDService.setPageCurrent(null);
                 }
                 $scope.loading = true;
                 var config = {
@@ -47,6 +46,7 @@
                     $scope.pagesCount = result.data.TotalPages;
                     $scope.totalCount = result.data.TotalCount;
                     $scope.countInPage = result.data.Count;
+                    $scope.totalApproval = result.data.TotalApproval;
 
                     shareIDService.setMaxPage($scope.pagesCount - 1);
                     shareIDService.setCountInPage($scope.totalCount % pageSize);
@@ -55,7 +55,64 @@
                     console.log('Cannot get list category');
                 });
             }
+
             getNews();
+
+            function getNewsApproval(page) {
+                $scope.toggleName = 'DS bài viết'
+                $scope.isToggle = true;
+                if (!shareIDService.getIsEdit()) {
+                    $scope.pageCurrent = page || 0;
+                } else {
+                    $scope.pageCurrent = shareIDService.getPageCurrent()
+                    shareIDService.setIsEdit(false);
+                    shareIDService.setPageCurrent(null);
+                }
+                $scope.loading = true;
+                var config = {
+                    params: {
+                        keyword: $scope.keyword,
+                        page: $scope.pageCurrent,
+                        pageSize: pageSize
+                    }
+                }
+                apiService.get('api/new/getallapproval', config, function (result) {
+                    if (result.data.TotalCount === 0) {
+                        notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
+                    }
+                    $scope.loading = false;
+                    $scope.data = result.data.Items;
+                    $scope.page = result.data.Page;
+                    $scope.pagesCount = result.data.TotalPages;
+                    $scope.totalCount = result.data.TotalCount;
+                    $scope.countInPage = result.data.Count;
+
+                    shareIDService.setMaxPage($scope.pagesCount - 1);
+                    shareIDService.setCountInPage($scope.totalCount % pageSize);
+                }, function () {
+                    $scope.loading = false;
+                    console.log('Cannot get list category');
+                });
+            }
+
+            function checkIsAdmin() {
+                if (authData.authenticationData.isAdmin === "True") {
+                    $scope.isAdmin = true;
+                }
+            }
+            checkIsAdmin();
+
+            $scope.toggleFunc = function () {
+                $scope.isToggle = !$scope.isToggle;
+                if ($scope.isToggle) {
+                    getNewsApproval();
+                    $scope.toggleName = 'DS bài viết';
+                }
+                else {
+                    getNews();
+                    $scope.toggleName = 'DS bài viết phê duyệt';
+                }
+            }
 
             $scope.deleteNews = function (id) {
                 $ngBootbox.confirm('Bạn có chắc muốn xóa?.').then(function () {
@@ -129,9 +186,8 @@
                     size: 'lg',
                     controller: 'newsEditController'
                 })
-                shareIDService.setID(id);
                 shareIDService.setPageCurrent($scope.pageCurrent);
-                shareIDService.setIsAdd(false);
+                shareIDService.setID(id);
             }
 
             $scope.openAddPoup = function () {
@@ -142,7 +198,7 @@
                     size: 'lg',
                     controller: 'newsAddController'
                 })
-                shareIDService.setIsAdd(true);
+                //shareIDService.setIsAdd(true);
             }
         }])
 })(angular.module('accountantnew.news'))

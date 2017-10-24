@@ -1,18 +1,18 @@
-﻿using AccountantNew.Web.Infastructure.Core;
+﻿using AccountantNew.Common;
+using AccountantNew.Model.Models;
+using AccountantNew.Service;
+using AccountantNew.Web.Infastructure.Core;
+using AccountantNew.Web.Infastructure.Extensions;
+using AccountantNew.Web.Models;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using AccountantNew.Service;
-using static AccountantNew.Web.App_Start.ApplicationUserStore;
-using AccountantNew.Model.Models;
-using AccountantNew.Web.Models;
-using AutoMapper;
 using System.Threading.Tasks;
-using AccountantNew.Web.Infastructure.Extensions;
-using AccountantNew.Common;
+using System.Web.Http;
+using static AccountantNew.Web.App_Start.ApplicationUserStore;
 
 namespace AccountantNew.Web.API
 {
@@ -22,15 +22,18 @@ namespace AccountantNew.Web.API
         private ApplicationUserManager _userManager;
         private IApplicationGroupService _appGroupService;
         private IApplicationRoleService _appRoleService;
+        private IApplicationUserService _appUserService;
 
         public ApplicationUserController(IErrorService errorService,
             ApplicationUserManager userManager,
             IApplicationGroupService appGroupService,
-            IApplicationRoleService appRoleService) : base(errorService)
+            IApplicationRoleService appRoleService,
+            IApplicationUserService appUserService) : base(errorService)
         {
             this._userManager = userManager;
             this._appGroupService = appGroupService;
             this._appRoleService = appRoleService;
+            this._appUserService = appUserService;
         }
 
         [HttpGet]
@@ -39,22 +42,9 @@ namespace AccountantNew.Web.API
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
         {
             int totalRow = 0;
-            var model = _userManager.Users;
-           
-            List<ApplicationUser> users;
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                users = model.Where(x => x.UserName.Contains(keyword) || x.FullName.Contains(keyword)).ToList();
-                totalRow = users.Count();
-                users = users.OrderBy(x => x.UserName).Skip(page * pageSize).Take(pageSize).ToList();
-            }
-            else
-            {
-                users = _userManager.Users.OrderBy(x => x.UserName).Skip(page * pageSize).Take(pageSize).ToList();
-                totalRow = model.Count();
-            }
+            IEnumerable<ApplicationUser> model = _appUserService.GetUser(keyword,page,pageSize,out totalRow);
 
-            IEnumerable<ApplicationUserViewModel> usersViewModel = Mapper.Map<List<ApplicationUser>, List<ApplicationUserViewModel>>(users);
+            IEnumerable<ApplicationUserViewModel> usersViewModel = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserViewModel>>(model);
 
             var pagedSet = new PaginationSet<ApplicationUserViewModel>()
             {
@@ -140,7 +130,6 @@ namespace AccountantNew.Web.API
                     {
                         return request.CreateErrorResponse(HttpStatusCode.OK, string.Join(",", result.Errors));
                     }
-
                 }
                 catch (NameDuplicatedException dx)
                 {

@@ -13,6 +13,7 @@ namespace AccountantNew.Data.Repositories
     {
         IEnumerable<New> GetHotNew();
         IEnumerable<New> GetLastestNew();
+        New GetNewWithAppUser(int newID);
     }
 
     public class NewRepository : RepositoryBase<New>, INewRepository
@@ -25,20 +26,28 @@ namespace AccountantNew.Data.Repositories
         public IEnumerable<New> GetHotNew()
         {
             var querry = (from n in DbContext.News
-                         join nc in DbContext.NewCategories
-                         on n.NewCategoryID equals nc.ID
-                         where n.Status == true && n.HotFlag == true
-                         select n).Include("NewCategory");
+                          where n.Status == true && n.HotFlag == true && n.NewCategoryID == Common.CommonConstants.NewID1
+                          select n).Include("NewCategory");
             return querry;
         }
 
         public IEnumerable<New> GetLastestNew()
         {
             var querry = (from n in DbContext.News
-                          join nc in DbContext.NewCategories
-                          on n.NewCategoryID equals nc.ID
-                          where n.Status == true && n.HomeFlag == true
+                              //join nc in DbContext.NewCategories
+                              //on n.NewCategoryID equals nc.ID
+                          where n.Status == true && n.HomeFlag == true && n.NewCategoryID == Common.CommonConstants.NewID1
                           select n).Include("NewCategory");
+            return querry;
+        }
+
+        public New GetNewWithAppUser(int newID)
+        {
+            var querry = (from n in DbContext.News
+                          join u in DbContext.Users
+                          on n.ApplicationUserId equals u.Id
+                          where n.ID == newID
+                          select n).Include("ApplicationUser").SingleOrDefault();
             return querry;
         }
     }

@@ -1,4 +1,5 @@
-﻿@model AccountantNew.Web.Models.PostViewModel
+﻿@using Microsoft.AspNet.Identity;
+@model AccountantNew.Web.Models.PostViewModel
 @{
     ViewBag.Title = "DetailPost";
     Layout = "~/Views/Shared/Layouts.cshtml";
@@ -62,13 +63,15 @@
                                         <h2>
                                             <a href="#">@Model.Name</a>
                                         </h2>
-
                                         <div class="question-author">
-                                            <a href="" original-title="ahmed" class="question-author-img tooltip-n"><span></span><img alt="" src="~/Assets/client/img/forum-icon-15.png"></a>
+                                            <a href="" original-title="ahmed" class="question-author-img tooltip-n"><span></span><img alt="" src="@Model.ApplicationUser.Avartar"></a>
+                                        </div>
+                                        <div class="comment-author">
+                                            <a>@Model.ApplicationUser.FullName</a>
                                         </div>
                                         <div class="question-inner">
                                             <div class="clearfix"></div>
-                                            <div class="question-desc">
+                                            <div class="question-desc" style="margin-top:-15px;margin-left:40px;">
                                                 @Html.Raw(Model.Content)
                                                 <p>&nbsp;</p>
                                                 <p>&nbsp;</p>
@@ -96,9 +99,9 @@
                                 {
                                     <li class="comment">
                                         <div class="comment-body clearfix">
-                                            <div class="avatar"><img alt="" src="http://online.khoapham.vn/user/img/0.jpg"></div><div class="comment-text">
+                                            <div class="avatar"><img alt="" src=@item.ApplicationUser.Avartar></div><div class="comment-text">
                                                 <div class="author clearfix">
-                                                    <div class="comment-author"><a href="">Gala Đỗ</a></div><div class="comment-meta"><div class="date"><i class="icon-time"></i>@item.CreateDate</div></div>
+                                                    <div class="comment-author"><a>@item.ApplicationUser.FullName</a></div><div class="comment-meta"><div class="date"><i class="icon-time"></i>@item.CreateDate</div></div>
                                                 </div>
                                                 <div class="text">
                                                     <p>@Html.Raw(item.Content)</p>
@@ -122,6 +125,7 @@
                                             </p>
                                             <div class="col-xs-12 col-sm-12" style="margin:20px 8px; padding: 0 -15px">
                                                 @Html.Hidden("PostID", Model.ID)
+                                                @Html.Hidden("UserID", User.Identity.GetUserId())
                                                 <textarea id="txtContent" name="Content" class="textarea"></textarea>
                                                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "form-description" })
                                             </div>

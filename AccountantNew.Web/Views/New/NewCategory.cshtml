@@ -1,10 +1,10 @@
-﻿@model List<AccountantNew.Web.Models.NewViewModel>
+﻿@model AccountantNew.Web.Infastructure.Core.PaginationSet<AccountantNew.Web.Models.NewViewModel>
 @{
     ViewBag.Title = "Category";
     Layout = "~/Views/Shared/Layouts.cshtml";
     string pageTitle = ViewBag.PageTitle;
     var ModelCurrentRate = ViewBag.ModelCurrencyRate as AccountantNew.Web.Models.HomeViewModel;
-}   
+}
 
 @section pageTitle{
     <section id="page-title">
@@ -12,7 +12,7 @@
             <div class="col-sm-12">
                 <div class="page-title-wrapper" style="background-image:url(Assets/client/img/sub-header/subHeader.jpg)">
                     <div class="container">
-                        <h2 class="pull-left title"> <span class="cat-icon">@pageTitle.Substring(0,1) </span> @pageTitle</h2>
+                        <h2 class="pull-left title"> <span class="cat-icon">@pageTitle.Substring(0, 1) </span> @pageTitle</h2>
                         <ol class="breadcrumb pull-right">
                             <li><a href="/">Trang chủ</a></li>
                             <li><a href="#">Danh mục</a></li>
@@ -30,70 +30,158 @@
         <div class="row">
             <div class="col-sm-9">
                 <div class="section-title">
-                    <h3> <span class="cat-icon">@pageTitle.Substring(0,1)</span>@pageTitle</h3>
+                    <h3> <span class="cat-icon">@pageTitle.Substring(0, 1)</span>@pageTitle</h3>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div id="article-slider" class="owl-carousel mtb30 article-categories-slider">
-                            @foreach (var item in Model.Take(2))
-                            {
-                                var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
-                                <article>
-                                    <div class="article-inner">
-                                        <div class="overlay"></div>
-                                        <div class="img-wrapper"><img class="img-100p latest-post-image thumb-slider" src="@item.Image" alt="img"></div>
-                                        <div class="article-info">
-                                            <p class="slide-cat">
-                                                <a href="#">
-                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
-                                                </a>
-                                            </p>
-                                            <h2 class="entry-title">
-                                                <a href="@url">@item.Name</a>
-                                            </h2>
+                @*<div class="row">
+                        <div class="col-sm-12">
+                            <div id="article-slider" class="owl-carousel mtb30 article-categories-slider">
+                                @foreach (var item in Model.Take(2))
+                                {
+                                    var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                                    <article>
+                                        <div class="article-inner">
+                                            <div class="overlay"></div>
+                                            <div class="img-wrapper"><img class="img-100p latest-post-image thumb-slider" src="@item.Image" alt="img"></div>
+                                            <div class="article-info">
+                                                <p class="slide-cat">
+                                                    <a href="#">
+                                                        <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                    </a>
+                                                </p>
+                                                <h2 class="entry-title">
+                                                    <a href="@url">@item.Name</a>
+                                                </h2>
+                                            </div>
                                         </div>
-                                    </div>
-                                </article>
-                            }
+                                    </article>
+                                }
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>*@
 
                 <div class="row">
-                    <div class="simple-article-overlay">
-                    @foreach (var item in Model.Skip(2).Take(3))
+                    @if (Model.TotalPages > 1)
                     {
-                        var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
-                        <div class="col-md-4 col-sm-6">
-                            <article class="gradient-color04">
-                                <div class="article-inner default">
-                                    <div class="overlay"></div>
-                                    <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
-                                    <div class="article-info">
-                                        
-                                        <h4 class="entry-title">
-                                            <a href="@url">@item.Name</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+                        // Create numeric links
+                        var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                        var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+                        <nav>
+                            <ul class="pagination pagination-sm pull-right" style="margin-top:0px;">
+                                @if (Model.Page > 1)
+                                {
+                                    <li>
+                                        <a href="?page=1" aria-label="First">
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="?page=@(Model.Page-1)" aria-label="Previous">
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                }
+
+                                @for (int i = startPageIndex; i <= endPageIndex; i++)
+                                {
+                                    if (Model.Page == i)
+                                    {
+                                        <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="?page=@i" title="Trang @i">@i</a></li>
+                                    }
+                                }
+                                @if (Model.Page < Model.TotalPages)
+                                {
+                                    <li>
+                                        <a href="?page=@(Model.Page+1)" aria-label="Next">
+                                            <i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="?page=@Model.TotalPages" aria-label="Last">
+                                            <i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
                     }
-                    </div>
                 </div>
 
                 <div class="row">
                     <div class="simple-article-overlay">
-                        @foreach (var item in Model.Skip(5))
+                        @foreach (var item in Model.Items.Take(3))
                         {
-                            var url = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                            var url = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
                             <div class="col-md-4 col-sm-6">
                                 <article class="gradient-color04">
                                     <div class="article-inner default">
                                         <div class="overlay"></div>
                                         <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
                                         <div class="article-info">
+                                            <p class="slide-cat">
+                                                <a href="#">
+                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                </a>
+                                            </p>
+                                            <h4 class="entry-title">
+                                                <a href="@url">@item.Name</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="simple-article-overlay">
+                        @foreach (var item in Model.Items.Skip(3).Take(3))
+                        {
+                            var url = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
+                            <div class="col-md-4 col-sm-6">
+                                <article class="gradient-color04">
+                                    <div class="article-inner default">
+                                        <div class="overlay"></div>
+                                        <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
+                                        <div class="article-info">
+                                            <p class="slide-cat">
+                                                <a href="#">
+                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                </a>
+                                            </p>
+                                            <h4 class="entry-title">
+                                                <a href="@url">@item.Name</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="simple-article-overlay">
+                        @foreach (var item in Model.Items.Skip(6))
+                        {
+                            var url = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
+                            <div class="col-md-4 col-sm-6">
+                                <article class="gradient-color04">
+                                    <div class="article-inner default">
+                                        <div class="overlay"></div>
+                                        <div class="img-wrapper"><img class="img-100p latest-post-image thumb-medium" src="@item.Image" alt="img"></div>
+                                        <div class="article-info">
+                                            <p class="slide-cat">
+                                                <a href="#">
+                                                    <span class="cat-icon cat-icon-color01"> T</span>@item.NewCategory.Name
+                                                </a>
+                                            </p>
                                             <h4 class="entry-title">
                                                 <a href="@url">@item.Name</a>
                                             </h4>
@@ -109,7 +197,7 @@
             <div class="col-sm-3">
                 @Html.Partial("Col3Partial", ModelCurrentRate)
             </div>
+            <div class="clearfix"> </div>
         </div> <!-- //row -->
     </div> <!-- //container -->
 </section>
-

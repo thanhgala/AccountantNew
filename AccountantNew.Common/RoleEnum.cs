@@ -12,6 +12,9 @@ namespace AccountantNew.Common
         Category,
         Account,
         Group,
-        File
+        File,
+        Notification,
+        Focus,
+        Admin
     }
 }

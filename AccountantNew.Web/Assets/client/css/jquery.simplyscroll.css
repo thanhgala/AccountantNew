@@ -103,13 +103,13 @@
 */
 
 .simply-scroll { /* Customisable base class for style override DIV */
-	width: 100%;
+	width: 110%;
 	height: auto;
 	margin-bottom: 1em;
 }
 
 	.simply-scroll .simply-scroll-clip {
-		width: 118%;
+		width: 100%;
 		height: auto;
 	}
 	

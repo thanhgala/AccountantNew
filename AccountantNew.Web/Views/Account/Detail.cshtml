@@ -1,0 +1,89 @@
+﻿@model AccountantNew.Web.Models.ApplicationUserViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+}
+
+@section footerJS{
+    <script>
+        $(document).ready(function () {
+            $("#upFile").click(function () {
+                $("#openImage").trigger('click');
+            });
+
+            $('input[type=file]').change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $('#upFile').prop({ src: tmppath });
+            });
+        })
+    </script>
+}
+
+@section pageTitle{
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-wrapper" style="background-image:url(/Assets/client/img/sub-header/subHeader.jpg)">
+                    <div class="container">
+                        <h2 class="pull-left title"> <span class="cat-icon">P</span> Profile</h2>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="#">Danh mục</a></li>
+                            <li class="active">Profile</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<section class="main-wrapper">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("Update", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken();
+                @Html.ValidationSummary(false, "", new { @class = "error" })
+                <input type="text" hidden value="@Model.Id" name="Id" />
+
+                <div class="col-sm-5">
+                    <img id="upFile" class="articleAvartar" alt="avarta" src="@Model.Avartar" style="cursor:pointer;" />
+                    <input type="file" id="openImage" name="Avarta" style="display: none" accept=".jpg,.png" />
+                </div>
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <span>Họ tên<label></label></span>
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <span>Email<label></label></span>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control",type="email" } })
+                    </div>
+
+                    <div class="form-group">
+                        <span>Địa chỉ<label></label></span>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <span>Số điện thoại<label></label></span>
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="form-group">
+                        <span>Ngày sinh<label></label></span>
+                        @Html.TextBoxFor(model => model.BirthDay, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-success pull-right" />
+                    </div>
+                    <br /><br /><br /><br />
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

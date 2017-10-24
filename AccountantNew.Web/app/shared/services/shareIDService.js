@@ -8,8 +8,10 @@
             idNew: '',
             pageCurrent: 0,
             isAdd: false,
+            isEdit:false,
             maxPage: '',
-            countInPage:''
+            countInPage: '',
+            keyWord:''
         };
 
         return {
@@ -43,6 +45,12 @@
             setIsAdd: function(bool){
                 data.isAdd = bool;
             },
+            getIsEdit: function () {
+                return data.isEdit;
+            },
+            setIsEdit: function (bool) {
+                data.isEdit = bool;
+            },
             getMaxPage: function () {
                 return data.maxPage;
             },
@@ -54,7 +62,14 @@
             },
             setCountInPage: function (count) {
                 data.countInPage = count;
+            },
+            getKeyWord: function () {
+                return data.keyWord;
+            },
+            setKeyWord: function (keyword) {
+                data.keyWord = keyword;
             }
-        };
-    }
+
+    };
+}
 })(angular.module('accountantnew.common'));

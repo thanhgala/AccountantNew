@@ -19,7 +19,7 @@
                                             <a href="/tin-moi.html"><span class="cat-icon"> T</span>@firstHotNew.NewCategory.Name</a>
                                         </p>
                                         <h2 class="slide-title">
-                                            @{var urlHotSlide = "/tin-moi" +  "/" + firstHotNew.Alias + "-" + firstHotNew.ID + ".html";
+                                            @{var urlHotSlide = "/tin-moi" +  "-" + firstHotNew.Alias + "-" + firstHotNew.ID + ".html";
                                             }
                                             <a href="@urlHotSlide">@firstHotNew.Name</a>
                                         </h2>
@@ -41,7 +41,7 @@
                                             <a href="/tin-moi.html"><span class="cat-icon"> T</span>@item.NewCategory.Name</a>
                                         </p>
                                         <h2 class="slide-title">
-                                            @{var urlHotSlide2 = "/tin-moi" + "/" + item.Alias + "-" + item.ID + ".html";
+                                            @{var urlHotSlide2 = "/tin-moi" + "-" + item.Alias + "-" + item.ID + ".html";
                                             }
                                             <a href="@urlHotSlide2">@item.Name</a>
                                         </h2>
@@ -82,7 +82,7 @@
                         <div class="col-md-8">
                             <!-- article-slider -->
                             @{  var modelFirstNew = Model.LatestNews.First();
-                                var url = "/" + modelFirstNew.NewCategory.Alias + "/" + modelFirstNew.Alias + "-" + modelFirstNew.ID + ".html";
+                                var url = "/" + modelFirstNew.NewCategory.Alias + "-" + modelFirstNew.Alias + "-" + modelFirstNew.ID + ".html";
                              }
                             <article>
                                 <div class="article-inner">
@@ -103,7 +103,7 @@
                         </div> <!-- //col-md-8 -->
                         @foreach (var item in Model.LatestNews.Skip(1).Take(2))
                         {
-                            var urlItem = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                            var urlItem = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
                             <div class="col-md-4 col-sm-6">
                                 <article>
                                     <div class="article-inner">
@@ -129,7 +129,7 @@
                     <div class="row">
                         @foreach (var item in Model.LatestNews.Skip(3))
                         {
-                            var urlItem = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                            var urlItem = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
                             <div class="col-sm-4">
                                 <article>
                                     <div class="article-inner default">
@@ -198,11 +198,11 @@
                 </div> <!-- //section-title -->
 
                 <ul class="popular-news-list">
-                    <li><a href="single-article.html">the polls that prove caste politics still matter in india</a></li>
-                    <li><a href="single-article.html">sed ac neque ut neque dictum accumsan</a></li>
-                    <li><a href="single-article.html">5 effective email unsubscribe pages condimentum donec</a></li>
-                    <li><a href="single-article.html">in aliquet facilisis condimentum donec at orci orci</a></li>
-                    <li><a href="single-article.html">integer elementum massa at nulla condimentum donec</a></li>
+                    @foreach (var item in Model.Notifications)
+                    {
+                        var urlItem = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
+                        <li><a href="@urlItem">@item.Name</a></li>
+                    }
                 </ul>
             </div> <!-- //popular-news -->
             @Html.Partial("Col3Partial",Model)

@@ -24,17 +24,27 @@ namespace AccountantNew.Common
 
         public const int NewID = 184;
 
+        public const int NotificationID = 186;
+
         public const int PolicyID = 4;
 
         public const int LawID = 5;
 
         public const int LicenseID = 6;
 
-        public const int NotifyID = 7;
+        public const int ReportID = 7;
 
         public const int SupportID = 8;
 
         public const int CommentID = 9;
+
+        public const int NewID1 = 185;
+
+        public const int LocalAccounting = 187;
+
+        public const int AnotherDepart = 188;
+
+        public const int ConsultantID = 165;
 
     }
 }

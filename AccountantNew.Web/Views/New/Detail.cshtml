@@ -36,18 +36,18 @@
                         <div class="entry-blog-meta">
                             <div class="entry-blog-meta-list">
                                 <div class="author-avatar">
-                                    <img alt="" src="~/Assets/client/img/comm-user.jpg">
+                                    <img alt="" style="width:31px;height:31px;" src="@(Model.ApplicationUser != null? Model.ApplicationUser.Avartar : "~/Assets/client/img/comm-user.jpg")">
                                 </div>
                                 <div class="author-avatar-text">
-                                    <p class="author"> <a href="#" title="Posts by NewEdge" rel="author">Gala</a></p>
-                                    <span class="entry-date"><time>@DateTime.Now</time></span>,
-                                    <span class="cats"><a href="#" rel="category tag">Tin tức</a></span>
+                                    <p class="author"> <a href="#" title="Posts by NewEdge" rel="author">@(Model.ApplicationUser != null? Model.ApplicationUser.FullName : "")</a></p>
+                                    <span class="entry-date"><time>@Model.CreatedDate</time></span>,
+                                    <span class="cats"><a href="#" rel="category tag">@pageTitle</a></span>
                                 </div>
                             </div>
 
                             <div class="entry-blog-meta-list">
                                 <div class="share-count">
-                                    <span class="number">2.86k</span><span>Views</span>
+                                    <span class="number">@Model.ViewCount</span><span>Views</span>
                                 </div>
                             </div>
                         </div>
@@ -59,35 +59,7 @@
                         </div>
 
                         <div class="post-meta-info">
-                            <div class="post-meta-info-list tags">
-                                <i class="fa fa-tags"></i>
-                                <div class="post-meta-info-list-in tags-in">
-                                    <p>Tags</p>
-                                    <a href="#">Culture, </a>
-                                    <a href="#">Music</a>
-                                </div>
-                            </div>
-                            <div class="post-meta-info-list comments">
-                                <i class="fa fa-comments-o"></i>
-                                <div class="post-meta-info-list-in comments-in">
-                                    <p>Comments</p>
-                                    <a href="#"><span class="leave-reply">No comment</span></a>
-                                </div>
-                            </div>
-                            <div class="post-meta-info-list category">
-                                <i class="fa fa-folder-open-o"></i>
-                                <div class="post-meta-info-list-in category-in">
-                                    <p>Category</p>
-                                    <a href="#" rel="category tag">Business</a>
-                                </div>
-                            </div>
-                            <div class="post-meta-info-list date">
-                                <i class="fa fa-calendar-o"></i>
-                                <div class="post-meta-info-list-in date-in">
-                                    <p>Date</p>
-                                    <time class="entry-date">Nov 18, 2015</time>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 

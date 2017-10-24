@@ -29,16 +29,49 @@ namespace AccountantNew.Web.API
             this._newCategoryService = newCategoryService;
         }
 
-        [Route("getlistfile/{id:int}")]
+        [Route("getlistfile")]
         [AuthorizeApi(Role = "File", Action = "Read")]
         [HttpGet]
-        public HttpResponseMessage GetListFile(HttpRequestMessage request,int id)
+        public HttpResponseMessage GetListFile(HttpRequestMessage request,int id, string keyword, int page, int pageSize = 20)
         {
             return CreateHttpRespond(request, () =>
             {
-                var listFileModel = _fileService.GetListFileByCateID(id);
+                int totalRow = 0;
+                int totalApproval = 0;
+                var listFileModel = _fileService.GetListFileByCateIDPaging(id,keyword,page+1,pageSize,out totalRow,out totalApproval);
                 var listViewModel = Mapper.Map<IEnumerable<Model.Models.File>, IEnumerable<FileViewModel>>(listFileModel);
-                return request.CreateResponse(HttpStatusCode.OK, listViewModel);
+                int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+                var paginationSet = new PaginationSet<FileViewModel>()
+                {
+                    Items = listViewModel,
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPages = totalPage,
+                    TotalApproval = totalApproval
+                };
+                return request.CreateResponse(HttpStatusCode.OK, paginationSet);
+            });
+        }
+
+        [Route("getlistfileapproval")]
+        [AuthorizeApi(Role = "Admin", Action = "Read")]
+        [HttpGet]
+        public HttpResponseMessage GetListFileApproval(HttpRequestMessage request, int id, string keyword, int page, int pageSize = 20)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                int totalRow = 0;
+                var listFileModel = _fileService.GetListFileByCateIDPagingApproval(id, keyword, page + 1, pageSize, out totalRow);
+                var listViewModel = Mapper.Map<IEnumerable<Model.Models.File>, IEnumerable<FileViewModel>>(listFileModel);
+                int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+                var paginationSet = new PaginationSet<FileViewModel>()
+                {
+                    Items = listViewModel,
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPages = totalPage
+                };
+                return request.CreateResponse(HttpStatusCode.OK, paginationSet);
             });
         }
 
@@ -70,6 +103,8 @@ namespace AccountantNew.Web.API
             string folder = result.FormData["folders"].ToString().Trim('"');
 
             string cateId = result.FormData["categoryId"].ToString().Trim('"');
+
+            string createdBy = result.FormData["createdBy"].ToString().Trim('"');
 
             var folderRoot = HttpContext.Current.Server.MapPath("~/UploadedFiles/FilePdf/" + folder + "-" + cateId);
             if (!Directory.Exists(folderRoot))
@@ -109,6 +144,7 @@ namespace AccountantNew.Web.API
                             Alias = StringHelper.ToUnsignString(fileName),
                             NewCategoryID = int.Parse(cateId),
                             CreatedDate = DateTime.Now,
+                            CreatedBy = createdBy,
                             Status = status,
                             TimeStarted = timeStarted,
                             Path = CommonConstants.FileUpload + folder + "-" + cateId + "/" + fileName
@@ -181,6 +217,14 @@ namespace AccountantNew.Web.API
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, "Update thành công.");
             });
+        }
+
+        [Route("detail")]
+        [AuthorizeApi(Role = "File", Action = "Update")]
+        [HttpGet]
+        public HttpResponseMessage ViewDetail(HttpRequestMessage request)
+        {
+            return request.CreateResponse(HttpStatusCode.OK);
         }
 
         [Route("delete")]

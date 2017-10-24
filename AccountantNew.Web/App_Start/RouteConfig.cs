@@ -13,16 +13,9 @@ namespace AccountantNew.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //    name: "Login",
-            //      url: "dang-nhap",
-            //      defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
-            //      namespaces: new string[] { "AccountantNew.Web.Controllers" }
-            //  );
-
             routes.MapRoute(
                name: "DetailPost",
-               url: "{category}-{id}-forum/{alias}.html",
+               url: "{category}-{id}-forum/{alias}-{idpost}.html",
                defaults: new { controller = "Forum", action = "DetailPost", id = UrlParameter.Optional },
                namespaces: new string[] { "AccountantNew.Web.Controllers" }
                );
@@ -49,6 +42,13 @@ namespace AccountantNew.Web
                );
 
             routes.MapRoute(
+               name: "UserDetail",
+                 url: "chi-tiet-{id}.html",
+                 defaults: new { controller = "Account", action = "Detail", id = UrlParameter.Optional },
+                 namespaces: new string[] { "AccountantNew.Web.Controllers" }
+             );
+
+            routes.MapRoute(
                 name: "Ask",
                 url: "{category}/ask-{id}.html",
                 defaults: new { controller = "Forum", action = "Ask", id = UrlParameter.Optional },
@@ -56,18 +56,18 @@ namespace AccountantNew.Web
             );
 
             routes.MapRoute(
+              name: "New",
+              url: "{category}-{new}-{id}.html",
+              defaults: new { controller = "New", action = "Detail", id = UrlParameter.Optional },
+              namespaces: new string[] { "AccountantNew.Web.Controllers" }
+          );
+
+            routes.MapRoute(
                 name: "NewCategory",
                 url: "{category}.html",
                 defaults: new { controller = "New", action = "NewCategory", id = UrlParameter.Optional },
                 namespaces: new string[] { "AccountantNew.Web.Controllers" }
             );
-
-            routes.MapRoute(
-               name: "New",
-               url: "{category}/{new}-{id}.html",
-               defaults: new { controller = "New", action = "Detail", id = UrlParameter.Optional },
-               namespaces: new string[] { "AccountantNew.Web.Controllers" }
-           );
 
             //routes.MapRoute("NotFound", "{*url}", new { controller = "Home", action = "NotFound" });
 

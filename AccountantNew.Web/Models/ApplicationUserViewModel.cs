@@ -27,6 +27,12 @@ namespace AccountantNew.Web.Models
 
         public string Department { set; get; }
 
+        public int BA { set; get; }
+
+        public double PCA { set; get; }
+
+        public string NamePCA { set; get; }
+
         public IEnumerable<ApplicationGroupViewModel> Groups { set; get; }
     }
 }

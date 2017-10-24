@@ -1,11 +1,14 @@
 ﻿(function (app) {
-    app.controller('applicationUsersEditController', ['apiService', '$scope', 'notificationService', '$location', '$stateParams', 'commonService',
-        function (apiService, $scope, notificationService, $location, $stateParams, commonService) {
+    app.controller('applicationUsersEditController', ['apiService', '$scope', 'notificationService', '$location', '$stateParams', 'commonService','shareIDService',
+        function (apiService, $scope, notificationService, $location, $stateParams, commonService, shareIDService) {
             $scope.account = {
                 Groups: []
             };
 
             function loadDetail() {
+                shareIDService.setPageCurrent($stateParams.page);
+                shareIDService.setIsEdit(true);
+
                 apiService.get('/api/applicationUser/detail/' + $stateParams.id, null, function (result) {
                     $scope.account = result.data;
                     $scope.account.BirthDay = new Date($scope.account.BirthDay);

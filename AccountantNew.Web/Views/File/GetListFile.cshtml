@@ -1,27 +1,126 @@
-﻿@model IEnumerable<AccountantNew.Web.Models.FileViewModel>
+﻿@model AccountantNew.Web.Infastructure.Core.PaginationSet<AccountantNew.Web.Models.FileViewModel>
+@{
+    int categoryID = Model.NewCategoryID;
+}
+<div class="box-header with-border">
+    <h3 class="box-title">File</h3>
+    <div class="box-tools pull-right">
+        <div class="has-feedback">
+            <input id="searchFile" type="text" class="form-control input-sm" placeholder="Search File">
+        </div>
+    </div>
+</div>
 
-<tr>
-    <th style="width:30%">Tên văn bản</th>
-    <th style="width:50%">Trích yếu</th>
-    <th style="width:10%">Ngày ban hành</th>
-    <th style="width:10%">Tải về</th>
-</tr>
-@foreach (var item in Model)
+@if (Model.Items.Count() == 0)
 {
-    <tr>
-        @*<td>@Html.ActionLink(item.Name,"","",new { data_toggle = "modal", data_target = "#openPdf" })</td>*@
-        <td>@Ajax.ActionLink(item.Name, "DisplayPDF","File",new { path = item.Path},new AjaxOptions {HttpMethod = "GET",InsertionMode = InsertionMode.Replace,UpdateTargetId = "pdfBody" },
-           new { @data_toggle = "modal", @data_target = "#openPdf" })</td>
-        <td>
-            @item.Describtion
-        </td>
-        <td>
-            @item.TimeStarted.ToShortDateString()
-        </td>
-        <td>
-            <button class="btn btn-sm btn-danger"><i class="fa fa-download"></i></button>
-        </td>
-    </tr>
+    <div class="box-footer">
+        <p>Không tìm thấy file yêu cầu</p>
+    </div>
+
+}
+else
+{
+    <div class="box-footer">
+        @if (Model.TotalPages > 1)
+        {
+            // Create numeric links
+            var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+            var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+            <nav>
+                <ul class="pagination pagination-sm pull-right" style="margin-top:0px;margin-bottom:10px;">
+                    @if (Model.Page > 1)
+                    {
+                        <li>
+                            @Ajax.ActionLink("<<", "GetListFile", "File", new { categoryID = categoryID, keyword = Model.KeyWord, page = 1 }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "listFile" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("<<", "GetListFile", "File", new { categoryID = categoryID, keyword = Model.KeyWord, page = Model.Page - 1 }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "listFile" })
+                        </li>
+                    }
+
+                    @for (int i = startPageIndex; i <= endPageIndex; i++)
+                    {
+                        if (Model.Page == i)
+                        {
+                            <li class="active">
+                                @Ajax.ActionLink(i.ToString(), "GetListFile", "File", new { categoryID = categoryID, keyword = Model.KeyWord, page = i }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "listFile" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @Ajax.ActionLink(i.ToString(), "GetListFile", "File", new { categoryID = categoryID, keyword = Model.KeyWord, page = i }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "listFile" })
+                            </li>
+                        }
+                    }
+                    @if (Model.Page < Model.TotalPages)
+                    {
+                        <li>
+                            @Ajax.ActionLink(">>", "GetListFile", "File", new { categoryID = categoryID, keyword = Model.KeyWord, page = Model.Page + 1 }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "listFile" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink(">>", "GetListFile", "File", new { categoryID = categoryID, keyword = Model.KeyWord, page = Model.TotalPages }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "listFile" })
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th style="width:30%">Tên văn bản</th>
+                    <th style="width:50%">Trích yếu</th>
+                    <th style="width:20%">Ngày ban hành</th>
+                    @*<th style="width:10%">Tải về</th>*@
+                </tr>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        @*<td>@Html.ActionLink(item.Name,"","",new { data_toggle = "modal", data_target = "#openPdf" })</td>*@
+                        <td>
+                            @Ajax.ActionLink(item.Name, "DisplayPDF", "File", new { path = item.Path }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "pdfBody" },
+           new { @data_toggle = "modal", @data_target = "#openPdf" })
+                        </td>
+                        <td>
+                            @item.Describtion
+                        </td>
+                        <td>
+                            @item.TimeStarted.ToShortDateString()
+                        </td>
+                        @*<td>
+                                <button class="btn btn-sm btn-danger"><i class="fa fa-download"></i></button>
+                            </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
-
+<script>
+    var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+    $('#searchFile').val('@Model.KeyWord');
+    $('#searchFile').keyup(function () {
+        delay(function () {
+            $.ajax({
+                url: '/File/GetListFile',
+                type: 'POST',
+                data: {
+                    categoryID: @categoryID,
+                    keyword: $('#searchFile').val()
+                },
+                success: function (response) {
+                    if (response) {
+                        $('#listFile').html(response);
+                    }
+                }
+            })
+        }, 500);
+    });
+</script>

@@ -28,8 +28,7 @@ namespace AccountantNew.Model.Models
         public int NewCategoryID { set; get; }
 
         [MaxLength(128)]
-        [Required]
-        public string AuthorID { set; get; }
+        public string ApplicationUserId { set; get; }
 
         public bool? Private { set; get; }
 
@@ -42,15 +41,15 @@ namespace AccountantNew.Model.Models
 
         public bool? HotFlag { set; get; }
 
-        public int? ViewCount { set; get; }
+        public int ViewCount { set; get; }
 
         public string Tags { set; get; }
 
         [ForeignKey("NewCategoryID")]
         public virtual NewCategory NewCategory { set; get; }
 
-        //[ForeignKey("AuthorID")]
-        //public virtual ApplicationUser User { set; get; }
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { set; get; }
 
         public virtual IEnumerable<NewTag> NewTags { set; get; }
 

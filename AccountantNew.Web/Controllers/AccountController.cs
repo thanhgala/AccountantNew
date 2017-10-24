@@ -1,6 +1,9 @@
-﻿using AccountantNew.Model.Models;
+﻿using AccountantNew.Common;
+using AccountantNew.Model.Models;
 using AccountantNew.Web.Infastructure.Core;
+using AccountantNew.Web.Infastructure.Extensions;
 using AccountantNew.Web.Models;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -8,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -63,7 +67,7 @@ namespace AccountantNew.Web.Controllers
             bool login = false;
             if(!login)
             {
-                ApplicationUser user = await _userManager.FindByNameAsync(userModel.UserName);
+                ApplicationUser user = await _userManager.FindByIdAsync(userModel.UserName);
                 if (user != null)
                 {
                     IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
@@ -73,6 +77,7 @@ namespace AccountantNew.Web.Controllers
                     AuthenticationProperties props = new AuthenticationProperties();
                     props.IsPersistent = userModel.RememberMe;
                     authenticationManager.SignIn(props, identity);
+                    //SignInManager.SignIn(user, props.IsPersistent, props.IsPersistent);
 
                     SetAlert("Đăng nhập thành công.", "success");
                     return Content("<script>window.location.reload()</script>");
@@ -88,63 +93,62 @@ namespace AccountantNew.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [AuthenProfile]
+        public ActionResult Detail(string id)
+        {
+            ApplicationUser user = _userManager.FindById(id);
+            var userViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
+            return View(userViewModel);
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterViewModel model,HttpPostedFileBase Image)
+        public async Task<ActionResult> Update(ApplicationUserViewModel userViewmodel,HttpPostedFileBase Avarta)
         {
             if (ModelState.IsValid)
             {
-                var userByEmail = await _userManager.FindByEmailAsync(model.Email);
-                if (userByEmail != null)
+                //var userByName = await _userManager.FindByNameAsync(userViewmodel.UserName);
+                //if (userByName != null)
+                //{
+                //    ModelState.AddModelError("name", "Domain này đã đăng ký");
+                //}
+                var appUser = await _userManager.FindByIdAsync(userViewmodel.Id);
+                if(Avarta !=null)
                 {
-                    return Content("Email này đã được đăng ký");
-                }
-                var userByName = await _userManager.FindByNameAsync(model.UserName);
-                if (userByName != null)
-                {
-                    return Content("User domain này đã được đăng ký");
-                }
-                var user = new ApplicationUser()
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    BirthDay = DateTime.Now,
-                    EmailConfirmed = true,
-                    FullName = model.FullName,
-                    PhoneNumber = model.PhoneNumber,
-                    Avartar = model.Image
-
-                };
-
-                if (Image.ContentLength > 0)
-                {
-                    //Kiểm tra định dạng của hình ảnh
-                    if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png" && Image.ContentType != "image/gif" && Image.ContentType != "image/jpg")
+                    if (Avarta.ContentLength > 0)
                     {
-                        return null;
-                    }
-                    else
-                    {
-                        //Lấy tên hình ảnh
-                        var fileName = Path.GetFileName(Image.FileName);
-                        user.Avartar = "/UploadedFiles/avartaUser/" + fileName;
-                        //Lấy hình ảnh chuyển vào thư mục cần chứa
-                        var localPath = Path.Combine(Server.MapPath("~/UploadedFiles/avartaUser"), fileName);
-                        //Nếu thư mục hình ảnh đó đã có thì xuất thông báo
-                        Image.SaveAs(localPath);
+                        //Kiểm tra định dạng của hình ảnh
+                        if (Avarta.ContentType != "image/jpeg" && Avarta.ContentType != "image/png" && Avarta.ContentType != "image/gif" && Avarta.ContentType != "image/jpg")
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            //Lấy tên hình ảnh
+                            var fileName = Path.GetFileName(Avarta.FileName);
+                            userViewmodel.Avartar = "/UploadedFiles/avartaUser/" + fileName;
+                            //Lấy hình ảnh chuyển vào thư mục cần chứa
+                            var localPath = Path.Combine(Server.MapPath("~/UploadedFiles/avartaUser"), fileName);
+                            //Nếu thư mục hình ảnh đó đã có thì xuất thông báo
+                            Avarta.SaveAs(localPath);
+                        }
                     }
                 }
 
-                var result = await _userManager.CreateAsync(user);
+                appUser.UpdateUser2(userViewmodel);
+                var result = await _userManager.UpdateAsync(appUser);
                 if (result.Succeeded)
                 {
-                    return Content("Xác nhận tài khoản thành công.");
+                    SetAlert("Cập nhật tài khoản thành công", "success");
                 }
+                else
+                {
+                    SetAlert("Cập nhật tài khoản không thành công", "error");
+                }
+                userViewmodel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(appUser);
+                return View("Detail", userViewmodel);
             }
-            else
-            {
-                return Content("Vui lòng cung cấp đủ thông tin");
-            }
-            return null;
+            return View();
         }
 
         [HttpPost]

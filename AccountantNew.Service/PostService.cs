@@ -20,7 +20,11 @@ namespace AccountantNew.Service
 
         IEnumerable<Post> GetListPost(int id);
 
+        IEnumerable<Post> GetListPostPaging(int id,int page,int pageSize,out int totalRow);
+
         Post GetByID(int id);
+
+        Post GetPostWithAppUser(int id);
 
         Post GetByAlias(string alias);
 
@@ -64,12 +68,25 @@ namespace AccountantNew.Service
 
         public IEnumerable<Post> GetListPost(int id)
         {
-            return _postRepository.GetMulti(x => x.NewCategoryID == id).OrderByDescending(x=>x.CreatedDate);
+            return _postRepository.GetMulti(x => x.NewCategoryID == id,new string[] { "ApplicationUser"}).OrderByDescending(x=>x.CreatedDate);
+        }
+
+        public IEnumerable<Post> GetListPostPaging(int id, int page, int pageSize, out int totalRow)
+        {
+            var query = _postRepository.GetMulti(x => x.NewCategoryID == id, new string[] { "ApplicationUser" }).OrderByDescending(x => x.CreatedDate);
+            totalRow = query.Count();
+
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public Post GetByID(int id)
         {
             return _postRepository.GetSingleById(id);
+        }
+
+        public Post GetPostWithAppUser(int id)
+        {
+            return _postRepository.GetPostWithAppUser(id);
         }
 
         public Post GetByAlias(string alias)

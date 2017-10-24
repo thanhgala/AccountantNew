@@ -19,16 +19,30 @@
                                     <button ng-click="ConfigFilePermission(category.ID)" class="btn btn-default" type="button">{{category.Name}}</button>
                                 </label>
                             </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="checkbox" ng-model="isAll" ng-click="selectAll($event)" /><label>Check all</label>
-                        <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="childcategory in childcategories">
-                                <input type="checkbox" ng-model="childcategory.checked" ng-click="selectSingle($event,childcategory.ID)" name="all" />
-                                <span class="label label-primary" style="font-size:16px;">{{childcategory.Name}}</span>
+                            <li class="list-group-item">
+                                <label>
+                                    <button ng-click="ConfigSupportPermission(8)" class="btn btn-default" type="button">Hỗ trợ</button>
+                                </label>
                             </li>
                         </ul>
+                    </div>
+                    <div class="col-md-9" ng-switch="isFilePermission.toString()">
+                        <div ng-switch-when="true">
+                            <input type="checkbox" ng-model="isAll" ng-click="selectAll($event)" /><label>Check all</label>
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="childcategory in childcategories">
+                                    <input type="checkbox" ng-model="childcategory.checked" ng-click="selectSingle($event,childcategory.ID)" name="all" />
+                                    <span class="label label-primary" style="font-size:16px;">{{childcategory.Name}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-switch-when="false">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="childcategory in childcategories">
+                                    <input class="btn btn-default" type="button" value="{{childcategory.Name}}"  ng-click="ConfigFilePermission(childcategory.ID)" name="all" />
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

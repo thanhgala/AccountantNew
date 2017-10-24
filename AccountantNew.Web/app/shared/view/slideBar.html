@@ -5,7 +5,7 @@
             <img src="{{authentication.avarta}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-            <p>{{authentication.userName}}</p>
+            <p>{{authentication.fullname}}</p>
             <!--<p>Gala</p>-->
             <a href=""><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -15,7 +15,7 @@
         <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="Search...">
             <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button type="button" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
             </span>
         </div>
     </form>
@@ -31,40 +31,44 @@
         <li class="treeview">
             <a href="javascript:void(0);">
                 <i class="fa fa-files-o"></i>
-                <span>Hệ thống</span>
+                <span>Quản Lý Hệ Thống</span>
                 <span class="label label-primary pull-right">3</span>
             </a>
             <ul class="treeview-menu">
-                <li><a ui-sref="application_groups"><i class="fa fa-circle-o"></i> Nhóm quyền</a></li>
-                <!--<li><a ui-sref="application_roles"><i class="fa fa-circle-o"></i> Danh sách Admin</a></li>-->
-                <li><a ui-sref="application_users"><i class="fa fa-circle-o"></i> Danh sách User</a></li>
+                <li><a ui-sref="application_groups"><i class="fa fa-circle-o"></i> Nhóm Quyền</a></li>
+                <li><a ui-sref="application_users"><i class="fa fa-circle-o"></i> Danh Sách User</a></li>
+                <li><a ui-sref="application_admins"><i class="fa fa-circle-o"></i> Danh sách Admin</a></li>
             </ul>
         </li>
         <li class="treeview">
             <a ui-sref="news">
                 <i class="fa fa-files-o"></i>
-                <span>Quản lý tin tức</span>
-                <span class="label label-primary pull-right"></span>
-            </a>
-        </li>
-        <li class="treeview">
-            <a ui-sref="notification">
-                <i class="fa fa-files-o"></i>
-                <span>Quản lý thông báo</span>
-                <span class="label label-primary pull-right"></span>
-            </a>
-        </li>
-        <li class="treeview">
-            <a ui-sref="new_categories">
-                <i class="fa fa-files-o"></i>
-                <span>Quản lý danh mục</span>
+                <span>Quản Lý Tin Tức</span>
                 <span class="label label-primary pull-right"></span>
             </a>
         </li>
         <li class="treeview">
             <a href="javascript:void(0);">
                 <i class="fa fa-files-o"></i>
-                <span>Quản lý file</span>
+                <span>Quản lý Thông Báo</span>
+                <span class="label label-primary pull-right"></span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a ui-sref="notifications"><i class="fa fa-circle-o"></i> Thông Báo</a></li>
+                <li><a ui-sref="focus"><i class="fa fa-circle-o"></i> Tiêu Điểm</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a ui-sref="new_categories">
+                <i class="fa fa-files-o"></i>
+                <span>Quản Lý Danh Mục</span>
+                <span class="label label-primary pull-right"></span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="javascript:void(0);">
+                <i class="fa fa-files-o"></i>
+                <span>Quản Lý File</span>
                 <span class="label label-primary pull-right">{{rootCategory.length}}</span>
             </a>
             <ul class="treeview-menu">

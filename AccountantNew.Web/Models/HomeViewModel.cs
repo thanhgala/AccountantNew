@@ -11,7 +11,7 @@ namespace AccountantNew.Web.Models
 
         public IEnumerable<NewViewModel> LatestNews { set; get; }
 
-        public IEnumerable<NewViewModel> PolicyNews { set; get; }
+        public IEnumerable<NewViewModel> Notifications { set; get; }
 
         public IEnumerable<CurrencyModel> CurrencyRate { set; get; }
     }

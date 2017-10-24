@@ -1,21 +1,34 @@
 ﻿(function (app) {
-    app.controller('applicationUsersListController', ['$scope', 'apiService', 'notificationService', '$ngBootbox',
-        function ($scope, apiService, notificationService, $ngBootbox) {
-            $scope.keyword = '';
+    app.controller('applicationUsersListController', ['$scope', 'apiService', 'notificationService', '$ngBootbox', 'shareIDService',
+        function ($scope, apiService, notificationService, $ngBootbox, shareIDService) {
+            $scope.keyword = shareIDService.getKeyWord();
             $scope.loading = true;
 
             $scope.data = [];
 
             $scope.getUsers = getUsers;
 
+            var pageCurrent;
+
             function getUsers(page) {
-                page = page || 0;
+                if ($scope.keyword === '') {
+                    shareIDService.setKeyWord('')
+                } else if ($scope.keyword != '') {
+                    shareIDService.setKeyWord($scope.keyword)
+                }
+                if (!shareIDService.getIsEdit()) {
+                    pageCurrent = page || 0;
+                } else {
+                    pageCurrent = shareIDService.getPageCurrent()
+                    shareIDService.setIsEdit(false);
+                    shareIDService.setPageCurrent(null);
+                }
                 $scope.loading = true;
                 var config = {
                     params: {
-                        keyword: $scope.keyword,
-                        page: page,
-                        pageSize: 3
+                        keyword: shareIDService.getKeyWord(),
+                        page: pageCurrent,
+                        pageSize: 20
                     }
                 }
                 apiService.get('api/applicationUser/getlistpaging', config, function (result) {

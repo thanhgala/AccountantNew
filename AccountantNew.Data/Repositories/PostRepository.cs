@@ -12,6 +12,7 @@ namespace AccountantNew.Data.Repositories
     public interface IPostRepository : IRepository<Post>
     {
         Post GetByAlias(string alias);
+        Post GetPostWithAppUser(int id);
     }
 
     public class PostRepository : RepositoryBase<Post>, IPostRepository
@@ -24,6 +25,16 @@ namespace AccountantNew.Data.Repositories
         public Post GetByAlias(string alias)
         {
             return this.DbContext.Posts.SingleOrDefault(x => x.Alias == alias);
+        }
+
+        public Post GetPostWithAppUser(int id)
+        {
+            var query = (from p in DbContext.Posts
+                         join u in DbContext.Users
+                         on p.ApplicationUserId equals u.Id
+                         where p.ID == id
+                         select p).Include("ApplicationUser").SingleOrDefault();
+            return query;
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using Microsoft.AspNet.Identity;
 using static AccountantNew.Web.App_Start.ApplicationUserStore;
 
 namespace AccountantNew.Web.Infastructure.Core
@@ -35,7 +36,7 @@ namespace AccountantNew.Web.Infastructure.Core
             {
                 //var roles = JsonConvert.DeserializeObject<List<string>>(principal.FindFirst("roles").Value);
                 var userManager = ServiceFactory.Get<ApplicationUserManager>();
-                var user = userManager.FindByNameAsync(principal.Identity.Name);
+                var user = userManager.FindByIdAsync(principal.Identity.GetUserId());
 
                 //var groups = JsonConvert.DeserializeObject<List<ApplicationGroupViewModel>>(principal.FindFirst("groups").Value);
 

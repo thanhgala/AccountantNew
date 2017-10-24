@@ -1,4 +1,5 @@
-﻿using AccountantNew.Model.Models;
+﻿using AccountantNew.Common;
+using AccountantNew.Model.Models;
 using AccountantNew.Service;
 using AccountantNew.Web.Infastructure.Core;
 using AccountantNew.Web.Models;
@@ -108,12 +109,29 @@ namespace AccountantNew.Web.Controllers
 
         [FilePermission(Type = "FileCategory")]
         [HttpPost]
-        public ActionResult GetListFile(int idPermission)
+        public ActionResult GetListFile(int categoryID,string keyword ,int page = 1)
         {
-            var lstNewCategory = _newCategoryService.GetChildCategory(idPermission);
-            var listFileModel = _fileService.GetListFileByCateID(idPermission);
+            int fileSize = int.Parse(ConfigHelper.GetByKey("FileSize"));
+            int totalRow = 0;
+            int totalApproval = 0;
+            //TempData["CategoryID"] = categoryID;
+
+            //var lstNewCategory = _newCategoryService.GetChildCategory(idPermission);
+            var listFileModel = _fileService.GetListFileByCateIDPaging(categoryID, keyword ,page,fileSize,out totalRow,out totalApproval);
             var listFileViewModel = Mapper.Map<IEnumerable<File>, IEnumerable<FileViewModel>>(listFileModel);
-            return PartialView(listFileViewModel);
+            int totalPage = (int)Math.Ceiling((double)totalRow / fileSize);
+
+            var paginationSet = new PaginationSet<FileViewModel>()
+            {
+                Items = listFileViewModel,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                KeyWord = keyword,
+                NewCategoryID = categoryID,
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = totalPage
+            };
+            return PartialView(paginationSet);
         }
 
         //public FileResult DisplayPDF()

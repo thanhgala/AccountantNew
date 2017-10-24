@@ -71,7 +71,7 @@
                         <input type="text" class="form-control" name="tag" ng-model="new.Tag">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-if="isAdmin">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                             <label>
@@ -86,11 +86,6 @@
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="hotFlag" ng-model="new.HotFlag" ng-checked="new.HotFlag"> Tin hot
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="private" ng-model="new.Private" ng-checked="new.Private"> Private
                             </label>
                         </div>
                     </div>

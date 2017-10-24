@@ -1,11 +1,13 @@
 ﻿@using Microsoft.AspNet.Identity;
-@model IEnumerable<AccountantNew.Web.Models.NewCategoryViewModel>
+@model AccountantNew.Web.Models.HeaderViewModel
 
 @{
-    var lstNew = (IEnumerable<AccountantNew.Web.Models.NewViewModel>)ViewBag.LstNew;
-    var newModel = lstNew.Where(x => x.NewCategory.Name.Contains("Tin mới"));
+//var lstNew = (IEnumerable<AccountantNew.Web.Models.NewViewModel>)ViewBag.LstNew;
+//var newModel = lstNew.Where(x => x.NewCategory.Name.Contains("Tin mới"));
 
-    var notificationModel = (IEnumerable<AccountantNew.Web.Models.NewViewModel>)ViewBag.LstNotifi;
+//var notificationModel = (IEnumerable<AccountantNew.Web.Models.NewViewModel>)ViewBag.LstNotifi;
+
+//var lstFocus = (IEnumerable<AccountantNew.Model.Models.ApplicationUser>)ViewBag.LstFocusNotification;
 
 }
 
@@ -37,34 +39,30 @@
                 </div>
                 <div class="col-sm-9 col-md-3 col-header-4-5">
                     <ul id="scroller" class="simply-scroll-list" style="padding-top:23px">
-                        <li>
-                            <p>
-                                <a href="#" title="Chúc mừng sinh nhật" rel="bookmark">
-                                    <span class="title">Chúc mừng sinh nhật</span>
-                                </a>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <a href="#" title="Chia buồn cùng gia đình" rel="bookmark">
-                                    <span class="title">Chia buồn cùng gia đình</span>
-                                </a>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <a href="#" title="Chúc mừng sinh nhật" rel="bookmark">
-                                    <span class="title">Chúc mừng sinh nhật</span>
-                                </a>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <a href="#" title="Chia buồn cùng gia đình" rel="bookmark">
-                                    <span class="title">Chia buồn cùng gia đình</span>
-                                </a>
-                            </p>
-                        </li>
+                        @foreach (var item in Model.ListUserFocus)
+                        {
+                            <li>
+                                <p>
+                                    <a href="#" title="Xin chúc mừng sinh nhật nhân viên @item.FullName" rel="bookmark">
+                                        <img src="~/UploadedFiles/iconHeader/168532.png" style="float:left;padding-right:10px;" />
+                                        <span class="title">Chúc mừng sinh nhật: @item.FullName - @item.Department - @item.NamePCA, chúc bạn có một ngày sinh nhật vui vẻ</span>
+                                    </a>
+                                </p>
+                            </li>
+                        }
+                        @foreach (var item in Model.ListFocus)
+                        {
+                            <li>
+                                <p>
+                                    <a href="#" title="@item.Message" rel="bookmark">
+                                        <img src="@item.Image" style="float:left;padding-right:10px;" />
+                                        <span class="title">
+                                            @item.Message
+                                        </span>
+                                    </a>
+                                </p>
+                            </li>
+                        }                     
                     </ul>
                 </div>
             </div>
@@ -75,8 +73,9 @@
                         {
                             if (Request.IsAuthenticated)
                             {
+                                var urlDetail = "/chi-tiet-" + User.Identity.GetUserId() + ".html";
                                 @Html.AntiForgeryToken()
-                                <span>Xin chào: @User.Identity.GetUserName() |<a href="javascript:document.getElementById('frmLogout').submit()" id="btnLogout" style="color:#b9b9b9;"> Thoát</a></span>
+                                <span>Xin chào: <a href="@urlDetail">@ViewBag.FullName</a> |<a href="javascript:document.getElementById('frmLogout').submit()" id="btnLogout" style="color:#b9b9b9;"> Thoát</a></span>
                             }
                             else
                             {
@@ -135,7 +134,7 @@
                         </div>
                         <div class="search-wrapper">
                             <form action="#" method="post">
-                                <input name="searchword" maxlength="200" class="inputboxnewedge-top-search" type="text" size="20" placeholder="Search ...">
+                                <input name="keyword" id="txtKeyword" maxlength="200" class="inputboxnewedge-top-search" type="text" size="20" placeholder="Search ...">
                                 <i id="search-close" class="fa fa-close"></i>
                             </form>
                         </div>
@@ -218,11 +217,10 @@
                     </li>
                     <li class="has-child menu-justify" style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                         @{
-                            var modelTinTuc = Model.SingleOrDefault(x => x.Name == "Tin tức");
-                            var childTinTucs = Model.Where(x => x.ParentID == modelTinTuc.ID);
-                            var urlTinTuc = "/" + modelTinTuc.Alias + ".html";
+                            var modelTinTuc = Model.ListCategory.SingleOrDefault(x => x.Name == "Tin tức");
+                            var childTinTucs = Model.ListCategory.Where(x => x.ParentID == modelTinTuc.ID);
                         }
-                        <a href="@urlTinTuc">@modelTinTuc.Name</a>
+                        <a>@modelTinTuc.Name</a>
                         <div class="dropdown-inner container dropdown-menu-full-wrapper">
                             <div class="dropdown-menu-full vertical-tabs">
                                 <div class="row">
@@ -244,9 +242,9 @@
                                                 <div class="tab-content simple-article-overlay">
                                                     <div role="tabpanel" class="tab-pane active" id="tinmoi">
                                                         <div class="row">
-                                                            @foreach (var item in lstNew)
+                                                            @foreach (var item in Model.ListNew)
                                                             {
-                                                                var urlItem = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                                                                var urlItem = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
                                                                 <div class="col-sm-4">
                                                                     <article>
                                                                         <div class="article-inner">
@@ -263,11 +261,11 @@
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div role="tabpanel" class="tab-pane active" id="thongbao">
+                                                    <div role="tabpanel" class="tab-pane" id="thongbao">
                                                         <div class="row">
-                                                            @foreach (var item in notificationModel)
+                                                            @foreach (var item in Model.ListNotification)
                                                             {
-                                                                var urlItem = "/" + item.NewCategory.Alias + "/" + item.Alias + "-" + item.ID + ".html";
+                                                                var urlItem = "/" + item.NewCategory.Alias + "-" + item.Alias + "-" + item.ID + ".html";
                                                                 <div class="col-sm-4">
                                                                     <article>
                                                                         <div class="article-inner">
@@ -292,27 +290,27 @@
                             </div>
                         </div>
                      </li>
-                    @foreach (var category in Model.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Bình luận" && x.Name!="Sơ đồ tổ chức" && x.Name != "Thống kê"))
+                    @foreach (var category in Model.ListCategory.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Bình luận" && x.Name!="Sơ đồ tổ chức" && x.Name != "Thống kê"))
                     {
                         var url = "/" + category.Alias + "-" + category.ID + "-file.html";
                         <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                             <a href="@url">@category.Name</a>
                         </li>
                     }
-                    @foreach (var categoryLast in Model.Where(x => x.ParentID == null && x.Name == "Hỗ trợ" || x.Name == "Bình luận"))
+                    @foreach (var categoryLast in Model.ListCategory.Where(x => x.ParentID == null && x.Name == "Hỗ trợ"))
                     {
-                        var url = "/" + categoryLast.Alias + "-" + categoryLast.ID + "-forum.html";
+                        //var url = "/" + categoryLast.Alias + "-" + categoryLast.ID + "-forum.html";
                         <li class="has-child" style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
-                            <a href="@url">@categoryLast.Name</a>
+                            <a>@categoryLast.Name</a>
                             <div class="dropdown-inner">
                                 @{
-                                    var lv1Categories = Model.Where(x => x.ParentID == categoryLast.ID);
+                                    var lv1Categories = Model.ListCategory.Where(x => x.ParentID == categoryLast.ID);
                                 }
                                 <ul class="dropdown-items">
                                     @foreach (var lv1Category in lv1Categories)
                                     {
                                         var urlLvL1 = "/" + lv1Category.Alias + "-" + lv1Category.ID + "-forum.html";
-                                        var lv2Categories = Model.Where(x => x.ParentID == lv1Category.ID);
+                                        var lv2Categories = Model.ListCategory.Where(x => x.ParentID == lv1Category.ID);
                                         if (lv2Categories.Count() == 0)
                                         {
                                             <li>
@@ -328,7 +326,7 @@
                                                         @foreach (var lv2Category in lv2Categories)
                                                         {
                                                             var urlLvL2 = "/" + lv2Category.Alias + "-" + lv2Category.ID + "-forum.html";
-                                                            var lv3Categories = Model.Where(x => x.ParentID == lv2Category.ID);
+                                                            var lv3Categories = Model.ListCategory.Where(x => x.ParentID == lv2Category.ID);
                                                             if (lv3Categories.Count() == 0)
                                                             {
                                                                 <li><a href="@urlLvL2">@lv2Category.Name</a></li>
@@ -358,7 +356,7 @@
                             </div>
                         </li>
                     }
-                    @foreach (var categoryLast2 in Model.Where(x => x.ParentID == null &&  x.Name == "Sơ đồ tổ chức" || x.Name == "Thống kê"))
+                    @foreach (var categoryLast2 in Model.ListCategory.Where(x => x.ParentID == null &&  x.Name == "Sơ đồ tổ chức" || x.Name == "Thống kê"))
                     {
                         var url = "/page-" + categoryLast2.Alias + ".html";
                         <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
@@ -371,22 +369,24 @@
         </div>
     </nav>
    
+<script src="~/Assets/admin/libs/jqueri-ui/jquery-ui.js"></script>
+<script src="~/Assets/client/js/controllers/searchAutoComplete.js"></script>
+
 <script>
     function startTime() {
         var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-        document.getElementById('time').innerHTML = today.toDateString() + ' ' +
-        h + ":" + m + ":" + s;
-        var t = setTimeout(startTime, 500);
+        //var h = today.getHours();
+        //var m = today.getMinutes();
+        //var s = today.getSeconds();
+        //m = checkTime(m);
+        //s = checkTime(s);
+        document.getElementById('time').innerHTML = today.toDateString();
+        //var t = setTimeout(startTime, 500);
     }
-    function checkTime(i) {
-        if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
-        return i;
-    }
+    //function checkTime(i) {
+    //    if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+    //    return i;
+    //}
 
     $("#upFile").click(function () {
         $("#openImage").trigger('click');

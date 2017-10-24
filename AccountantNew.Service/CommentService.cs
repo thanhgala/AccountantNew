@@ -68,7 +68,7 @@ namespace AccountantNew.Service
 
         public IEnumerable<Comment> GetListCommentByPostID(int id)
         {
-            return _commentRepository.GetMulti(x => x.PostID == id);
+            return _commentRepository.GetMulti(x => x.PostID == id,new string[] { "ApplicationUser" });
         }
     }
 }

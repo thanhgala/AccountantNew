@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using static AccountantNew.Web.App_Start.ApplicationUserStore;
 
 namespace AccountantNew.Web.Infastructure.Core
@@ -34,13 +35,13 @@ namespace AccountantNew.Web.Infastructure.Core
                 }
                 else
                 {
-                    id = int.Parse((httpContext.Request.RequestContext.RouteData.Values["idPermission"] as string)
+                    id = int.Parse((httpContext.Request.RequestContext.RouteData.Values["categoryID"] as string)
                     ??
-                    (httpContext.Request["idPermission"] as string));
+                    (httpContext.Request["categoryID"] as string));
                 }
 
                 var userManager = ServiceFactory.Get<ApplicationUserManager>();
-                var user = userManager.FindByNameAsync(httpContext.User.Identity.Name);
+                var user = userManager.FindByIdAsync(httpContext.User.Identity.GetUserId());
 
                 var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
                 var listGroup = applicationGroupService.GetListGroupByUserId(user.Result.Id);
@@ -97,20 +98,27 @@ namespace AccountantNew.Web.Infastructure.Core
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new RedirectResult("~/Admin/NotFound");
-        }
-
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            if (this.AuthorizeCore(filterContext.HttpContext))
+            if (Type == "Category")
             {
-                base.OnAuthorization(filterContext);
+                filterContext.Result = new RedirectResult("~/Admin/NotFound");
             }
             else
             {
-                this.HandleUnauthorizedRequest(filterContext);
+                filterContext.Result = new ContentResult();
             }
         }
+
+        //public override void OnAuthorization(AuthorizationContext filterContext)
+        //{
+        //    if (this.AuthorizeCore(filterContext.HttpContext))
+        //    {
+        //        base.OnAuthorization(filterContext);
+        //    }
+        //    else
+        //    {
+        //        this.HandleUnauthorizedRequest(filterContext);
+        //    }
+        //}
 
         public bool loadRootCategory(NewCategory category, IEnumerable<int> listID)
         {

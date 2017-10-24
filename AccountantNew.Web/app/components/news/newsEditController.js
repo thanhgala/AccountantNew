@@ -14,6 +14,7 @@
             }
 
             $scope.new = {
+                Status: true
             }
 
             $scope.GetAlias = function () {
@@ -58,13 +59,14 @@
             }
 
             $scope.UpdateNew = function () {
+                $uibModalInstance.close();
                 apiService.put('api/new/update', $scope.new, function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được chỉnh sửa');
-                    $uibModalInstance.close();
+                    shareIDService.setIsEdit(true);
                     $state.go("home");
                     $timeout(function () {
                         $state.go("news");
-                    }, 0.01);
+                    }, 1);
                 }, function (error) {
                     notificationService.displayError('Không sửa được bản ghi.');
                 })

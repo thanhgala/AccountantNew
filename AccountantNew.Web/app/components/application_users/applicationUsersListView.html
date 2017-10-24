@@ -17,9 +17,9 @@
                         <div class="col-md-6">
                             <input type="text" id="txtSearch" ng-model="keyword" ng-model-options="{ debounce: 500 }" ng-change='getUsers()' class="form-control" placeholder="Nhập từ khóa..." />
                         </div>
-                        <div class="col-md-6">
+                        <!--<div class="col-md-6">
                             <button class="btn btn-success pull-right" ui-sref="add_application_user"><i class="fa fa-plus"></i> Thêm mới</button>
-                        </div>
+                        </div>-->
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -28,18 +28,18 @@
                             <thead>
                                 <tr>
                                     <th>Tên người dùng</th>
-                                    <th>Tài khoản</th>
-                                    <th>Email</th>
+                                    <th>Bộ phận</th>
+                                    <th>Name PCA</th>
                                     <th style="width:10%"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="item in data">
                                     <td>{{item.FullName}}</td>
-                                    <td>{{item.UserName}}</td>
-                                    <td>{{item.Email}}</td>
+                                    <td>{{item.Department}}</td>
+                                    <td>{{item.NamePCA}}</td>
                                     <td>
-                                        <a ui-sref="edit_application_user({id:item.Id})" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
+                                        <a ui-sref="edit_application_user({id:item.Id,page:page})" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
                                         <button class="btn btn-sm btn-danger" ng-click="deleteItem(item.Id)"><i class="fa fa-trash-o"></i></button>
                                     </td>
                                 </tr>

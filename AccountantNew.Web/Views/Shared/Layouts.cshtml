@@ -43,6 +43,16 @@
 
     @Styles.Render("~/bundle/css")
 
+    <link href="~/Assets/admin/libs/jqueri-ui/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <style type="text/css">
+        #imageClass {
+            width: 80px;
+            height: 50px;
+            padding-right: 5px;
+        }
+    </style>
+
     @Scripts.Render("~/bundle/jsMVC")
     
     <script type="text/javascript">
@@ -76,7 +86,6 @@
 
     <script src="~/Assets/client/js/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Assets/admin/libs/jquery-validation/dist/jquery.validate.js"></script>
-    @*<script src="~/Assets/admin/libs/jquery-validation/dist/additional-methods.js"></script>*@
 
 </head>
 <body class="sticky-header" onload="startTime()">

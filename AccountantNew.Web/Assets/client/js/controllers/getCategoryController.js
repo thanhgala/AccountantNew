@@ -39,12 +39,12 @@
         }); 
     },
 
-    getListFile:function(id){
+    getListFile: function (id) {
         $.ajax({
             url: '/File/GetListFile',
             type: 'POST',
             data: {
-                idPermission: id
+                categoryID: id
             },
             success: function (response) {
                 if (response) {

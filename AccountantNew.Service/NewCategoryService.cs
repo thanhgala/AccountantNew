@@ -59,7 +59,7 @@ namespace AccountantNew.Service
 
         public IEnumerable<NewCategory> GetAll()
         {
-            return _newCategoryRepository.GetAll();
+            return _newCategoryRepository.GetMulti(x=>x.Status == true);
         }
 
         public IEnumerable<NewCategory> GetRootCategory()

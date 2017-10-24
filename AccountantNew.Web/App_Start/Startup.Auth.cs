@@ -131,7 +131,17 @@ namespace AccountantNew.Web.App_Start
                 ApplicationUser user;
                 try
                 {
-                    user = await userManager.FindByNameAsync(context.UserName);
+                    //LdapAuthentication LDap = new LdapAuthentication("cp.com.vn");
+                    //bool login = LDap.ValidateUser(context.UserName, context.Password);
+                    bool login = true;
+                    if (login)
+                    {
+                        user = await userManager.FindByIdAsync(context.UserName);
+                    }
+                    else
+                    {
+                        user = null;
+                    }
                 }
                 catch
                 {
@@ -159,8 +169,22 @@ namespace AccountantNew.Web.App_Start
                         ClaimsIdentity identity = await userManager.CreateIdentityAsync(user,
                             context.Options.AuthenticationType);
                         identity.AddClaim(new Claim("groups", JsonConvert.SerializeObject(listGroupViewModel)));
-                        //identity.AddClaim(new Claim("roles", JsonConvert.SerializeObject(roles)));
-                        AuthenticationProperties properties = CreateProperties(user.Avartar, JsonConvert.SerializeObject(listGroupViewModel)/*, JsonConvert.SerializeObject(roles)*/);
+                        identity.AddClaim(new Claim("id", user.Id));
+                        identity.AddClaim(new Claim("fullName", user.FullName));
+                        identity.AddClaim(new Claim("namepca", user.NamePCA));
+                        identity.AddClaim(new Claim("department", user.Department));
+                        string isAdmin;
+                        if (listGroupViewModel.ToList().Find(x => x.Name == "SupperAdmin") != null)
+                        {
+                            identity.AddClaim(new Claim("isadmin", true.ToString()));
+                            isAdmin = true.ToString();
+                        }
+                        else
+                        {
+                            identity.AddClaim(new Claim("isadmin", false.ToString()));
+                            isAdmin = false.ToString();
+                        }
+                        AuthenticationProperties properties = CreateProperties(user.Avartar, JsonConvert.SerializeObject(listGroupViewModel),isAdmin,user.Id,user.FullName,user.NamePCA,user.Department/*, JsonConvert.SerializeObject(roles)*/);
                         AuthenticationTicket ticket = new AuthenticationTicket(identity, properties);
                         context.Validated(ticket);
                     }
@@ -214,14 +238,22 @@ namespace AccountantNew.Web.App_Start
             return owinManager;
         }
 
-        public static AuthenticationProperties CreateProperties(string avarta, string listGroup)
+        public static AuthenticationProperties CreateProperties(string avarta, string listGroup,string isAdmin,string id,string fullName,string namepca,string department)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "avarta",avarta},
-                { "groups",listGroup}
+                { "groups",listGroup},
+                { "isAdmin",isAdmin},
+                { "id",id},
+                { "fullname",fullName},
+                { "namepca",namepca},
+                { "department",department}
             };
             return new AuthenticationProperties(data);
         }
+
+
+
     }
 }

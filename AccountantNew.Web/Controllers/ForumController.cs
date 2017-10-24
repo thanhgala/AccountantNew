@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 
 namespace AccountantNew.Web.Controllers
@@ -32,16 +33,10 @@ namespace AccountantNew.Web.Controllers
             this._postService = postService;
             this._commentService = commentService;
         }
-        public ActionResult ForumCategory(int id)
-        {
-            if (id == CommonConstants.SupportID)
-            {
-                if (!Request.IsAuthenticated)
-                {
-                    return RedirectToAction("NotFound", "Admin");
-                }
-            }
 
+        [ForumPermission]
+        public ActionResult ForumCategory(int id,int page = 1)
+        {
             var categoryModel = _newCategoryService.GetByID(id);
             var categoryViewModel = Mapper.Map<NewCategory, NewCategoryViewModel>(categoryModel);
             ViewBag.CategoryModel = categoryViewModel;
@@ -58,27 +53,47 @@ namespace AccountantNew.Web.Controllers
             }
             else
             {
-                var listPostModel = _postService.GetListPost(id);
+                int postSize = int.Parse(ConfigHelper.GetByKey("PostSize"));
+                int totalRow = 0;
+
+                var listPostModel = _postService.GetListPostPaging(id,page,postSize,out totalRow);
+                int totalPage = (int)Math.Ceiling((double)totalRow / postSize);
                 foreach (var item in listPostModel)
                 {
                     item.Comments = _commentService.GetListCommentByPostID(item.ID);
                 }
+
                 var listPostViewModel = Mapper.Map<IEnumerable<Post>, IEnumerable<PostViewModel>>(listPostModel);
 
+                var paginationSet = new PaginationSet<PostViewModel>()
+                {
+                    Items = listPostViewModel,
+                    MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPages = totalPage
+                };
+
+                if (paginationSet.Items.Count() == 0)
+                {
+                    SetAlert("Không có bài viết", "warning");
+                }
                 int idParent = _newCategoryService.GetByID(categoryViewModel.ParentID.Value).ID;
                 var childCategoryPost = _newCategoryService.GetChildCategory(idParent);
                 var childCategoryPostViewModel = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(childCategoryPost);
                 ViewBag.ChildCategoryPost = childCategoryPostViewModel;
 
-                return View("ForumPost", listPostViewModel);
+                return View("ForumPost", paginationSet);
             }
         }
 
-        public ActionResult DetailPost(string alias)
+        [ForumPermission]
+        public ActionResult DetailPost(int id, string alias,int idpost)
         {
-            var postModel = _postService.GetByAlias(alias);
+            var postModel = _postService.GetPostWithAppUser(idpost);
             var cateModel = _newCategoryService.GetByID(postModel.NewCategoryID);
-
+            postModel.ViewCount++;
+            _postService.Save();
             var postViewModel = Mapper.Map<Post, PostViewModel>(postModel);
             ViewBag.CateName = cateModel.Name;
 
@@ -98,16 +113,17 @@ namespace AccountantNew.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
+        [ForumPermission]
         public ActionResult Ask(PostViewModel postViewModel,int id, FormCollection f)
         {
             var cateModel = _newCategoryService.GetChildCategory(id);
             ViewBag.NewCategoryID = new SelectList(cateModel, "ID", "Name");
             ViewBag.ForumID = id;
 
-            if (id == CommonConstants.CommentID)
-            {
+            //if (id == CommonConstants.CommentID)
+            //{
 
-            }
+            //}
 
             if (ModelState.IsValid)
             {
@@ -116,6 +132,7 @@ namespace AccountantNew.Web.Controllers
                 postViewModel.CreatedDate = DateTime.Now;
                 var postModel = new Post();
                 postModel.UpdatePost(postViewModel);
+                postModel.ApplicationUserId = User.Identity.GetUserId();
                 _postService.Add(postModel);
                 _postService.Save();
                 SetAlert("Bạn đã đăng bài viết thành công", "success");

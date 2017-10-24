@@ -1,0 +1,85 @@
+﻿<section class="content-header">
+    <h1>
+        Thêm mới thông báo
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <!--thuộc tính novalidate trong form để disable validate-->
+        <form class="form-horizontal" novalidate name="frmAddNotification" role="form" ng-submit="AddNotification()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên thông báo</label> 
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-change="GetAlias()" ng-maxlength="256" required name="name" ng-model="notification.Name">
+                        <!--kiểm tra thuộc tính nhập trong form ta dùng ng-show= "tenform.teninput.$invalid"-->
+                        <span ng-show="frmAddNotification.name.$invalid" class="has-error">Phải nhập tên thông báo</span>
+                        <span ng-show="frmAddNotification.name.$error.maxlength" class="has-error">Tên thông báo chỉ được 256 ký tự</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Alias</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" required name="alias" ng-model="notification.Alias">
+                        <span ng-show="frmAddNotification.alias.$invalid" class="has-error">Phải nhập alias</span>
+                        <span ng-show="frmAddNotification.alias.$error.maxlength" class="has-error">Alias chỉ được 256 ký tự</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Danh mục</label>
+
+                    <div class="col-sm-10">
+                        <select name="parentID" class="form-control" required ng-model="notification.NewCategoryID" ng-options="option.ID as option.Name for option in newcategories">
+                            <option value="">Chọn danh mục</option>
+                        </select>
+                        <span ng-show="frmAddNew.parentID.$invalid" class="has-error">Phải chọn danh mục</span>
+                        <input type="hidden" name="parentID" ng-model="notification.NewCategoryID" />
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Hình ảnh</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" name="image" ng-model="notification.Image">
+                        <span ng-show="frmAddNotification.image.$error.maxlength" class="has-error">Hình ảnh chỉ được 256 ký tự</span>
+                        <button class="btn btn-default" type="button" ng-click="ChooseImage()">Chọn ảnh</button>
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Nội dung</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="content" ckeditor="ckeditorOptions" ng-model="notification.Content"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-model="notification.Status" ng-checked="notification.Status"> Kích hoạt
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="homeFlag" ng-model="notification.HomeFlag" ng-checked="notification.HomeFlag"> Hiển thị trang chủ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="button" ng-click="close()" class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmAddNotification.$invalid" class="btn btn-success pull-right">Lưu</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+</section>

@@ -21,7 +21,7 @@
 
             //  This method will be called after migrating to the latest version.
 
-            CreateRole();
+            //CreateRole();
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
@@ -46,7 +46,9 @@
             //    roleManager.Create(new ApplicationRole { Name = "Group", Description = "Quản lý group" });
             //    roleManager.Create(new ApplicationRole { Name = "Account", Description = "Quản lý tài khoản" });
             //}
-            roleManager.Create(new ApplicationRole { Name = "File", Description = "Quản lý file" });
+            //roleManager.Create(new ApplicationRole { Name = "File", Description = "Quản lý file" });
+            //roleManager.Create(new ApplicationRole { Name = "Notification", Description = "Quản lý thông báo" });
+            //roleManager.Create(new ApplicationRole { Name = "Focus", Description = "Quản lý tiêu điểm" });
         }
 
         private void CreateProductCategorySample(AccountantNewDbContext context)

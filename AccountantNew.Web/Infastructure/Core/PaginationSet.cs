@@ -17,6 +17,12 @@ namespace AccountantNew.Web.Infastructure.Core
             }
         }
 
+        public string KeyWord { set; get; }
+
+        public int NewCategoryID { set; get; }
+
+        public int TotalApproval { set; get; }
+
         public int TotalPages { set; get; }
         public int TotalCount { set; get; }
         public int MaxPage { set; get; }

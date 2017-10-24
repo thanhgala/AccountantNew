@@ -34,11 +34,40 @@ namespace AccountantNew.Web.API
         {
             int totalRow = 0;
 
-            var model = _newService.GetAll(keyword);
+            int totalApproval = 0;
+
+            var model = _newService.GetAllNews(keyword,out totalApproval);
 
             totalRow = model.Count();
 
-            var query = model.OrderBy(n => n.CreatedDate).Skip(page * pageSize).Take(pageSize);
+            var query = model.OrderByDescending(n => n.CreatedDate).Skip(page * pageSize).Take(pageSize);
+
+            var reponseData = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(query);
+
+            var paginationSet = new PaginationSet<NewViewModel>()
+            {
+                Items = reponseData,
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize),
+                TotalApproval = totalApproval
+            };
+            HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getallapproval")]
+        [AuthorizeApi(Role = "Admin", Action = "Read")]
+        public HttpResponseMessage GetAllaApproval(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
+        {
+            int totalRow = 0;
+
+            var model = _newService.GetAllNewsApproval(keyword);
+
+            totalRow = model.Count();
+
+            var query = model.OrderByDescending(n => n.CreatedDate).Skip(page * pageSize).Take(pageSize);
 
             var reponseData = Mapper.Map<IEnumerable<New>, IEnumerable<NewViewModel>>(query);
 
@@ -83,7 +112,6 @@ namespace AccountantNew.Web.API
                 var news = new New();
                 news.UpdateNew(newVM);
                 news.CreatedDate = DateTime.Now;
-                news.AuthorID = Guid.NewGuid().ToString();
                 _newService.Add(news);
                 _newService.Save();
 

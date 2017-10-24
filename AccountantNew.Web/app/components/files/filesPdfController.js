@@ -1,6 +1,6 @@
 ﻿(function (app) {
-    app.controller('filesPdfController', ['$scope', '$http', 'apiService', '$uibModal', '$ngBootbox', '$filter', 'commonService', 'shareIDService', 'notificationService', '$timeout', '$state', '$stateParams',
-    function ($scope, $http, apiService, $uibModal, $ngBootbox, $filter, commonService, shareIDService, notificationService, $timeout, $state, $stateParams) {
+    app.controller('filesPdfController', ['$scope', '$http', 'apiService', '$uibModal', '$ngBootbox', '$filter', 'commonService', 'shareIDService', 'notificationService', '$timeout', '$state', '$stateParams', 'authData',
+    function ($scope, $http, apiService, $uibModal, $ngBootbox, $filter, commonService, shareIDService, notificationService, $timeout, $state, $stateParams, authData) {
 
         $scope.filePdf = [];
 
@@ -8,9 +8,11 @@
 
         $scope.newcategories = [];
 
-        $scope.status = true;
+        $scope.status = false;
 
         $scope.loading = true;
+
+        $scope.keyword = '';
 
         $scope.timeStarted = new Date();
 
@@ -23,25 +25,33 @@
             $scope.filePdf = [];
         }
 
-        //$scope.viewer = pdf.Instance("viewer");
+        $scope.getListFile = getListFile;
+        $scope.getListFileApproval = getListFileApproval;
 
-        //$scope.nextPage = function () {
-        //    $scope.viewer.nextPage();
-        //};
-
-        //$scope.prevPage = function () {
-        //    $scope.viewer.prevPage();
-        //};
-
-        //$scope.pageLoaded = function (curPage, totalPages) {
-        //    $scope.currentPage = curPage;
-        //    $scope.totalPages = totalPages;
-        //};
-
-        function getListFile() {
-            apiService.get('api/file/getlistfile/' + $stateParams.action, null, function (result) {
-                $scope.data = result.data;
+        function getListFile(page) {
+            $scope.toggleName = 'DS file cần phê duyệt'
+            $scope.isToggle = false;
+            page = page || 0;
+            $scope.loading = true;
+            var config = {
+                params: {
+                    id: $stateParams.action,
+                    keyword: $scope.keyword,
+                    page: page,
+                    pageSize: 20
+                }
+            }
+            apiService.get('api/file/getlistfile', config, function (result) {
+                if (result.data.TotalCount === 0) {
+                    notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
+                }
+                $scope.data = result.data.Items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPages;
+                $scope.totalCount = result.data.TotalCount;
+                $scope.countInPage = result.data.Count;
                 $scope.folderName = $stateParams.folder.toUpperCase();
+                $scope.totalApproval = result.data.TotalApproval;
                 $scope.loading = false;
             }, function () {
                 console.log('Cannot get list category');
@@ -49,6 +59,54 @@
         }
         getListFile();
 
+        function getListFileApproval(page) {
+            $scope.toggleName = 'DS file'
+            $scope.isToggle = true;
+            page = page || 0;
+            $scope.loading = true;
+            var config = {
+                params: {
+                    id: $stateParams.action,
+                    keyword: $scope.keyword,
+                    page: page,
+                    pageSize: 20
+                }
+            }
+            apiService.get('api/file/getlistfileapproval', config, function (result) {
+                if (result.data.TotalCount === 0) {
+                    notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
+                }
+                $scope.data = result.data.Items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPages;
+                $scope.totalCount = result.data.TotalCount;
+                $scope.countInPage = result.data.Count;
+                $scope.folderName = $stateParams.folder.toUpperCase();
+                $scope.loading = false;
+            }, function () {
+                console.log('Cannot get list category');
+            });
+        }
+
+        function checkIsAdmin() {
+            if (authData.authenticationData.isAdmin === "True") {
+                $scope.isAdmin = true;
+                $scope.status = true;
+            }
+        }
+        checkIsAdmin();
+
+        $scope.toggleFunc = function () {
+            $scope.isToggle = !$scope.isToggle;
+            if ($scope.isToggle) {
+                getListFileApproval();
+                $scope.toggleName = 'DS file';
+            }
+            else {
+                getListFile();
+                $scope.toggleName = 'DS file cần phê duyệt';
+            }
+        }
 
         //function getAllCate() {
         //    apiService.get('api/newcategory/getallparent', null, function (result) {
@@ -78,13 +136,14 @@
                     formData.append("timeStarted", angular.toJson(data.timeStarted));
                     formData.append("folders", angular.toJson(data.folders));
                     formData.append("categoryId", angular.toJson(data.categoryId));
+                    formData.append("createdBy", angular.toJson(authData.authenticationData.fullname))
                     for (var i = 0; i < data.files.length; i++) {
                         //add each file to the form data and iteratively name them
                         formData.append("file" + i, data.files[i]);
                     }
                     return formData;
                 },
-                data: { status: $scope.status, timeStarted: $scope.timeStarted.toDateString(), folders: folder, categoryId: action, files: $scope.filePdf }
+                data: { status: $scope.status, timeStarted: $scope.timeStarted.toDateString(), folders: folder, categoryId: action, files: $scope.filePdf, createdBy: authData.authenticationData.fullname }
                 //data: { data }
             }).then(function (result, status, headers, config) {
                 notificationService.displaySuccess(result.data);
@@ -138,21 +197,25 @@
                         notificationService.displayError(err.data);
                     }
                 })
-            }, 500);
+            }, 300);
         }
 
         $scope.openPdf = function (item) {
-            $uibModal.open({
-                animation: true,
-                templateUrl: '/app/components/files/pdfViewDetailPoup.html',
-                size: 'lg',
-                controller: function ($scope) {
-                    //$scope.data = item;
-                    $scope.getPath = function () {
-                        return item.Path + '#toolbar=0&navpanes=0&statusbar=0&zoom=85';
-                    };
-                }
+            apiService.get('api/file/detail', null, function (result) {
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: '/app/components/files/pdfViewDetailPoup.html',
+                    size: 'lg',
+                    controller: function ($scope) {
+                        $scope.getPath = function () {
+                            return item.Path + '#toolbar=0&navpanes=0&statusbar=0&zoom=85';
+                        };
+                    }
+                })
+            }, function (error) {
+                console.log('cannot access');
             })
+            
         }
 
         $scope.deletePdf = function (id) {

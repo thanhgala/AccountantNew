@@ -3,7 +3,10 @@
 
     angular.module('accountantnew',
         ['accountantnew.application_users',
+         'accountantnew.application_admins',
          'accountantnew.news',
+         'accountantnew.notifications',
+         'accountantnew.focus',
          'accountantnew.new_categories',
          'accountantnew.files',
          'accountantnew.application_groups',
@@ -17,6 +20,9 @@
 
     function config($stateProvider, $urlRouterProvider, $qProvider, $locationProvider) {
         //cách cấu hình routing cho accountantnew
+        //var base = angular.injector(['accountantnew.common']);
+
+        //$provide.constant('authenticationService', base.get('authenticationService'));
         $stateProvider
             .state('base', {
                 url: '',
@@ -40,6 +46,13 @@
                 templateUrl: "/app/components/error401/err401View.html",
                 controller: "err401Controller"
             });
+
+        //var authData = angular.injector(['accountantnew.common']).get('authData')
+        //if (authData.authenticationData.IsAuthenticated) {
+        //    $urlRouterProvider.otherwise('/home');
+        //} else {
+        //    $urlRouterProvider.otherwise('/login');
+        //} 
         $urlRouterProvider.otherwise('/login');
         $qProvider.errorOnUnhandledRejections(false);
         //$locationProvider.html5Mode(true);

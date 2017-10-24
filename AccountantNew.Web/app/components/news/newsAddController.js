@@ -1,8 +1,8 @@
 ﻿//(function (app) {
 //    app.controller('newsAddController', newsAddController);
 (function (app) {
-    app.controller('newsAddController', ['$scope', 'apiService', '$state', 'commonService', 'notificationService', '$uibModalInstance', '$timeout', 'shareIDService',
-        function ($scope, apiService, $state, commonService, notificationService, $uibModalInstance, $timeout, shareIDService) {
+    app.controller('newsAddController', ['$scope', 'apiService', '$state', 'commonService', 'notificationService', '$uibModalInstance', '$timeout', 'shareIDService', 'authData',
+        function ($scope, apiService, $state, commonService, notificationService, $uibModalInstance, $timeout, shareIDService, authData) {
 
             $scope.flatFolders = [];
             $scope.newcategories = [];
@@ -14,18 +14,30 @@
             }
 
             $scope.new = {
-                CreatedDate: new Date(),
-                Private: false,
-                Status:true
+                ApplicationUserId: authData.authenticationData.id
             }
 
-            $scope.GetAlias = function() {
+            $scope.GetAlias = function () {
                 $scope.new.Alias = commonService.getSeoTitle($scope.new.Name);
             };
 
             $scope.close = function () {
                 $uibModalInstance.close();
             }
+
+            function checkIsAdmin() {
+                if (authData.authenticationData.isAdmin === "True") {
+                    $scope.new.Status = true;
+                    $scope.isAdmin = true;
+                } 
+                //angular.forEach(JSON.parse(authData.authenticationData.groups), function (item) {
+                //    if (item.Name === "SupperAdmin") {
+                //        $scope.new.Status = true;
+                //        $scope.isAdmin = true;
+                //    }
+                //})    
+            }
+            checkIsAdmin();
 
             function loadNewCategory() {
                 apiService.get('api/newcategory/getnewscategory', null, function (result) {
@@ -38,7 +50,7 @@
                     console.log('cannot get list parent');
                 })
             }
-           
+
             loadNewCategory();
 
             $scope.ChooseImage = function () {
@@ -52,15 +64,14 @@
                 finder.popup();
             }
 
-            $scope.AddNew = function() {
+            $scope.AddNew = function () {
                 apiService.post('api/new/create', $scope.new, function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được thêm mới');
                     $uibModalInstance.close();
                     $state.go("home");
-                    shareIDService.setPageCurrent(0)
                     $timeout(function () {
                         $state.go("news");
-                    }, 0.01);
+                    }, 100);
 
                 }, function (error) {
                     notificationService.displayError('Không thêm được bản ghi.');

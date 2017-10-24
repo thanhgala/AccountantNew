@@ -31,7 +31,7 @@ namespace AccountantNew.Web.Infastructure.Extensions
             news.Name = newVM.Name;
             news.Alias = newVM.Alias;
             news.NewCategoryID = newVM.NewCategoryID;
-            news.AuthorID = newVM.AuthorID;
+            news.ApplicationUserId = newVM.ApplicationUserId;
             news.Private = newVM.Private;
             news.Content = newVM.Content;
             news.Image = newVM.Image;
@@ -45,6 +45,34 @@ namespace AccountantNew.Web.Infastructure.Extensions
             news.UpdatedDate = newVM.UpdatedDate;
             news.UpdateBy = newVM.UpdateBy;
             news.Status = newVM.Status;
+        }
+
+        public static void UpdateFocus(this FocusNotification focus, FocusNotificationViewModel focusVM)
+        {
+            focus.ID = focusVM.ID;
+            focus.Message = focusVM.Message;
+            focus.Status = focusVM.Status;
+            if (focusVM.Type == 3)
+            {
+                focus.EndDate = null;
+            }
+            else
+            {
+                focus.EndDate = focusVM.EndDate;
+            }
+            switch (focusVM.Type)
+            {
+                case 1:
+                    focus.Image = "/UploadedFiles/iconHeader/wedding-couple.png";
+                    break;
+                case 2:
+                    focus.Image = "/UploadedFiles/iconHeader/coffin.png";
+                    break;
+                case 3:
+                    focus.Image = "/UploadedFiles/iconHeader/employee.png";
+                    break;
+            }
+            focus.Type = focusVM.Type;
         }
 
         public static void UpdateApplicationGroup(this ApplicationGroup appGroup, ApplicationGroupViewModel appGroupViewModel)
@@ -114,6 +142,19 @@ namespace AccountantNew.Web.Infastructure.Extensions
             appUser.UserName = appUserViewModel.UserName;
             appUser.PhoneNumber = appUserViewModel.PhoneNumber;
             appUser.Avartar = appUserViewModel.Avartar;
+        }
+
+        public static void UpdateUser2(this ApplicationUser appUser, ApplicationUserViewModel appUserViewModel)
+        {
+            appUser.FullName = appUserViewModel.FullName;
+            appUser.BirthDay = appUserViewModel.BirthDay;
+            appUser.Email = appUserViewModel.Email;
+            appUser.Address = appUserViewModel.Address;
+            appUser.PhoneNumber = appUserViewModel.PhoneNumber;
+            if (!string.IsNullOrEmpty(appUserViewModel.Avartar))
+            {
+                appUser.Avartar = appUserViewModel.Avartar;
+            }
         }
     }
 }

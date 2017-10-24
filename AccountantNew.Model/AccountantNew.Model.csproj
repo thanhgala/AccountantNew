@@ -76,7 +76,7 @@
     <Compile Include="Models\NewCategory.cs" />
     <Compile Include="Models\NewTag.cs" />
     <Compile Include="Models\Page.cs" />
-    <Compile Include="Models\SupportOnline.cs" />
+    <Compile Include="Models\FocusNotification.cs" />
     <Compile Include="Models\SystemLog.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\VisitorStatistic.cs" />

@@ -15,9 +15,7 @@
 
             this.removeToken = function () {
                 tokenInfo = null;
-                //userInfo = null;
                 localStorageService.set("TokenInfo", null);
-                //localStorageService.set("Info", null);
             }
 
             this.init = function () {
@@ -28,6 +26,12 @@
                     authData.authenticationData.userName = tokenInfo.userName;
                     authData.authenticationData.accessToken = tokenInfo.accessToken;
                     authData.authenticationData.avarta = tokenInfo.avarta;
+                    authData.authenticationData.groups = tokenInfo.groups;
+                    authData.authenticationData.isAdmin = tokenInfo.isAdmin;
+                    authData.authenticationData.id = tokenInfo.id;
+                    authData.authenticationData.fullname = tokenInfo.fullname;
+                    authData.authenticationData.namepca = tokenInfo.namepca;
+                    authData.authenticationData.department = tokenInfo.department;
                 }
             }
 
@@ -41,5 +45,5 @@
 
             this.init();
         }
-    ])
+    ]);
 })(angular.module('accountantnew.common'));

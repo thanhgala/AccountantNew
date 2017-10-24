@@ -1,0 +1,18 @@
+namespace AccountantNew.Data.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class updateFocusTable : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.FocusNotifications", "CreatedDate", c => c.DateTime(nullable: false));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.FocusNotifications", "CreatedDate");
+        }
+    }
+}

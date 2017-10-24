@@ -24,35 +24,49 @@
                             <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.name.$invalid && !frmUpdateAccount.name.$pristine }">
                                 <label class="col-sm-2 control-label">Họ tên người dùng</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" class="form-control"
+                                    <input type="text" name="name" class="form-control" readonly
                                            required reqired-message="Họ tên bắt buộc." ng-model="account.FullName">
                                 </div>
                             </div>
-                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.userName.$invalid && !frmUpdateAccount.userName.$pristine }">
-                                <label class="col-sm-2 control-label">Tài khoản</label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.department.$invalid && !frmUpdateAccount.department.$pristine }">
+                                <label class="col-sm-2 control-label">Bộ phận</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="userName" class="form-control" readonly
-                                           required reqired-message="Tài khoản bắt buộc." value="{{account.UserName}}">
+                                    <input type="text" name="department" class="form-control" readonly
+                                           required reqired-message="Tài khoản bắt buộc." value="{{account.Department}}">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.namepca.$invalid && !frmUpdateAccount.namepca.$pristine }">
+                                <label class="col-sm-2 control-label">Name PCA</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="namepca" class="form-control" readonly
+                                           required reqired-message="Tài khoản bắt buộc." value="{{account.NamePCA}}">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.ba.$invalid && !frmUpdateAccount.ba.$pristine }">
+                                <label class="col-sm-2 control-label">BA</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="ba" class="form-control" readonly
+                                           required reqired-message="Tài khoản bắt buộc." value="{{account.BA}}">
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.email.$invalid && !frmUpdateAccount.email.$pristine }">
                                 <label class="col-sm-2 control-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" name="email" class="form-control"
+                                    <input type="email" name="email" class="form-control" readonly
                                            required reqired-message="Email bắt buộc." ng-model="account.Email">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Điện thoại</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="password" class="form-control"
+                                    <input type="text" name="password" class="form-control" readonly
                                            ng-model="account.PhoneNumber">
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.birthDay.$invalid && !frmUpdateAccount.birthDay.$pristine }">
                                 <label class="col-sm-2 control-label">Ngày sinh</label>
                                 <div class="col-sm-10">
-                                    <input type="date" name="birthDay" value="{{account.BirthDay | date: 'yyyy-MM-dd'}}" class="form-control"
+                                    <input type="date" name="birthDay" value="{{account.BirthDay | date: 'yyyy-MM-dd'}}" class="form-control" readonly
                                            required reqired-message="Ngày sinh bắt buộc." ng-model="account.BirthDay">
                                 </div>
                             </div>

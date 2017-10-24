@@ -21,7 +21,7 @@ namespace AccountantNew.Web.Models
 
         public int NewCategoryID { set; get; }
 
-        public int? ViewCount { set; get; }
+        public int ViewCount { set; get; }
 
         public DateTime? CreatedDate { set; get; }
 
@@ -34,5 +34,7 @@ namespace AccountantNew.Web.Models
         public bool Status { set; get; }
 
         public IEnumerable<CommentViewModel> Comments { set; get; }
+
+        public ApplicationUserViewModel ApplicationUser { set; get; }
     }
 }

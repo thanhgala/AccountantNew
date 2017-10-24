@@ -1,0 +1,70 @@
+﻿<section class="content-header">
+    <h1>
+        Thêm mới tiêu điểm
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <!--thuộc tính novalidate trong form để disable validate-->
+        <form class="form-horizontal" novalidate name="frmAddFocus" role="form" ng-submit="AddFocus()">
+            <div class="box-body">
+                <!--<div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên thông báo</label> 
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-change="GetAlias()" ng-maxlength="256" required name="name" ng-model="notification.Name">
+                        
+                        <span ng-show="frmAddNotification.name.$invalid" class="has-error">Phải nhập tên thông báo</span>
+                        <span ng-show="frmAddNotification.name.$error.maxlength" class="has-error">Tên thông báo chỉ được 256 ký tự</span>
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Nội dung</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="message" required ng-model="focus.Message"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Loại</label>
+                    <div class="col-sm-10">
+                        <select name="type" class="form-control" required ng-model="focus.Type">
+                            <option value="">Chọn loại</option>
+                            <option value="1">Tin vui</option>
+                            <option value="2">Tin buồn</option>
+                            <option value="3">Nhân viên mới</option>
+                        </select>
+                        <span ng-show="frmAddFocus.type.$invalid" class="has-error">Phải chọn loại</span>
+                        <input type="hidden" name="type" ng-model="focus.Type" />
+                    </div>
+                </div>
+                <div ng-if="focus.Type == 1 || focus.Type == 2" class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Ngày kết thúc</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" required name="endDate" ng-model="focus.EndDate"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-model="focus.Status" ng-checked="focus.Status"> Kích hoạt
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="button" ng-click="close()" class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmAddFocus.$invalid" class="btn btn-success pull-right">Lưu</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+</section>

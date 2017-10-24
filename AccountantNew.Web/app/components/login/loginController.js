@@ -1,6 +1,6 @@
 ﻿(function (app) {
-    app.controller('loginController', ['$scope', 'notificationService', '$injector', 'loginService', '$window', 'authData',
-    function ($scope, notificationService, $injector, loginService, $window, authData) {
+    app.controller('loginController', ['$scope', 'notificationService', '$injector', 'loginService', '$window', 'authData', 'authenticationService',
+    function ($scope, notificationService, $injector, loginService, $window, authData, authenticationService) {
 
         function autoLoad() {
             if (authData.authenticationData.isLoading) {
@@ -16,40 +16,30 @@
             password: ""
         };
 
+        //if (authenticationService.getTokenInfo()) {
+        //    var stateService = $injector.get('$state');
+        //    stateService.go('home');
+        //}
+
         $scope.loginSubmit = function () {
+            $scope.loading = true;
             var userInfo;
             loginService.login($scope.loginData.userName, $scope.loginData.password).then(function (response) {
                 if (response != null) {
                     var message = response.data;
                     if (message.error == 'invalid_grant') {
+                        $scope.loading = false;
                         notificationService.displayError(message.error_description);
                     }
                     else if (message.error == 'invalid_group') {
+                        $scope.loading = false;
                         notificationService.displayError(message.error_description);
                     }
                 }
                 else {
+                    $scope.loading = false;
                     var stateService = $injector.get('$state');
                     stateService.go('home');
-                    //var config = {
-                    //    params: {
-                    //        name: authData.authenticationData.userName
-                    //    }
-                    //}
-
-                    //apiService.get('/api/applicationUser/info/', config, function (result) {
-                    //    userInfo = {
-                    //        fullName: result.data.fullName,
-                    //        avarta: result.data.avarta,
-                    //        id: result.data.id
-                    //    };
-                    //    authData.authenticationData.fullName = userInfo.fullName;
-                    //    authData.authenticationData.avarta = userInfo.avarta;
-                    //    authData.authenticationData.id = userInfo.id
-                    //    authenticationService.setInfo(userInfo)
-                    //}, function (error) {
-                    //    notificationService.displayError(error.data);
-                    //});
                 }
             });
         }

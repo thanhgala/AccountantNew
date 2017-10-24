@@ -16,7 +16,7 @@ namespace AccountantNew.Web.Models
 
         public int NewCategoryID { set; get; }
 
-        public string AuthorID { set; get; }
+        public string ApplicationUserId { set; get; }
 
         public bool? Private { set; get; }
 
@@ -28,7 +28,7 @@ namespace AccountantNew.Web.Models
 
         public bool? HotFlag { set; get; }
 
-        public int? ViewCount { set; get; }
+        public int ViewCount { set; get; }
 
         public string Tags { set; get; }
 
@@ -43,5 +43,7 @@ namespace AccountantNew.Web.Models
         public bool Status { set; get; }
 
         public virtual NewCategoryViewModel NewCategory { set; get; }
+
+        public virtual ApplicationUserViewModel ApplicationUser { set; get; }
     }
 }

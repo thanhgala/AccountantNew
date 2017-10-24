@@ -111,6 +111,7 @@ namespace AccountantNew.Web
                       "~/Assets/client/css/jquery.simplyscroll.css",
                       "~/Assets/admin/libs/jstree/dist/themes/proton/style.css",
                       "~/Assets/client/css/treefile.css",
+                      "~/app/components/news/img.css",
                       "~/Assets/admin/libs/toastr/toastr.min.css"
                       ).Include("~/Assets/client/css/font-awesome.min.css", new CssRewriteUrlTransform());
             bundles.Add(bundleCss);

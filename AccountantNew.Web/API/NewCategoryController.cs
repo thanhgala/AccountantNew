@@ -101,6 +101,23 @@ namespace AccountantNew.Web.API
             });
         }
 
+        [Route("getallnotificategory")]
+        [HttpGet]
+        public HttpResponseMessage GetAllNotifiCategory(HttpRequestMessage request)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                var model = _newCategoryService.GetByAlias("thong-bao");
+                //var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(model);
+                var lstCate = new List<NewCategory>();
+                lstCate.Add(model);
+                loadChildCategory(model.ID, lstCate);
+                var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(lstCate);
+
+                return request.CreateResponse(HttpStatusCode.OK, responseData);
+            });
+        }
+
         [Route("getallfilecategory")]
         [HttpGet]
         public HttpResponseMessage GetAllFileCategory(HttpRequestMessage request)
@@ -156,7 +173,7 @@ namespace AccountantNew.Web.API
                 var model = _newCategoryService.GetRootCategory();
                 var responseData = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(model.Where(x=>x.ID == CommonConstants.PolicyID 
                     || x.ID == CommonConstants.LawID
-                    || x.ID == CommonConstants.NotifyID
+                    || x.ID == CommonConstants.ReportID
                     || x.ID == CommonConstants.LicenseID));
 
                 return request.CreateResponse(HttpStatusCode.OK, responseData);
@@ -194,6 +211,35 @@ namespace AccountantNew.Web.API
                             item.Child = true;
                         }
                         else {
+                            item.Child = false;
+                        }
+                    }
+                    return request.CreateResponse(HttpStatusCode.OK, lstChildViewModel);
+                }
+                return request.CreateResponse(HttpStatusCode.OK);
+            });
+        }
+
+        [Route("getchildsupportparent/{id:int}")]
+        [AuthorizeApi(Role = "File", Action = "Read")]
+        [HttpGet]
+        public HttpResponseMessage GetChildSupportParent(HttpRequestMessage request, int id)
+        {
+            return CreateHttpRespond(request, () =>
+            {
+                var lstChild = _newCategoryService.GetChildCategory(id).ToList();
+                lstChild.RemoveAt(1);
+                if (lstChild.Count() > 0)
+                {
+                    var lstChildViewModel = Mapper.Map<IEnumerable<NewCategory>, IEnumerable<NewCategoryViewModel>>(lstChild);
+                    foreach (var item in lstChildViewModel)
+                    {
+                        if (_newCategoryService.GetChildCategory(item.ID).Count() > 0)
+                        {
+                            item.Child = true;
+                        }
+                        else
+                        {
                             item.Child = false;
                         }
                     }
