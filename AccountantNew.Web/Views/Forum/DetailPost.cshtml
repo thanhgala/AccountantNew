@@ -66,12 +66,9 @@
                                         <div class="question-author">
                                             <a href="" original-title="ahmed" class="question-author-img tooltip-n"><span></span><img alt="" src="@Model.ApplicationUser.Avartar"></a>
                                         </div>
-                                        <div class="comment-author">
-                                            <a>@Model.ApplicationUser.FullName</a>
-                                        </div>
                                         <div class="question-inner">
                                             <div class="clearfix"></div>
-                                            <div class="question-desc" style="margin-top:-15px;margin-left:40px;">
+                                            <div class="question-desc">
                                                 @Html.Raw(Model.Content)
                                                 <p>&nbsp;</p>
                                                 <p>&nbsp;</p>
@@ -81,6 +78,9 @@
                                             <span class="question-comment"><a href="#"><i class="fa fa-comment"></i>@listComment.Count() Answer</a></span>
                                             <span class="question-view"><i class="fa fa-user"></i>@Model.ViewCount views</span>
                                             <div class="clearfix"></div>
+                                        </div>
+                                        <div class="comment-author">
+                                            <a>@Model.ApplicationUser.FullName - @Model.ApplicationUser.Department - @Model.ApplicationUser.NamePCA</a>
                                         </div>
                                     </article>
                                 </div>

@@ -18,7 +18,7 @@ namespace AccountantNew.Web.Controllers
         private INewCategoryService _newCategoryService;
         private INewService _newService;
 
-        public NewController(INewCategoryService newCategoryService, INewService newService, ApplicationUserManager userManager)
+        public NewController(INewCategoryService newCategoryService, INewService newService)
         {
             this._newCategoryService = newCategoryService;
             this._newService = newService;

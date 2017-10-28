@@ -8,32 +8,24 @@ using System.Threading.Tasks;
 
 namespace AccountantNew.Model.Models
 {
-    [Table("Feedbacks")]
-    public class Feedback
+    [Table("Organizationals")]
+    public class Organizational
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { set; get; }
 
+        public int ? ParentID { set; get; }
+
         [StringLength(250)]
         [Required]
         public string Name { set; get; }
 
-        [StringLength(250)]
-        [Required]
-        public string Email { set; get; }
-
         [StringLength(150)]
         [Required]
-        public string Department { set; get; }
+        public string Position { set; get; }
 
-        [StringLength(500)]
-        [Required]
-        public string Message { set; get; }
-
-        public DateTime CreatedDate { set; get; }
-
-        [Required]
-        public bool Status { set; get; }
+        [StringLength(250)]
+        public string Image { set; get; }
     }
 }

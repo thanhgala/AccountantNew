@@ -210,6 +210,22 @@
     <Compile Include="Migrations\201710231808090_changeViewCountInNew.Designer.cs">
       <DependentUpon>201710231808090_changeViewCountInNew.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710241400023_updateDatabase.cs" />
+    <Compile Include="Migrations\201710241400023_updateDatabase.Designer.cs">
+      <DependentUpon>201710241400023_updateDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710241412533_changeIntToNullInt.cs" />
+    <Compile Include="Migrations\201710241412533_changeIntToNullInt.Designer.cs">
+      <DependentUpon>201710241412533_changeIntToNullInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710241621444_addImageToOrg.cs" />
+    <Compile Include="Migrations\201710241621444_addImageToOrg.Designer.cs">
+      <DependentUpon>201710241621444_addImageToOrg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710280139410_addCascadeOnDeleteIntoCommentTable.cs" />
+    <Compile Include="Migrations\201710280139410_addCascadeOnDeleteIntoCommentTable.Designer.cs">
+      <DependentUpon>201710280139410_addCascadeOnDeleteIntoCommentTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationGroupRepository.cs" />
@@ -223,6 +239,7 @@
     <Compile Include="Repositories\NewCategoryRepository.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
+    <Compile Include="Repositories\OrganizationalRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\NewRepository.cs" />
   </ItemGroup>
@@ -349,6 +366,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710231808090_changeViewCountInNew.resx">
       <DependentUpon>201710231808090_changeViewCountInNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241400023_updateDatabase.resx">
+      <DependentUpon>201710241400023_updateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241412533_changeIntToNullInt.resx">
+      <DependentUpon>201710241412533_changeIntToNullInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241621444_addImageToOrg.resx">
+      <DependentUpon>201710241621444_addImageToOrg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710280139410_addCascadeOnDeleteIntoCommentTable.resx">
+      <DependentUpon>201710280139410_addCascadeOnDeleteIntoCommentTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

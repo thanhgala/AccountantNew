@@ -20,13 +20,13 @@
     }
 
     (function ($) {
-        $(function () { //on DOM ready 
+        $(function () { //on DOM ready
             $("#scroller").simplyScroll();
         });
     })(jQuery);
-  
+
 </script>
-   
+
 <div id="newedge-top-bar">
     <div class="container">
         <div class="row">
@@ -62,7 +62,7 @@
                                     </a>
                                 </p>
                             </li>
-                        }                     
+                        }
                     </ul>
                 </div>
             </div>
@@ -119,10 +119,10 @@
                                             }
                                         </div>
                                         @*<div class="modal-footer">
-                                            <a href="#" role="button" data-dismiss="modal" data-toggle="modal" data-target="#register">
-                                                Xác nhận tài khoản
-                                            </a>
-                                        </div>*@
+                                                <a href="#" role="button" data-dismiss="modal" data-toggle="modal" data-target="#register">
+                                                    Xác nhận tài khoản
+                                                </a>
+                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -143,53 +143,53 @@
             </div>
 
             @*<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                            <h3 class="modal-title" id="lineModalLabel">Xác nhận tài khoản</h3>
-                            <p style="color:red">Vui lòng cung cấp thông tin chính xác.</p>
-                        </div>
-                        <div class="modal-body">
-                             content goes here 
-                            @using (Ajax.BeginForm("Register", "Account",null ,new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "notify", InsertionMode = InsertionMode.Replace },new {id= "frmRegister", enctype = "multipart/form-data"}))
-                            {
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="exampleInputEmail1">User Domain</label>
-                                            <input type="text" class="form-control" id="userDomain" name="UserName" placeholder="User Domain">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Họ tên</label>
-                                            <input type="text" class="form-control" id="name" name="FullName" placeholder="Họ tên">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Email</label>
-                                            <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputPassword1">Số điện thoại</label>
-                                            <input type="tel" class="form-control" id="exampleInputPassword1" name="PhoneNumber" placeholder="Số điện thoại">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                <h3 class="modal-title" id="lineModalLabel">Xác nhận tài khoản</h3>
+                                <p style="color:red">Vui lòng cung cấp thông tin chính xác.</p>
+                            </div>
+                            <div class="modal-body">
+                                 content goes here
+                                @using (Ajax.BeginForm("Register", "Account",null ,new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "notify", InsertionMode = InsertionMode.Replace },new {id= "frmRegister", enctype = "multipart/form-data"}))
+                                {
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">User Domain</label>
+                                                <input type="text" class="form-control" id="userDomain" name="UserName" placeholder="User Domain">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Họ tên</label>
+                                                <input type="text" class="form-control" id="name" name="FullName" placeholder="Họ tên">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputFile">Ảnh đại diện</label>
-                                    <img id="upFile" name="Image" src="" style="width:89px;height:127px; cursor:pointer" />
-                                    <input type="file" id="openImage" name="Image" style="display: none" accept=".jpg,.png" />
-                                    <div id="notify" style="color:red"></div>
-                                </div>
-                                <button type="submit" id="btnXacNhan" disabled class="btn btn-success">Xác nhận</button>
-                            }
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Email</label>
+                                                <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleInputPassword1">Số điện thoại</label>
+                                                <input type="tel" class="form-control" id="exampleInputPassword1" name="PhoneNumber" placeholder="Số điện thoại">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Ảnh đại diện</label>
+                                        <img id="upFile" name="Image" src="" style="width:89px;height:127px; cursor:pointer" />
+                                        <input type="file" id="openImage" name="Image" style="display: none" accept=".jpg,.png" />
+                                        <div id="notify" style="color:red"></div>
+                                    </div>
+                                    <button type="submit" id="btnXacNhan" disabled class="btn btn-success">Xác nhận</button>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
 
         </div>
     </div> <!-- //container -->
@@ -289,8 +289,8 @@
                                 </div> <!-- //row -->
                             </div>
                         </div>
-                     </li>
-                    @foreach (var category in Model.ListCategory.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name !="Hỗ trợ" && x.Name!="Bình luận" && x.Name!="Sơ đồ tổ chức" && x.Name != "Thống kê"))
+                    </li>
+                    @foreach (var category in Model.ListCategory.Where(x => x.ParentID == null && x.Name != "Tin tức" && x.Name != "Hỗ trợ" && x.Name != "Bình luận" && x.Name != "Sơ đồ tổ chức" && x.Name != "Thống kê"))
                     {
                         var url = "/" + category.Alias + "-" + category.ID + "-file.html";
                         <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
@@ -355,20 +355,20 @@
                                 </ul>
                             </div>
                         </li>
-                    }
-                    @foreach (var categoryLast2 in Model.ListCategory.Where(x => x.ParentID == null &&  x.Name == "Sơ đồ tổ chức" || x.Name == "Thống kê"))
+                                    }
+                    @foreach (var categoryLast2 in Model.ListCategory.Where(x => x.ParentID == null && x.Name == "Sơ đồ tổ chức" || x.Name == "Thống kê"))
                     {
                         var url = "/page-" + categoryLast2.Alias + ".html";
                         <li style="background:url(/Assets/client/img/menu_bg.jpg) repeat-x left top">
                             <a href="@url">@categoryLast2.Name</a>
                         </li>
                     }
-                 </ul>
+                </ul>
             </div>
-           </div>
         </div>
-    </nav>
-   
+    </div>
+</nav>
+
 <script src="~/Assets/admin/libs/jqueri-ui/jquery-ui.js"></script>
 <script src="~/Assets/client/js/controllers/searchAutoComplete.js"></script>
 
@@ -397,7 +397,7 @@
         $('#upFile').prop({ src: tmppath });
         $('#btnXacNhan').removeAttr("disabled");
     });
-    
+
     window.addEventListener("submit", function (e) {
         var form = e.target;
         if (form.getAttribute("enctype") === "multipart/form-data") {

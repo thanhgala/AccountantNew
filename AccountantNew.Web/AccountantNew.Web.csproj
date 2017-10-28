@@ -243,6 +243,7 @@
     <Compile Include="Infastructure\Core\BaseController.cs" />
     <Compile Include="Infastructure\Core\FilePermissionAttribute.cs" />
     <Compile Include="Infastructure\Core\LdapAuthentication.cs" />
+    <Compile Include="Infastructure\Core\OrganizationAdmin.cs" />
     <Compile Include="Infastructure\Core\PaginationSet.cs" />
     <Compile Include="Infastructure\Core\ServiceFactory.cs" />
     <Compile Include="Infastructure\Core\TreeFileCategory.cs" />
@@ -7363,8 +7364,11 @@
     <Content Include="Assets\client\css\flexslider.css" />
     <Content Include="Assets\client\css\font-awesome.min.css" />
     <Content Include="Assets\client\css\forum.css" />
+    <Content Include="Assets\client\css\getorgchart.css" />
+    <Content Include="Assets\client\css\graphics.png" />
     <Content Include="Assets\client\css\jquery.simplyscroll.css" />
     <Content Include="Assets\client\css\nanoscroller.css" />
+    <Content Include="Assets\client\css\organChart.css" />
     <Content Include="Assets\client\css\owl.carousel.css" />
     <Content Include="Assets\client\css\owl.video.play.html" />
     <Content Include="Assets\client\css\presets\preset1.css" />
@@ -7505,9 +7509,11 @@
     <Content Include="Assets\client\js\bootstrap.min.js" />
     <Content Include="Assets\client\js\classie.js" />
     <Content Include="Assets\client\js\controllers\getCategoryController.js" />
+    <Content Include="Assets\client\js\controllers\organChartController.js" />
     <Content Include="Assets\client\js\controllers\register.js" />
     <Content Include="Assets\client\js\controllers\searchAutoComplete.js" />
     <Content Include="Assets\client\js\countdown.js" />
+    <Content Include="Assets\client\js\getorgchart.js" />
     <Content Include="Assets\client\js\init-map.js" />
     <Content Include="Assets\client\js\jquery.flexslider-min.js" />
     <Content Include="Assets\client\js\jquery.min.js" />
@@ -7570,6 +7576,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Assets\admin\admin-lte\dist\" />
     <Folder Include="App_Data\Assets\admin\libs\checklist-model\test\" />
+    <Folder Include="UploadedFiles\avartaOrganization\" />
     <Folder Include="UploadedFiles\FilePdf\ho-156\" />
     <Folder Include="UploadedFiles\FilePdf\quyet-dinh-129\" />
     <Folder Include="UploadedFiles\files\" />
@@ -8509,8 +8516,8 @@
     <Content Include="Views\File\DisplayPDF.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\Pages\Organizational.cshtml" />
+    <None Include="Properties\PublishProfiles\AccountantNew.pubxml" />
     <None Include="Properties\PublishProfiles\AccountantNewBETA.pubxml" />
-    <Content Include="UploadedFiles\FilePdf\cong-ty-123\BangDiem.pdf" />
     <Content Include="UploadedFiles\FilePdf\cong-ty-123\Unity AI Programming Essentials.pdf" />
     <Content Include="UploadedFiles\FilePdf\cong-ty-123\Unity_Virtual_Reality_Projects-Packt_2015.pdf" />
     <Content Include="UploadedFiles\FilePdf\kpi-125\Unity AI Programming Essentials.pdf" />

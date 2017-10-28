@@ -67,9 +67,8 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserGroup.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\ContactDetail.cs" />
     <Compile Include="Models\Error.cs" />
-    <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\Organizational.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\New.cs" />

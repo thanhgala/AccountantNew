@@ -38,9 +38,7 @@ namespace AccountantNew.Data
 
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
 
-        public DbSet<ContactDetail> ContactDetails { set; get; }
-
-        public DbSet<Feedback> Feedbacks { set; get; }
+        public DbSet<Organizational> Organizationals { set; get; }
 
         public DbSet<SystemLog> SystemLogs { set; get; }
 
@@ -69,10 +67,10 @@ namespace AccountantNew.Data
             //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<Comment>()
-           .HasRequired(d => d.Post)
-           .WithMany(u => (ICollection<Comment>)u.Comments)
-           .WillCascadeOnDelete(false);
+           // modelBuilder.Entity<Comment>()
+           //.HasRequired(d => d.Post)
+           //.WithMany(u => (ICollection<Comment>)u.Comments)
+           //.WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Post>()
            .HasRequired(d => d.NewCategory)
