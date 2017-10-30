@@ -48,7 +48,7 @@
             //}
             //roleManager.Create(new ApplicationRole { Name = "File", Description = "Quản lý file" });
             //roleManager.Create(new ApplicationRole { Name = "Notification", Description = "Quản lý thông báo" });
-            //roleManager.Create(new ApplicationRole { Name = "Focus", Description = "Quản lý tiêu điểm" });
+            roleManager.Create(new ApplicationRole { Name = "Post", Description = "Quản lý bài đăng" });
         }
 
         private void CreateProductCategorySample(AccountantNewDbContext context)

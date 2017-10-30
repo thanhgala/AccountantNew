@@ -214,6 +214,7 @@
     <Compile Include="API\ApplicationRoleController.cs" />
     <Compile Include="API\ApplicationUserController.cs" />
     <Compile Include="API\FileController.cs" />
+    <Compile Include="API\PostController.cs" />
     <Compile Include="API\FocusController.cs" />
     <Compile Include="API\HomeController.cs" />
     <Compile Include="API\NewCategoryController.cs" />
@@ -290,6 +291,11 @@
     <Content Include="app\components\application_users\applicationUsersEditView.html" />
     <Content Include="app\components\application_users\applicationUsersListController.js" />
     <Content Include="app\components\application_users\applicationUsersListView.html" />
+    <Content Include="app\components\posts\posts.module.js" />
+    <Content Include="app\components\posts\postsEditController.js" />
+    <Content Include="app\components\posts\postsEditViewPoup.html" />
+    <Content Include="app\components\posts\postsListController.js" />
+    <Content Include="app\components\posts\postsListView.html" />
     <Content Include="app\components\error401\err401Controller.js" />
     <Content Include="app\components\error401\err401View.html" />
     <Content Include="app\components\files\files.css" />
@@ -4828,6 +4834,7 @@
     <Content Include="Assets\admin\libs\ckeditor\adapters\jquery.js" />
     <Content Include="Assets\admin\libs\ckeditor\build-config.js" />
     <Content Include="Assets\admin\libs\ckeditor\ckeditor.js" />
+    <Content Include="Assets\admin\libs\ckeditor\configCustom.js" />
     <Content Include="Assets\admin\libs\ckeditor\config.js" />
     <Content Include="Assets\admin\libs\ckeditor\contents.css" />
     <Content Include="Assets\admin\libs\ckeditor\lang\af.js" />

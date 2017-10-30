@@ -13,6 +13,7 @@ namespace AccountantNew.Data.Repositories
     {
         Post GetByAlias(string alias);
         Post GetPostWithAppUser(int id);
+        IEnumerable<Post> GetAllWithAppUserNewCate();
     }
 
     public class PostRepository : RepositoryBase<Post>, IPostRepository
@@ -34,6 +35,17 @@ namespace AccountantNew.Data.Repositories
                          on p.ApplicationUserId equals u.Id
                          where p.ID == id
                          select p).Include("ApplicationUser").SingleOrDefault();
+            return query;
+        }
+
+        public IEnumerable<Post> GetAllWithAppUserNewCate()
+        {
+            var query = (from p in DbContext.Posts
+                         join u in DbContext.Users
+                         on p.ApplicationUserId equals u.Id
+                         join n in DbContext.NewCategories
+                         on p.NewCategoryID equals n.ID
+                         select p).Include("ApplicationUser").Include("NewCategory");
             return query;
         }
     }

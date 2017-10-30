@@ -22,6 +22,8 @@ namespace AccountantNew.Service
 
         IEnumerable<Post> GetListPostPaging(int id,int page,int pageSize,out int totalRow);
 
+        IEnumerable<Post> GetListPostApiWithSearch(string keyword);
+
         Post GetByID(int id);
 
         Post GetPostWithAppUser(int id);
@@ -63,12 +65,17 @@ namespace AccountantNew.Service
 
         public IEnumerable<Post> GetAll()
         {
-            return _postRepository.GetAll();
+            return _postRepository.GetAllWithAppUserNewCate();
         }
 
         public IEnumerable<Post> GetListPost(int id)
         {
             return _postRepository.GetMulti(x => x.NewCategoryID == id,new string[] { "ApplicationUser"}).OrderByDescending(x=>x.CreatedDate);
+        }
+
+        public IEnumerable<Post> GetListPostApiWithSearch(string keyword)
+        {
+            return _postRepository.GetMulti(x=>x.Name.Contains(keyword) || x.NewCategory.Name.Contains(keyword) || x.ApplicationUser.FullName.Contains(keyword), new string[] { "ApplicationUser", "NewCategory" }).OrderByDescending(x => x.CreatedDate);
         }
 
         public IEnumerable<Post> GetListPostPaging(int id, int page, int pageSize, out int totalRow)

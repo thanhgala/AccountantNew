@@ -7,20 +7,26 @@
 
 @section footerJS
 {
-    <script type="text/javascript">
-    tinymce.init({
-        selector: '.textarea',
-        height: 200,
-        width :800,
-        menubar: false,
-        plugins: [
-          'advlist autolink lists link image charmap print preview anchor',
-          'searchreplace visualblocks code fullscreen',
-          'insertdatetime media table contextmenu paste code'
-        ],
-        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        skin: 'lightgray'
-    });
+    @*<script src="~/Assets/admin/libs/ckeditor/ckeditor.js"></script>*@
+    @*<script type="text/javascript">
+        tinymce.init({
+            selector: '.textarea',
+            height: 200,
+            width: 800,
+            menubar: false,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            skin: 'lightgray'
+        });
+    </script>*@
+    <script>
+        var editor = CKEDITOR.replace('textarea', {
+            customConfig: '/Assets/admin/libs/ckeditor/configCustom.js'
+        });
     </script>
 }
 
@@ -95,7 +101,7 @@
                                                 <label class="required">Nội dung<span>*</span></label>
                                             </p>
                                             <div class="col-xs-12 col-sm-12" style="margin:20px 8px; padding: 0 -15px">
-                                                <textarea name="Content" class="textarea"></textarea>
+                                                <textarea name="Content" id="textarea"></textarea>
                                                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "form-description" })
                                             </div>
                                         </div>

@@ -7,6 +7,7 @@
          'accountantnew.news',
          'accountantnew.notifications',
          'accountantnew.focus',
+         'accountantnew.posts',
          'accountantnew.new_categories',
          'accountantnew.files',
          'accountantnew.application_groups',

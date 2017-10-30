@@ -36,5 +36,7 @@ namespace AccountantNew.Web.Models
         public IEnumerable<CommentViewModel> Comments { set; get; }
 
         public ApplicationUserViewModel ApplicationUser { set; get; }
+
+        public NewCategoryViewModel NewCategory { set; get; }
     }
 }

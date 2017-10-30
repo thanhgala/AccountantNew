@@ -15,6 +15,7 @@ namespace AccountantNew.Common
         File,
         Notification,
         Focus,
-        Admin
+        Admin,
+        Post
     }
 }

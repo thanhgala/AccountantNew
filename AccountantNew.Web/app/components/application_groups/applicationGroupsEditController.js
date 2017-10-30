@@ -3,7 +3,7 @@
 (function (app) {
     app.controller('applicationGroupsEditController', ['$scope', 'apiService', '$state', 'commonService', 'notificationService', '$uibModalInstance', '$uibModal', '$uibModalStack', '$timeout', 'shareIDService', '$filter',
     function ($scope, apiService, $state, commonService, notificationService, $uibModalInstance, $uibModal, $uibModalStack, $timeout, shareIDService, $filter) {
-
+        $scope.isPost = false;
         $scope.group = {
             ID: 0,
             Roles: []
@@ -39,6 +39,9 @@
                 if (shareIDService.getRoleID()) {
                     //$scope.roleChoose = $scope.group.Roles.find(findRole)
                     $scope.stt = $scope.group.Roles.findIndex(findIndexRole);
+                }
+                if (shareIDService.getRoleID() === '446fd7d9-077d-4dd4-b819-ade6f052d036') {
+                    $scope.isPost = true;
                 }
             }, function (error) {
                 notificationService.displayError(error.data);
